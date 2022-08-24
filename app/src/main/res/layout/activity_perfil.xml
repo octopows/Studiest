@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/fundo_perfil"
+    tools:context=".perfil">
+
+    <ImageView
+        android:id="@+id/btnVoltar"
+        android:layout_width="26dp"
+        android:layout_height="26dp"
+        android:layout_marginStart="24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.04000002"
+        app:srcCompat="@drawable/icon_retornar" />
+
+
+    <TextView
+        android:id="@+id/legendaPerfil"
+        style="@style/legendaTopo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Perfil"
+        app:layout_constraintBottom_toBottomOf="@+id/btnVoltar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/btnVoltar" />
+
+    <View
+        android:id="@+id/faixa_perfil"
+        android:layout_width="match_parent"
+        android:layout_height="94dp"
+        android:layout_marginTop="130dp"
+        android:layout_marginEnd="30dp"
+        android:background="@drawable/faixa_perfil"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnVoltar" />
+
+    <ImageView
+        android:id="@+id/foto_mulher"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginBottom="25dp"
+        app:layout_constraintBottom_toBottomOf="@+id/faixa_perfil"
+        app:layout_constraintStart_toStartOf="@+id/faixa_perfil"
+        app:srcCompat="@drawable/foto_mulher" />
+
+    <TextView
+        android:id="@+id/nomeUsuario"
+        style="@style/nunito_semibold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="8dp"
+        android:text="Bárbara Geovanna"
+        android:textSize="22dp"
+        app:layout_constraintStart_toEndOf="@+id/foto_mulher"
+        app:layout_constraintTop_toTopOf="@+id/faixa_perfil" />
+
+    <TextView
+        android:id="@+id/emailUsuario"
+        style="@style/nunito_regular"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="geovanna@gmail.com"
+        android:textSize="15dp"
+        app:layout_constraintStart_toStartOf="@+id/nomeUsuario"
+        app:layout_constraintTop_toBottomOf="@+id/nomeUsuario" />
+
+    <ImageView
+        android:id="@+id/btnAlterarNome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        app:layout_constraintBottom_toBottomOf="@+id/nomeUsuario"
+        app:layout_constraintStart_toEndOf="@+id/nomeUsuario"
+        app:layout_constraintTop_toTopOf="@+id/nomeUsuario"
+        app:srcCompat="@drawable/editar" />
+
+    <ScrollView
+        android:id="@+id/scrollPerfil"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        android:layout_marginTop="20dp"
+        android:paddingBottom="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/faixa_perfil">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/texto_notificacoes"
+                style="@style/nunito_semibold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:text="NOTIFICAÇÕES"
+                android:textSize="11dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/texto_seguranca"
+                style="@style/nunito_semibold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="4dp"
+                android:text="SEGURANÇA"
+                android:textSize="11dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/retangulo_not" />
+
+            <TextView
+                android:id="@+id/texto_conta"
+                style="@style/nunito_semibold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="8dp"
+                android:text="CONTA"
+                android:textSize="11dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/retangulo_not2" />
+
+            <View
+                android:id="@+id/retangulo_not"
+                android:layout_width="wrap_content"
+                android:layout_height="66dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/retangulo_perfil"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/texto_notificacoes" />
+
+            <View
+                android:id="@+id/retangulo_not2"
+                android:layout_width="wrap_content"
+                android:layout_height="66dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/retangulo_perfil"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/texto_seguranca" />
+
+            <View
+                android:id="@+id/retangulo_not3"
+                android:layout_width="wrap_content"
+                android:layout_height="125dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/retangulo_perfil"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/texto_conta" />
+
+            <TextView
+                android:id="@+id/notGeral"
+                style="@style/nunito_regular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:text="Checklists"
+                android:textSize="18dp"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView8"
+                app:layout_constraintStart_toEndOf="@+id/imageView8"
+                app:layout_constraintTop_toTopOf="@+id/imageView8" />
+
+            <TextView
+                android:id="@+id/textoDeletarConta"
+                style="@style/nunito_regular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:text="Deletar Conta"
+                android:textSize="18dp"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView10"
+                app:layout_constraintStart_toEndOf="@+id/imageView10"
+                app:layout_constraintTop_toTopOf="@+id/imageView10" />
+
+            <TextView
+                android:id="@+id/textoSair"
+                style="@style/nunito_regular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:text="Sair"
+                android:textSize="18dp"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView11"
+                app:layout_constraintStart_toEndOf="@+id/imageView11"
+                app:layout_constraintTop_toTopOf="@+id/imageView11" />
+
+            <TextView
+                android:id="@+id/alterarSenha2"
+                style="@style/nunito_regular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:text="Alterar Senha"
+                android:textSize="18dp"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView7"
+                app:layout_constraintStart_toEndOf="@+id/imageView7"
+                app:layout_constraintTop_toTopOf="@+id/imageView7" />
+
+            <ImageView
+                android:id="@+id/imageView8"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="20dp"
+                app:layout_constraintStart_toStartOf="@+id/retangulo_not"
+                app:layout_constraintTop_toTopOf="@+id/retangulo_not"
+                app:srcCompat="@drawable/notificacao" />
+
+            <Switch
+                android:id="@+id/btnNotGeral"
+                android:layout_width="56dp"
+                android:layout_height="46dp"
+                android:layout_marginEnd="25dp"
+                android:checked="true"
+                android:thumbTint="@drawable/thumb_color"
+                android:trackTint="@drawable/track_color"
+                app:layout_constraintBottom_toBottomOf="@+id/notGeral"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/notGeral" />
+
+            <ImageView
+                android:id="@+id/imageView7"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="20dp"
+                app:layout_constraintStart_toStartOf="@+id/retangulo_not2"
+                app:layout_constraintTop_toTopOf="@+id/retangulo_not2"
+                app:srcCompat="@drawable/cadeado_senha" />
+
+            <ImageView
+                android:id="@+id/imageView10"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="20dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/retangulo_not3"
+                app:srcCompat="@drawable/deletar_usuario" />
+
+            <ImageView
+                android:id="@+id/imageView11"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="35dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageView10"
+                app:srcCompat="@drawable/sair" />
+
+            <ImageView
+                android:id="@+id/imageView12"
+                android:layout_width="8dp"
+                android:layout_height="13dp"
+                android:layout_marginEnd="30dp"
+                app:layout_constraintBottom_toBottomOf="@+id/textoDeletarConta"
+                app:layout_constraintEnd_toEndOf="@+id/retangulo_not2"
+                app:layout_constraintTop_toTopOf="@+id/textoDeletarConta"
+                app:srcCompat="@drawable/seta_entrar" />
+
+            <ImageView
+                android:id="@+id/setaAlterarSenha"
+                android:layout_width="8dp"
+                android:layout_height="13dp"
+                android:layout_marginEnd="30dp"
+                app:layout_constraintBottom_toBottomOf="@+id/alterarSenha2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/alterarSenha2"
+                app:srcCompat="@drawable/seta_entrar" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

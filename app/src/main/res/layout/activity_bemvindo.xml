@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".bemvindo"
+    android:background="@drawable/fundo_splash"
+    android:scaleType = "centerCrop">
+
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="304dp"
+        android:layout_height="160dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.467"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.33"
+        app:srcCompat="@drawable/desenho_bemvindo" />
+
+    <TextView
+        android:id="@+id/bem_vindo"
+        android:layout_width="258dp"
+        android:layout_height="42dp"
+        android:fontFamily="@font/righteous"
+        android:gravity="center"
+        android:text="Bem-vindo"
+        android:textColor="@color/white"
+        android:textSize="34dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        app:layout_constraintVertical_bias="0.066" />
+
+    <Button
+        android:id="@+id/btnEntrar"
+        android:layout_width="310dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"
+        android:backgroundTint="@color/white"
+        android:fontFamily="@font/nunito_extrabold"
+        android:letterSpacing="0.01"
+        android:text="Entrar"
+        android:textAllCaps="false"
+        android:textColor="#CC000000"
+        android:textSize="18dp"
+        app:cornerRadius="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bem_vindo"
+        app:layout_constraintVertical_bias="0.109" />
+
+    <Button
+        android:id="@+id/btnCadastrar"
+        android:layout_width="310dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"
+        android:backgroundTint="@color/white"
+        android:fontFamily="@font/nunito_extrabold"
+        android:letterSpacing="0.01"
+        android:text="Cadastrar-se"
+        android:textAllCaps="false"
+        android:textColor="#CC000000"
+        android:textSize="18dp"
+        app:cornerRadius="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnEntrar"
+        app:layout_constraintVertical_bias="0.0" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

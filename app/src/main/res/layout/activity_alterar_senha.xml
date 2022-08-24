@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/fundo_login"
+    tools:context=".alterar_senha">
+
+    <ImageView
+        android:id="@+id/btnVoltar"
+        android:layout_width="26dp"
+        android:layout_height="26dp"
+        android:layout_marginStart="24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.04000002"
+        app:srcCompat="@drawable/icon_retornar" />
+
+    <ImageView
+        android:id="@+id/retangulo_alterar"
+        android:layout_width="378dp"
+        android:layout_height="472dp"
+        android:layout_marginTop="115dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/retangulo_recuperar" />
+
+    <TextView
+        android:id="@+id/campoErroAlterar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:fontFamily="@font/nunito_regular"
+        android:letterSpacing="0.01"
+        android:text=""
+        android:textAlignment="viewStart"
+        android:textColor="@color/vermelho"
+        android:textSize="15dp"
+        app:layout_constraintBottom_toTopOf="@+id/btnConfirmarAlterar"
+        app:layout_constraintEnd_toEndOf="@+id/campoConfirmarAlterar"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/retangulo_alterar"
+        app:layout_constraintTop_toBottomOf="@+id/campoConfirmarAlterar"
+        app:layout_constraintVertical_bias="0.562" />
+
+    <TextView
+        android:id="@+id/textoAlterar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="145dp"
+        android:fontFamily="@font/righteous"
+        android:text="Alterar Senha"
+        android:textColor="@color/black"
+        android:textSize="36dp"
+        app:layout_constraintEnd_toEndOf="@+id/retangulo_alterar"
+        app:layout_constraintStart_toStartOf="@+id/retangulo_alterar"
+        app:layout_constraintTop_toTopOf="@+id/retangulo_alterar" />
+
+    <EditText
+        android:id="@+id/campoAlterarSenha"
+        style="@style/campoTexto"
+        android:maxLength="20"
+        android:layout_width="330dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="28dp"
+        android:drawableStart="@drawable/custom_cadeado"
+        android:hint="Nova senha"
+        android:inputType="textPassword"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.359"
+        app:layout_constraintStart_toStartOf="@+id/retangulo_alterar"
+        app:layout_constraintTop_toBottomOf="@+id/textoAlterar" />
+
+    <ImageView
+        android:id="@+id/btnMostrarSenha"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="22dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="22dp"
+        app:layout_constraintBottom_toBottomOf="@+id/campoAlterarSenha"
+        app:layout_constraintEnd_toEndOf="@+id/campoAlterarSenha"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/campoAlterarSenha"
+        app:layout_constraintTop_toTopOf="@+id/campoAlterarSenha"
+        app:srcCompat="@drawable/senha_ocultada" />
+
+    <EditText
+        android:id="@+id/campoConfirmarAlterar"
+        style="@style/campoTexto"
+        android:maxLength="20"
+        android:layout_width="330dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="12dp"
+        android:drawableStart="@drawable/custom_cadeado"
+        android:hint="Confirmar senha"
+        android:inputType="textPassword"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.359"
+        app:layout_constraintStart_toStartOf="@+id/retangulo_alterar"
+        app:layout_constraintTop_toBottomOf="@+id/campoAlterarSenha" />
+
+    <ImageView
+        android:id="@+id/btnMostrarSenha2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="22dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="22dp"
+        app:layout_constraintBottom_toBottomOf="@+id/campoConfirmarAlterar"
+        app:layout_constraintEnd_toEndOf="@+id/campoConfirmarAlterar"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/campoConfirmarAlterar"
+        app:layout_constraintTop_toTopOf="@+id/campoConfirmarAlterar"
+        app:srcCompat="@drawable/senha_ocultada" />
+
+    <Button
+        android:id="@+id/btnConfirmarAlterar"
+        android:layout_width="330dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="36dp"
+        android:backgroundTint="@color/azul"
+        android:fontFamily="@font/nunito_extrabold"
+        android:letterSpacing="0.01"
+        android:text="Redefinir Senha"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="18dp"
+        app:cornerRadius="10dp"
+        app:layout_constraintEnd_toEndOf="@+id/retangulo_alterar"
+        app:layout_constraintStart_toStartOf="@+id/retangulo_alterar"
+        app:layout_constraintTop_toBottomOf="@+id/campoConfirmarAlterar" />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

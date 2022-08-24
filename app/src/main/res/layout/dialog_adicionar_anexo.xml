@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="350dp"
+    android:layout_height="wrap_content"
+    android:background="@color/white">
+
+    <View
+        android:id="@+id/retanguloArquivo"
+        android:layout_width="170dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="20dp"
+        android:background="@drawable/retangulo_data"
+        app:layout_constraintBottom_toBottomOf="@+id/iconUpload"
+        app:layout_constraintStart_toEndOf="@+id/iconUpload"
+        app:layout_constraintTop_toTopOf="@+id/iconUpload" />
+
+    <TextView
+        android:id="@+id/campoSelecionarArquivo"
+        style="@style/nunito_semibold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Selecionar Arquivo ▼"
+        android:textColor="@color/azul"
+        android:textSize="14dp"
+        app:layout_constraintBottom_toBottomOf="@+id/retanguloArquivo"
+        app:layout_constraintEnd_toEndOf="@+id/retanguloArquivo"
+        app:layout_constraintStart_toStartOf="@+id/retanguloArquivo"
+        app:layout_constraintTop_toTopOf="@+id/retanguloArquivo" />
+
+    <TextView
+        android:id="@+id/DetalhesDoAnexo"
+        style="@style/nunito_regular"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Detalhes do Anexo"
+        android:textSize="18dp"
+        app:layout_constraintStart_toStartOf="@+id/campoNomeAnexo"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/campoNomeAnexo"
+        style="@style/campoTexto"
+        android:layout_width="290dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="20dp"
+        android:hint="Nome do Documento"
+        android:inputType="text"
+        android:maxLength="50"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/DetalhesDoAnexo" />
+
+    <TextView
+        android:id="@+id/TextoArquivo"
+        style="@style/nunito_regular"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:text="Arquivo"
+        android:textSize="18dp"
+        app:layout_constraintStart_toStartOf="@+id/campoNomeAnexo"
+        app:layout_constraintTop_toBottomOf="@+id/campoNomeAnexo" />
+
+    <TextView
+        android:id="@+id/cancelarAnexo"
+        style="@style/nunito_regular"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="50dp"
+        android:text="Cancelar"
+        android:textSize="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/btnConfirmarAnexo"
+        app:layout_constraintEnd_toStartOf="@+id/btnConfirmarAnexo"
+        app:layout_constraintTop_toTopOf="@+id/btnConfirmarAnexo" />
+
+    <ImageView
+        android:id="@+id/iconUpload"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="15dp"
+        app:layout_constraintStart_toStartOf="@+id/TextoArquivo"
+        app:layout_constraintTop_toBottomOf="@+id/TextoArquivo"
+        app:srcCompat="@drawable/upload" />
+
+    <Button
+        android:id="@+id/btnConfirmarAnexo"
+        android:layout_width="140dp"
+        android:layout_height="52dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        android:backgroundTint="@color/azul"
+        android:fontFamily="@font/nunito_extrabold"
+        android:letterSpacing="0.01"
+        android:text="Salvar"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="16dp"
+        app:cornerRadius="5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/retanguloArquivo" />
+
+    <ImageView
+        android:id="@+id/btnDeletarAnexo"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintBottom_toBottomOf="@+id/DetalhesDoAnexo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/DetalhesDoAnexo"
+        app:srcCompat="@drawable/lixeira" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

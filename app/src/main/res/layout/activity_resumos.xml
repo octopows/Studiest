@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/fundo_perfil"
+    tools:context=".resumos">
+
+    <ImageView
+        android:id="@+id/semResumos"
+        android:layout_width="237dp"
+        android:layout_height="229dp"
+        android:layout_marginTop="70dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView3"
+        app:srcCompat="@drawable/tudo_concluido" />
+
+    <TextView
+        android:id="@+id/tudoConcluido"
+        style="@style/nunito_regular"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="-20dp"
+        android:text="Você ainda não possui resumos.\n
+Clique em adicionar para criar um."
+        android:textAlignment="center"
+        android:textSize="16dp"
+        app:layout_constraintEnd_toEndOf="@+id/semResumos"
+        app:layout_constraintStart_toStartOf="@+id/semResumos"
+        app:layout_constraintTop_toBottomOf="@+id/semResumos" />
+
+    <ImageView
+        android:id="@+id/btnVoltar"
+        android:layout_width="26dp"
+        android:layout_height="26dp"
+        android:layout_marginStart="24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.04000002"
+        app:srcCompat="@drawable/icon_retornar" />
+
+
+    <TextView
+        android:id="@+id/legendaResumos"
+        style="@style/legendaTopo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Resumos"
+        app:layout_constraintBottom_toBottomOf="@+id/btnVoltar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/btnVoltar" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="216dp"
+        android:layout_height="123dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/legendaResumos"
+        app:srcCompat="@drawable/cadernos_estudos" />
+
+    <ImageView
+        android:id="@+id/btnAddResumo"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="30dp"
+        android:src="@drawable/adicionar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/fundo_perfil"
+    tools:context=".estudos">
+
+    <ImageView
+        android:id="@+id/btnVoltar"
+        android:layout_width="26dp"
+        android:layout_height="26dp"
+        android:layout_marginStart="24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.04000002"
+        app:srcCompat="@drawable/icon_retornar" />
+
+
+    <TextView
+        android:id="@+id/legendaEstudos"
+        style="@style/legendaTopo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Estudos"
+        app:layout_constraintBottom_toBottomOf="@+id/btnVoltar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/btnVoltar" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="216dp"
+        android:layout_height="123dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/legendaEstudos"
+        app:srcCompat="@drawable/cadernos_estudos" />
+
+    <View
+        android:id="@+id/retangulo_anexo"
+        android:layout_width="390dp"
+        android:layout_height="124dp"
+        android:layout_marginTop="62dp"
+        android:background="@drawable/retangulo_item_azul"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.476"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+
+    <TextView
+        android:id="@+id/TextoAnexoDeDocs"
+        style="@style/nunito_semibold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="15dp"
+        android:text="Anexo de Documentos"
+        android:textSize="22dp"
+        app:layout_constraintStart_toStartOf="@+id/retangulo_anexo"
+        app:layout_constraintTop_toTopOf="@+id/retangulo_anexo" />
+
+    <TextView
+        android:id="@+id/descricaoAnexo"
+        style="@style/nunito_regular"
+        android:layout_width="295dp"
+        android:layout_height="39dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="5dp"
+        android:text="Anexe documentos importantes aqui. O acesso deles se tornará mais prático."
+        android:textColor="@color/cinza_hint"
+        android:textSize="14dp"
+        app:layout_constraintStart_toStartOf="@+id/retangulo_anexo"
+        app:layout_constraintTop_toBottomOf="@+id/TextoAnexoDeDocs" />
+
+    <View
+        android:id="@+id/retangulo_resumos"
+        android:layout_width="390dp"
+        android:layout_height="124dp"
+        android:layout_marginTop="2dp"
+        android:background="@drawable/retangulo_item_azul"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.476"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/retangulo_anexo" />
+
+    <TextView
+        android:id="@+id/TextoResumos"
+        style="@style/nunito_semibold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="15dp"
+        android:text="Resumos"
+        android:textSize="22dp"
+        app:layout_constraintStart_toStartOf="@+id/retangulo_resumos"
+        app:layout_constraintTop_toTopOf="@+id/retangulo_resumos" />
+
+    <TextView
+        android:id="@+id/descricaoResumo"
+        style="@style/nunito_regular"
+        android:layout_width="295dp"
+        android:layout_height="39dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="5dp"
+        android:text="Crie resumos sobre assuntos para revisar conteúdos."
+        android:textColor="@color/cinza_hint"
+        android:textSize="14dp"
+        app:layout_constraintStart_toStartOf="@+id/retangulo_resumos"
+        app:layout_constraintTop_toBottomOf="@+id/TextoResumos" />
+
+    <ImageView
+        android:id="@+id/imageView14"
+        android:layout_width="34dp"
+        android:layout_height="34dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="30dp"
+        app:layout_constraintBottom_toBottomOf="@+id/TextoResumos"
+        app:layout_constraintEnd_toEndOf="@+id/retangulo_resumos"
+        app:layout_constraintTop_toTopOf="@+id/TextoResumos"
+        app:srcCompat="@drawable/doc_azul" />
+
+    <ImageView
+        android:id="@+id/pin_azul"
+        android:layout_width="34dp"
+        android:layout_height="34dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="30dp"
+        app:layout_constraintBottom_toBottomOf="@+id/TextoAnexoDeDocs"
+        app:layout_constraintEnd_toEndOf="@+id/retangulo_anexo"
+        app:layout_constraintTop_toTopOf="@+id/TextoAnexoDeDocs"
+        app:srcCompat="@drawable/pin_azul" />
+</androidx.constraintlayout.widget.ConstraintLayout>

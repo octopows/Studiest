@@ -1,0 +1,388 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.drawerlayout.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".tela_principal">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/fundo_principal">
+
+    <TextView
+        android:id="@+id/cumprimento"
+        android:layout_width="wrap_content"
+        android:layout_height="26dp"
+        android:layout_marginStart="24dp"
+        android:fontFamily="@font/nunito_extrabold"
+        android:textColor="@color/white"
+        android:textSize="22dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.04000002" />
+
+    <View
+        android:id="@+id/navegacao"
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:background="@drawable/retangulo_nav"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.382"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/btnAddItem"
+        android:layout_width="58dp"
+        android:layout_height="58dp"
+        android:layout_marginBottom="1dp"
+        app:layout_constraintBottom_toBottomOf="@+id/navegacao"
+        app:layout_constraintEnd_toEndOf="@+id/navegacao"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="@+id/navegacao"
+        app:layout_constraintTop_toTopOf="@+id/navegacao"
+        app:layout_constraintVertical_bias="1.0"
+        app:srcCompat="@drawable/adicionar" />
+
+    <ImageView
+        android:id="@+id/icon_calendario"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="15dp"
+        app:layout_constraintBottom_toBottomOf="@+id/navegacao"
+        app:layout_constraintEnd_toStartOf="@+id/btnAddItem"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/icon_perfil"
+        app:layout_constraintTop_toTopOf="@+id/navegacao"
+        app:layout_constraintVertical_bias="0.386"
+        app:srcCompat="@drawable/calendario" />
+
+    <ImageView
+        android:id="@+id/icon_estudo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        app:layout_constraintBottom_toBottomOf="@+id/navegacao"
+        app:layout_constraintEnd_toStartOf="@+id/icon_auxiliares"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btnAddItem"
+        app:layout_constraintTop_toTopOf="@+id/navegacao"
+        app:layout_constraintVertical_bias="0.386"
+        app:srcCompat="@drawable/estudo_nav" />
+
+    <ImageView
+        android:id="@+id/icon_auxiliares"
+        android:layout_width="26dp"
+        android:layout_height="26dp"
+        android:layout_marginStart="20dp"
+        app:layout_constraintBottom_toBottomOf="@+id/navegacao"
+        app:layout_constraintEnd_toEndOf="@+id/navegacao"
+        app:layout_constraintStart_toEndOf="@+id/icon_estudo"
+        app:layout_constraintTop_toTopOf="@+id/navegacao"
+        app:layout_constraintVertical_bias="0.386"
+        app:srcCompat="@drawable/auxiliares_nav" />
+
+    <ImageView
+        android:id="@+id/icon_perfil"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintBottom_toBottomOf="@+id/navegacao"
+        app:layout_constraintEnd_toStartOf="@+id/icon_calendario"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintStart_toStartOf="@+id/navegacao"
+        app:layout_constraintTop_toTopOf="@+id/navegacao"
+        app:layout_constraintVertical_bias="0.386"
+        app:srcCompat="@drawable/perfil_nav" />
+
+    <TextView
+        android:id="@+id/perfil"
+        style="@style/nunito_nav"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        android:text="Perfil"
+        app:layout_constraintEnd_toEndOf="@+id/icon_perfil"
+        app:layout_constraintStart_toStartOf="@+id/icon_perfil"
+        app:layout_constraintTop_toBottomOf="@+id/icon_perfil" />
+
+    <TextView
+        android:id="@+id/calendario"
+        style="@style/nunito_nav"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        android:text="Calendário"
+        app:layout_constraintEnd_toEndOf="@+id/icon_calendario"
+        app:layout_constraintStart_toStartOf="@+id/icon_calendario"
+        app:layout_constraintTop_toBottomOf="@+id/icon_calendario" />
+
+    <TextView
+        android:id="@+id/estudos"
+        style="@style/nunito_nav"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        android:text="Estudos"
+        app:layout_constraintEnd_toEndOf="@+id/icon_estudo"
+        app:layout_constraintStart_toStartOf="@+id/icon_estudo"
+        app:layout_constraintTop_toBottomOf="@+id/icon_estudo" />
+
+    <TextView
+        android:id="@+id/auxiliares"
+        style="@style/nunito_nav"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        android:text="Auxiliares"
+        app:layout_constraintBottom_toBottomOf="@+id/estudos"
+        app:layout_constraintEnd_toEndOf="@+id/icon_auxiliares"
+        app:layout_constraintStart_toStartOf="@+id/icon_auxiliares"
+        app:layout_constraintTop_toBottomOf="@+id/icon_auxiliares" />
+
+    <View
+        android:id="@+id/painel"
+        android:layout_width="match_parent"
+        android:layout_height="105dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="90dp"
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/painel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/chegando"
+        style="@style/nunito_bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:text="Chegando"
+        android:textSize="16dp"
+        app:layout_constraintEnd_toStartOf="@+id/distante"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/prioridade"
+        app:layout_constraintTop_toTopOf="@+id/painel" />
+
+    <TextView
+        android:id="@+id/prioridade"
+        style="@style/nunito_bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="15dp"
+        android:text="Prioridade"
+        android:textSize="16dp"
+        app:layout_constraintEnd_toStartOf="@+id/chegando"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/painel" />
+
+    <TextView
+        android:id="@+id/distante"
+        style="@style/nunito_bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="20dp"
+        android:text="Distante"
+        android:textSize="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/chegando"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/chegando"
+        app:layout_constraintTop_toTopOf="@+id/painel"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/qtdPrioridade"
+        style="@style/nunito_bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:text="-"
+        android:textColor="@color/vermelho"
+        android:textSize="18dp"
+        app:layout_constraintEnd_toEndOf="@+id/prioridade"
+        app:layout_constraintStart_toStartOf="@+id/prioridade"
+        app:layout_constraintTop_toBottomOf="@+id/prioridade" />
+
+    <TextView
+        android:id="@+id/qtdChegando"
+        style="@style/nunito_bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:text="-"
+        android:textColor="@color/amarelo"
+        android:textSize="18dp"
+        app:layout_constraintEnd_toEndOf="@+id/chegando"
+        app:layout_constraintStart_toStartOf="@+id/chegando"
+        app:layout_constraintTop_toBottomOf="@+id/chegando" />
+
+    <TextView
+        android:id="@+id/qtdDistante"
+        style="@style/nunito_bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:text="-"
+        android:textColor="@color/azul"
+        android:textSize="18dp"
+        app:layout_constraintEnd_toEndOf="@+id/distante"
+        app:layout_constraintStart_toStartOf="@+id/distante"
+        app:layout_constraintTop_toBottomOf="@+id/distante" />
+
+        <ImageView
+            android:id="@+id/imageView15"
+            android:layout_width="40dp"
+            android:layout_height="20dp"
+            android:layout_marginEnd="24dp"
+            app:layout_constraintBottom_toBottomOf="@+id/cumprimento"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.971"
+            app:layout_constraintStart_toEndOf="@+id/cumprimento"
+            app:layout_constraintTop_toTopOf="@+id/cumprimento"
+            app:layout_constraintVertical_bias="1.0"
+            app:srcCompat="@drawable/tres_barras" />
+
+    <ImageView
+        android:id="@+id/imageView16"
+        android:layout_width="167dp"
+        android:layout_height="175dp"
+        android:layout_marginTop="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.54"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lista_checklists"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/tudo_concluido" />
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/lista_checklists"
+        android:layout_width="match_parent"
+        android:layout_height="38dp"
+        android:layout_marginTop="12dp"
+        android:backgroundTint="#F8F8F8"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/painel"
+        app:tabIndicator="@drawable/indicador"
+        app:tabIndicatorColor="@color/azul"
+        app:tabSelectedTextColor="@color/azul"
+        app:tabTextAppearance="@style/tab">
+
+        <com.google.android.material.tabs.TabItem
+            style="@style/nunito_bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Avaliações" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Atividades" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Lembretes" />
+    </com.google.android.material.tabs.TabLayout>
+
+    <View
+        android:id="@+id/barrinha"
+        android:layout_width="match_parent"
+        android:layout_height="2.2dp"
+        android:background="@drawable/barrinha"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lista_checklists" />
+
+    <TextView
+        android:id="@+id/tudoConcluido"
+        style="@style/nunito_regular"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="-20dp"
+        android:text="Tudo Concluído"
+        android:textSize="18dp"
+        app:layout_constraintEnd_toEndOf="@+id/imageView16"
+        app:layout_constraintStart_toStartOf="@+id/imageView16"
+        app:layout_constraintTop_toBottomOf="@+id/imageView16" />
+
+    <Button
+        android:id="@+id/btnAddItem2"
+        android:layout_width="200dp"
+        android:layout_height="58dp"
+        android:layout_marginTop="30dp"
+        android:backgroundTint="@color/azul"
+        android:fontFamily="@font/nunito_extrabold"
+        android:letterSpacing="0.01"
+        android:text="Adicionar"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="18dp"
+        app:cornerRadius="10dp"
+        app:layout_constraintEnd_toEndOf="@+id/imageView16"
+        app:layout_constraintStart_toStartOf="@+id/imageView16"
+        app:layout_constraintTop_toBottomOf="@+id/tudoConcluido" />
+
+    <ListView
+        android:id="@+id/listview_item"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:layout_marginTop="40dp"
+        app:layout_constraintBottom_toTopOf="@+id/imageView16"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lista_checklists"
+        app:layout_constraintVertical_bias="0.387" />
+
+    <TextView
+        android:id="@+id/btnOrdenar"
+        style="@style/nunito_bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="1dp"
+        android:text="Ordenar"
+        android:textColor="#959595"
+        android:textSize="14dp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView4"
+        app:layout_constraintEnd_toStartOf="@+id/imageView4"
+        app:layout_constraintTop_toTopOf="@+id/imageView4" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="21dp"
+        android:layout_height="21dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/barrinha"
+        app:srcCompat="@drawable/filtrar" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:background="#F8F8F8"
+        android:layout_gravity="end"
+        android:fitsSystemWindows="true"
+        app:headerLayout="@layout/nav_header"
+        />
+
+</androidx.drawerlayout.widget.DrawerLayout>

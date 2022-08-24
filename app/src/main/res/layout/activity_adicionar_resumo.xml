@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/fundo_add"
+    tools:context=".adicionar_resumo">
+
+    <ImageView
+        android:id="@+id/btnVoltar"
+        android:layout_width="26dp"
+        android:layout_height="26dp"
+        android:layout_marginStart="24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.04000002"
+        app:srcCompat="@drawable/icon_retornar" />
+
+    <View
+        android:id="@+id/retanguloAddResumo"
+        android:layout_width="378dp"
+        android:layout_height="620dp"
+        android:layout_marginTop="90dp"
+        android:background="@drawable/retangulo_simples"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/AdicionarResumo"
+        style="@style/nunito_regular"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="20dp"
+        android:text="Adicionar Resumo"
+        android:textSize="18dp"
+        app:layout_constraintStart_toStartOf="@+id/retanguloAddResumo"
+        app:layout_constraintTop_toTopOf="@+id/retanguloAddResumo" />
+
+
+    <TextView
+        android:id="@+id/textoAssunto"
+        style="@style/nunito_regular"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Assunto"
+        android:textSize="16dp"
+        app:layout_constraintStart_toStartOf="@+id/AdicionarResumo"
+        app:layout_constraintTop_toBottomOf="@+id/AdicionarResumo" />
+
+    <EditText
+        android:id="@+id/campoAssunto"
+        style="@style/campoTexto"
+        android:layout_width="320dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
+        android:ems="10"
+        android:maxLength="50"
+        app:layout_constraintStart_toStartOf="@+id/textoAssunto"
+        app:layout_constraintTop_toBottomOf="@+id/textoAssunto" />
+
+    <EditText
+        android:id="@+id/campoDisciplinaResumo"
+        style="@style/campoTexto"
+        android:layout_width="320dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
+        android:ems="10"
+        android:maxLength="60"
+        app:layout_constraintStart_toStartOf="@+id/textoDisciplinaResumo"
+        app:layout_constraintTop_toBottomOf="@+id/textoDisciplinaResumo" />
+
+    <EditText
+        android:id="@+id/campoResumo"
+        style="@style/campoTexto"
+        android:layout_width="320dp"
+        android:layout_height="230dp"
+        android:layout_marginTop="10dp"
+        android:ems="10"
+        android:gravity="left|top"
+        android:inputType="textMultiLine"
+        android:maxLength="250"
+        android:paddingTop="12dp"
+        app:layout_constraintStart_toStartOf="@+id/textoResumo"
+        app:layout_constraintTop_toBottomOf="@+id/textoResumo" />
+
+    <TextView
+        android:id="@+id/textoDisciplinaResumo"
+        style="@style/nunito_regular"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Disciplina"
+        android:textSize="16dp"
+        app:layout_constraintStart_toStartOf="@+id/campoAssunto"
+        app:layout_constraintTop_toBottomOf="@+id/campoAssunto" />
+
+    <TextView
+        android:id="@+id/textoResumo"
+        style="@style/nunito_regular"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Resumo"
+        android:textSize="16dp"
+        app:layout_constraintStart_toStartOf="@+id/campoDisciplinaResumo"
+        app:layout_constraintTop_toBottomOf="@+id/campoDisciplinaResumo" />
+
+    <ImageView
+        android:id="@+id/btnDeletarResumo"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginBottom="40dp"
+        app:layout_constraintBottom_toBottomOf="@+id/retanguloAddResumo"
+        app:layout_constraintStart_toStartOf="@+id/retanguloAddResumo"
+        app:srcCompat="@drawable/lixeira" />
+
+    <Button
+        android:id="@+id/btnSalvarItem"
+        android:layout_width="200dp"
+        android:layout_height="60dp"
+        android:layout_marginEnd="30dp"
+        android:backgroundTint="@color/azul"
+        android:fontFamily="@font/nunito_extrabold"
+        android:letterSpacing="0.01"
+        android:text="Salvar"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="18dp"
+        app:cornerRadius="10dp"
+        app:layout_constraintBottom_toBottomOf="@+id/btnDeletarResumo"
+        app:layout_constraintEnd_toEndOf="@+id/retanguloAddResumo"
+        app:layout_constraintTop_toTopOf="@+id/btnDeletarResumo" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

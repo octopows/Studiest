@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/fundo_perfil"
+    tools:context=".deletar_conta">
+
+    <ImageView
+        android:id="@+id/btnVoltar"
+        android:layout_width="26dp"
+        android:layout_height="26dp"
+        android:layout_marginStart="24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.04000002"
+        app:srcCompat="@drawable/icon_retornar" />
+
+
+    <TextView
+        android:id="@+id/legendaDeletarConta"
+        style="@style/legendaTopo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Deletar Conta"
+        app:layout_constraintBottom_toBottomOf="@+id/btnVoltar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/btnVoltar" />
+
+    <View
+        android:id="@+id/faixa_perfil"
+        android:layout_width="match_parent"
+        android:layout_height="94dp"
+        android:layout_marginTop="130dp"
+        android:layout_marginEnd="30dp"
+        android:background="@drawable/faixa_perfil"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnVoltar" />
+
+    <ImageView
+        android:id="@+id/foto_mulher"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginBottom="25dp"
+        app:layout_constraintBottom_toBottomOf="@+id/faixa_perfil"
+        app:layout_constraintStart_toStartOf="@+id/faixa_perfil"
+        app:srcCompat="@drawable/foto_mulher" />
+
+    <TextView
+        android:id="@+id/nomeUsuario"
+        style="@style/nunito_semibold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="8dp"
+        android:text="Bárbara Geovanna"
+        android:textSize="22dp"
+        app:layout_constraintStart_toEndOf="@+id/foto_mulher"
+        app:layout_constraintTop_toTopOf="@+id/faixa_perfil" />
+
+    <TextView
+        android:id="@+id/emailUsuario"
+        style="@style/nunito_regular"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="geovanna@gmail.com"
+        android:textSize="15dp"
+        app:layout_constraintStart_toStartOf="@+id/nomeUsuario"
+        app:layout_constraintTop_toBottomOf="@+id/nomeUsuario" />
+
+    <TextView
+        android:id="@+id/textoAviso"
+        style="@style/nunito_semibold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="ESTA AÇAÕ IRÁ DELETAR SUA CONTA"
+        android:textSize="14dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/faixa_perfil" />
+
+    <View
+        android:id="@+id/retangulo_fundo"
+        android:layout_width="wrap_content"
+        android:layout_height="190dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/retangulo_perfil"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textoAviso" />
+
+    <TextView
+        android:id="@+id/textoInformacoes"
+        style="@style/nunito_regular"
+        android:layout_width="358dp"
+        android:layout_height="139dp"
+        android:justificationMode="inter_word"
+        android:text="Ao deletar a sua conta, todos os seus dados serão apagados, incluindo suas checklists, anexos, turmas e horários. Essa ação não poderá ser desfeita.
+\n\nDeseja continuar?"
+        android:textSize="17dp"
+        app:layout_constraintBottom_toBottomOf="@+id/retangulo_fundo"
+        app:layout_constraintEnd_toEndOf="@+id/retangulo_fundo"
+        app:layout_constraintStart_toStartOf="@+id/retangulo_fundo"
+        app:layout_constraintTop_toBottomOf="@+id/textoAviso" />
+
+    <Button
+        android:id="@+id/btnConfirmarDeletar"
+        android:layout_width="330dp"
+        android:layout_height="60dp"
+        android:layout_marginBottom="40dp"
+        android:backgroundTint="@color/vermelho"
+        android:fontFamily="@font/nunito_extrabold"
+        android:letterSpacing="0.01"
+        android:text="Deletar Conta"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="18dp"
+        app:cornerRadius="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

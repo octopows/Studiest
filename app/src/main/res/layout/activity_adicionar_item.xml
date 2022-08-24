@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/fundo_add"
+    tools:context=".adicionar_item">
+
+    <ImageView
+        android:id="@+id/btnVoltar"
+        android:layout_width="26dp"
+        android:layout_height="26dp"
+        android:layout_marginStart="24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.04000002"
+        app:srcCompat="@drawable/icon_retornar" />
+
+    <View
+        android:id="@+id/retanguloAddItem"
+        android:layout_width="378dp"
+        android:layout_height="570dp"
+        android:layout_marginTop="90dp"
+        android:background="@drawable/retangulo_simples"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/detalhesDoItem"
+        style="@style/nunito_regular"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="20dp"
+        android:text="Detalhes do Item"
+        android:textSize="18dp"
+        app:layout_constraintStart_toStartOf="@+id/retanguloAddItem"
+        app:layout_constraintTop_toTopOf="@+id/retanguloAddItem" />
+
+
+    <TextView
+        android:id="@+id/textoTitulo"
+        style="@style/nunito_regular"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Título"
+        android:textSize="16dp"
+        app:layout_constraintStart_toStartOf="@+id/detalhesDoItem"
+        app:layout_constraintTop_toBottomOf="@+id/detalhesDoItem" />
+
+    <EditText
+        android:id="@+id/campoTituloItem"
+        style="@style/campoTexto"
+        android:layout_width="320dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
+        android:ems="10"
+        android:maxLength="50"
+        app:layout_constraintStart_toStartOf="@+id/textoTitulo"
+        app:layout_constraintTop_toBottomOf="@+id/textoTitulo" />
+
+    <EditText
+        android:id="@+id/campoDisciplinaItem"
+        style="@style/campoTexto"
+        android:layout_width="320dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
+        android:ems="10"
+        android:maxLength="60"
+        app:layout_constraintStart_toStartOf="@+id/textoDisciplina"
+        app:layout_constraintTop_toBottomOf="@+id/textoDisciplina" />
+
+    <EditText
+        android:id="@+id/campoDescricaoItem"
+        style="@style/campoTexto"
+        android:layout_width="320dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="10dp"
+        android:ems="10"
+        android:inputType="textMultiLine"
+        android:maxLength="250"
+        android:paddingTop="12dp"
+        android:gravity="left|top"
+        app:layout_constraintStart_toStartOf="@+id/textoDescricao"
+        app:layout_constraintTop_toBottomOf="@+id/textoDescricao" />
+
+    <TextView
+        android:id="@+id/textoDisciplina"
+        style="@style/nunito_regular"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Disciplina"
+        android:textSize="16dp"
+        app:layout_constraintStart_toStartOf="@+id/campoTituloItem"
+        app:layout_constraintTop_toBottomOf="@+id/campoTituloItem" />
+
+    <TextView
+        android:id="@+id/textoDescricao"
+        style="@style/nunito_regular"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Descrição"
+        android:textSize="16dp"
+        app:layout_constraintStart_toStartOf="@+id/campoDisciplinaItem"
+        app:layout_constraintTop_toBottomOf="@+id/campoDisciplinaItem" />
+
+    <TextView
+        android:id="@+id/textoDataEntrega"
+        style="@style/nunito_regular"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Data de Entrega"
+        android:textSize="16dp"
+        app:layout_constraintStart_toStartOf="@+id/campoDescricaoItem"
+        app:layout_constraintTop_toBottomOf="@+id/campoDescricaoItem" />
+
+    <ImageView
+        android:id="@+id/iconDataEntrega"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="15dp"
+        app:layout_constraintStart_toStartOf="@+id/textoDataEntrega"
+        app:layout_constraintTop_toBottomOf="@+id/textoDataEntrega"
+        app:srcCompat="@drawable/icon_data_entrega" />
+
+    <ImageView
+        android:id="@+id/btnDeletarItem"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginBottom="40dp"
+        app:layout_constraintBottom_toBottomOf="@+id/retanguloAddItem"
+        app:layout_constraintStart_toStartOf="@+id/retanguloAddItem"
+        app:srcCompat="@drawable/lixeira" />
+
+    <Button
+        android:id="@+id/btnSalvarItem"
+        android:layout_width="200dp"
+        android:layout_height="60dp"
+        android:layout_marginEnd="30dp"
+        android:backgroundTint="@color/azul"
+        android:fontFamily="@font/nunito_extrabold"
+        android:letterSpacing="0.01"
+        android:text="Salvar"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="18dp"
+        app:cornerRadius="10dp"
+        app:layout_constraintBottom_toBottomOf="@+id/btnDeletarItem"
+        app:layout_constraintEnd_toEndOf="@+id/retanguloAddItem"
+        app:layout_constraintTop_toTopOf="@+id/btnDeletarItem" />
+
+    <View
+        android:id="@+id/retanguloData"
+        android:layout_width="135dp"
+        android:layout_height="38dp"
+        android:layout_marginStart="20dp"
+        android:background="@drawable/retangulo_data"
+        app:layout_constraintBottom_toBottomOf="@+id/iconDataEntrega"
+        app:layout_constraintStart_toEndOf="@+id/iconDataEntrega"
+        app:layout_constraintTop_toTopOf="@+id/iconDataEntrega" />
+
+    <TextView
+        android:id="@+id/campoPrazo"
+        style="@style/nunito_semibold"
+        android:textSize="14dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Selecionar ▼"
+        android:textColor="@color/azul"
+        app:layout_constraintBottom_toBottomOf="@+id/retanguloData"
+        app:layout_constraintEnd_toEndOf="@+id/retanguloData"
+        app:layout_constraintStart_toStartOf="@+id/retanguloData"
+        app:layout_constraintTop_toTopOf="@+id/retanguloData" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

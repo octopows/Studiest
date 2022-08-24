@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/fundo_login"
+    android:scaleType="centerCrop"
+    tools:context=".cadastrar">
+
+    <ImageView
+        android:id="@+id/btnVoltar"
+        android:layout_width="26dp"
+        android:layout_height="26dp"
+        android:layout_marginStart="24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.04000002"
+        app:srcCompat="@drawable/icon_retornar" />
+
+    <ImageView
+        android:id="@+id/campoCadastrar"
+        android:layout_width="378dp"
+        android:layout_height="677dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="68dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="10dp"
+        android:paddingBottom="5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/retangulo_cadastrar2" />
+
+    <TextView
+        android:id="@+id/textoCadastrar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="132dp"
+        android:fontFamily="@font/righteous"
+        android:text="Criar Conta"
+        android:textColor="@color/black"
+        android:textSize="36dp"
+        app:layout_constraintBottom_toBottomOf="@+id/campoCadastrar"
+        app:layout_constraintEnd_toEndOf="@+id/campoCadastrar"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="@+id/campoCadastrar"
+        app:layout_constraintTop_toTopOf="@+id/campoCadastrar"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <EditText
+        android:id="@+id/campoNome"
+        android:maxLength="18"
+        style="@style/campoTexto"
+        android:layout_width="330dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="20dp"
+        android:drawableStart="@drawable/custom_perfil"
+        android:hint="Nome e Sobrenome"
+        android:inputType="text"
+        app:layout_constraintEnd_toEndOf="@+id/campoCadastrar"
+        app:layout_constraintStart_toStartOf="@+id/campoCadastrar"
+        app:layout_constraintTop_toBottomOf="@+id/textoCadastrar" />
+
+    <EditText
+        android:id="@+id/campoEmailCadastrar"
+        style="@style/campoTexto"
+        android:layout_width="330dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="12dp"
+        android:drawableStart="@drawable/custom_email"
+        android:hint="Email"
+        android:inputType="textEmailAddress"
+        app:layout_constraintEnd_toEndOf="@+id/campoCadastrar"
+        app:layout_constraintStart_toStartOf="@+id/campoCadastrar"
+        app:layout_constraintTop_toBottomOf="@+id/campoNome" />
+
+    <EditText
+        android:id="@+id/campoSenhaCadastrar"
+        style="@style/campoTexto"
+        android:maxLength="20"
+        android:layout_width="330dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="12dp"
+        android:drawableStart="@drawable/custom_cadeado"
+        android:hint="Senha"
+        android:inputType="textPassword"
+        app:layout_constraintEnd_toEndOf="@+id/campoCadastrar"
+        app:layout_constraintStart_toStartOf="@+id/campoCadastrar"
+        app:layout_constraintTop_toBottomOf="@+id/campoEmailCadastrar" />
+
+    <EditText
+        android:id="@+id/campoConfirmarSenha"
+        style="@style/campoTexto"
+        android:maxLength="20"
+        android:layout_width="330dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="12dp"
+        android:drawableStart="@drawable/custom_cadeado"
+        android:hint="Confirmar senha"
+        android:inputType="textPassword"
+        app:layout_constraintEnd_toEndOf="@+id/campoCadastrar"
+        app:layout_constraintStart_toStartOf="@+id/campoCadastrar"
+        app:layout_constraintTop_toBottomOf="@+id/campoSenhaCadastrar" />
+
+    <Button
+        android:id="@+id/btnConfirmarCadastrar"
+        android:layout_width="330dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="32dp"
+        android:backgroundTint="@color/azul"
+        android:fontFamily="@font/nunito_extrabold"
+        android:letterSpacing="0.01"
+        android:text="Cadastrar-se"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="18dp"
+        app:cornerRadius="10dp"
+        app:layout_constraintEnd_toEndOf="@+id/campoCadastrar"
+        app:layout_constraintStart_toStartOf="@+id/campoCadastrar"
+        app:layout_constraintTop_toBottomOf="@+id/campoConfirmarSenha" />
+
+    <ImageView
+        android:id="@+id/barra_ou"
+        android:layout_width="330dp"
+        android:layout_height="17dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="@+id/btnConfirmarCadastrar"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/btnConfirmarCadastrar"
+        app:layout_constraintTop_toBottomOf="@+id/btnConfirmarCadastrar"
+        app:srcCompat="@drawable/barra_ou" />
+
+    <Button
+        android:id="@+id/btnConfirmarEntrarGoogle2"
+        android:layout_width="330dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="8dp"
+        android:backgroundTint="@color/vermelho"
+        android:fontFamily="@font/nunito_extrabold"
+        android:letterSpacing="0.01"
+        android:text="Entrar com o Google"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="18dp"
+        app:cornerRadius="10dp"
+        app:layout_constraintEnd_toEndOf="@+id/campoCadastrar"
+        app:layout_constraintStart_toStartOf="@+id/campoCadastrar"
+        app:layout_constraintTop_toBottomOf="@+id/barra_ou" />
+
+    <TextView
+        android:id="@+id/naoPossuiConta"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="30dp"
+        android:fontFamily="@font/nunito_regular"
+        android:letterSpacing="0.01"
+        android:text="Já posssui uma conta?"
+        android:textColor="@color/cinza_hint"
+        android:textSize="16dp"
+        app:layout_constraintEnd_toEndOf="@+id/btnConfirmarEntrarGoogle2"
+        app:layout_constraintHorizontal_bias="0.273"
+        app:layout_constraintStart_toStartOf="@+id/btnConfirmarEntrarGoogle2"
+        app:layout_constraintTop_toBottomOf="@+id/btnConfirmarEntrarGoogle2" />
+
+    <TextView
+        android:id="@+id/btnNaoPossuiConta"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/nunito_bold"
+        android:letterSpacing="0.01"
+        android:text=" Entrar"
+        android:textColor="@color/azul"
+        android:textSize="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/campoCadastrar"
+        app:layout_constraintEnd_toEndOf="@+id/btnConfirmarEntrarGoogle2"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/naoPossuiConta"
+        app:layout_constraintTop_toBottomOf="@+id/btnConfirmarEntrarGoogle2"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <ImageView
+        android:id="@+id/btnMostrarSenha2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="22dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="22dp"
+        app:layout_constraintBottom_toBottomOf="@+id/campoSenhaCadastrar"
+        app:layout_constraintEnd_toEndOf="@+id/campoSenhaCadastrar"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/campoSenhaCadastrar"
+        app:layout_constraintTop_toTopOf="@+id/campoSenhaCadastrar"
+        app:srcCompat="@drawable/senha_ocultada" />
+
+    <ImageView
+        android:id="@+id/btnMostrarSenha3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="22dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="22dp"
+        app:layout_constraintBottom_toBottomOf="@+id/campoConfirmarSenha"
+        app:layout_constraintEnd_toEndOf="@+id/campoConfirmarSenha"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/campoConfirmarSenha"
+        app:layout_constraintTop_toTopOf="@+id/campoConfirmarSenha"
+        app:srcCompat="@drawable/senha_ocultada" />
+
+    <TextView
+        android:id="@+id/campoErro2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="4dp"
+        android:fontFamily="@font/nunito_regular"
+        android:letterSpacing="0.01"
+        android:text=""
+        android:textAlignment="viewStart"
+        android:textColor="@color/vermelho"
+        android:textSize="15dp"
+        app:layout_constraintBottom_toTopOf="@+id/btnConfirmarCadastrar"
+        app:layout_constraintEnd_toEndOf="@+id/campoCadastrar"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/campoCadastrar"
+        app:layout_constraintTop_toBottomOf="@+id/campoConfirmarSenha"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <ImageView
+        android:id="@+id/google2"
+        android:layout_width="37dp"
+        android:layout_height="31dp"
+        android:layout_marginStart="30dp"
+        android:elevation="100dp"
+        app:layout_constraintBottom_toBottomOf="@+id/btnConfirmarEntrarGoogle2"
+        app:layout_constraintStart_toStartOf="@+id/btnConfirmarEntrarGoogle2"
+        app:layout_constraintTop_toTopOf="@+id/btnConfirmarEntrarGoogle2"
+        app:srcCompat="@drawable/google" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

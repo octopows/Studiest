@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.example.studiest">
+
+    <application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.Studiest"
+        tools:targetApi="31">
+        <activity
+            android:name=".adicionar_resumo"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".adicionar_item"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".auxiliares_academicos"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".resumos"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".anexo_documentos"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".estudos"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".deletar_conta"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".alterar_senha"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".perfil"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".tela_principal"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".verificar_email"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".recuperar_senha"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".cadastrar"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".entrar"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".bemvindo"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>
