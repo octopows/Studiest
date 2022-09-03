@@ -39,6 +39,7 @@
     <EditText
         android:id="@+id/campoEmail"
         style="@style/campoTexto"
+        android:maxLength="100"
         android:layout_width="330dp"
         android:layout_height="50dp"
         android:layout_marginTop="20dp"
@@ -176,7 +177,7 @@
     <EditText
         android:id="@+id/campoSenha"
         style="@style/campoTexto"
-        android:maxLength="20"
+        android:maxLength="32"
         android:layout_width="330dp"
         android:layout_height="50dp"
         android:layout_marginTop="12dp"
@@ -213,5 +214,15 @@
         app:layout_constraintTop_toTopOf="@+id/btnConfirmarEntrarGoogle"
         app:srcCompat="@drawable/google" />
 
-
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

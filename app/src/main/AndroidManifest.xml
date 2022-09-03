@@ -3,7 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.studiest">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+
     <application
+        android:usesCleartextTraffic="true"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -13,6 +17,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Studiest"
         tools:targetApi="31">
+        <activity
+            android:name=".calendario"
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".adicionar_resumo"
             android:exported="false"

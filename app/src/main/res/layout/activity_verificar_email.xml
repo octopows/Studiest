@@ -30,7 +30,7 @@
         android:layout_marginTop="-10dp"
         android:fontFamily="@font/nunito_semibold"
         android:letterSpacing="0.01"
-        android:text="david@gmail.com"
+        android:text="exemplo@gmail.com"
         android:textAlignment="center"
         android:textColor="#323232"
         android:textSize="18dp"

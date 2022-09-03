@@ -54,4 +54,21 @@
         <item name="android:paddingEnd">12dp</item>
     </style>
 
+    <style name="dateTextStyle" parent="@android:style/TextAppearance.Small">
+        <item name="android:textSize">14dp</item>
+        <item name="android:fontFamily">@font/nunito_semibold</item>
+        <item name="android:textColor">@color/cinza_hint</item>
+
+    </style>
+
+    <style name="weekDayStyle" parent="@android:style/TextAppearance.Small">
+        <item name="android:textSize">14dp</item>
+        <item name="android:fontFamily">@font/nunito_bold</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="CalenderViewCustom" parent="Theme.Studiest">
+        <item name="colorControlActivated">@color/azul</item>
+        <item name="android:textColorPrimaryInverse">@color/white</item>
+    </style>
 </resources>

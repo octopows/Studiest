@@ -7,7 +7,7 @@
     android:background="@color/white">
 
     <TextView
-        android:id="@+id/desejaRemoverResumo"
+        android:id="@+id/desejaSair"
         style="@style/nunito_regular"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -19,19 +19,19 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/cancelarRemoverResumo"
+        android:id="@+id/cancelarSair"
         style="@style/nunito_regular"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="35dp"
         android:text="Cancelar"
         android:textSize="16dp"
-        app:layout_constraintBottom_toBottomOf="@+id/confirmarRemoverResumo"
-        app:layout_constraintEnd_toStartOf="@+id/confirmarRemoverResumo"
-        app:layout_constraintTop_toTopOf="@+id/confirmarRemoverResumo" />
+        app:layout_constraintBottom_toBottomOf="@+id/confirmarSair"
+        app:layout_constraintEnd_toStartOf="@+id/confirmarSair"
+        app:layout_constraintTop_toTopOf="@+id/confirmarSair" />
 
     <TextView
-        android:id="@+id/confirmarRemoverResumo"
+        android:id="@+id/confirmarSair"
         style="@style/nunito_regular"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -43,6 +43,6 @@
         android:textSize="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/desejaRemoverResumo" />
+        app:layout_constraintTop_toBottomOf="@+id/desejaSair" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

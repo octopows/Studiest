@@ -1,5 +1,7 @@
 package com.example.studiest
 
+import android.app.ProgressDialog
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -40,6 +42,7 @@ class tela_principal : AppCompatActivity() {
         val icon_perfil = findViewById<ImageView>(R.id.icon_perfil)
         val icon_estudo = findViewById<ImageView>(R.id.icon_estudo)
         val icon_auxiliares = findViewById<ImageView>(R.id.icon_auxiliares)
+        val icon_calendario = findViewById<ImageView>(R.id.icon_calendario)
         val btnAddItem2 = findViewById<Button>(R.id.btnAddItem2)
         val btnAddItem = findViewById<ImageView>(R.id.btnAddItem)
         val cumprimento = findViewById<TextView>(R.id.cumprimento)
@@ -64,16 +67,30 @@ class tela_principal : AppCompatActivity() {
 
         //mensagem de cumprimento
         val horario = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
+        val intent: Intent = this.intent
+
+        val sharedPreference =  getSharedPreferences("dadosUsuario", Context.MODE_PRIVATE)
+        var nome = sharedPreference.getString("nome","Null") as String
+
+        var SplitNome = nome!!.split(" ").toTypedArray()
+        var first = SplitNome[0]
+
 
         when (horario) {
-            in 0..11 -> cumprimento.text = "Bom dia, usuário!"
-            in 12..17 -> cumprimento.text = "Boa tarde, usuário!"
-            in 18..23 -> cumprimento.text = "Boa noite, usuário!"
+            in 0..11 -> cumprimento.text = "Bom dia, $first!"
+            in 12..17 -> cumprimento.text = "Boa tarde, $first!"
+            in 18..23 -> cumprimento.text = "Boa noite, $first!"
         }
 
         //botão perfil
         icon_perfil.setOnClickListener{
             val intent = Intent(this, perfil::class.java)
+            startActivity(intent)
+        }
+
+        //botão calendario
+        icon_calendario.setOnClickListener{
+            val intent = Intent(this, calendario::class.java)
             startActivity(intent)
         }
 
