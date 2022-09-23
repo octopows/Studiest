@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="385dp"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:background="@drawable/retangulo_resumo"
+    android:clipToOutline="true"
+    >
+
+
+
+    <TextView
+        android:id="@+id/tituloResumo"
+        style="@style/nunito_semibold"
+        android:layout_width="305dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="15dp"
+        android:text="Título do Resumo"
+        android:autoSizeTextType="uniform"
+        android:autoSizeMaxTextSize="22dp"
+        android:autoSizeMinTextSize="13dp"
+        android:textSize="22dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/disciplinaResumo"
+        style="@style/nunito_regular"
+        android:layout_width="305dp"
+        android:layout_height="30dp"
+        android:text="Disciplina do Resumo"
+        android:autoSizeTextType="uniform"
+        android:autoSizeMaxTextSize="16dp"
+        android:autoSizeMinTextSize="12dp"
+        android:textSize="16dp"
+        app:layout_constraintStart_toStartOf="@+id/tituloResumo"
+        app:layout_constraintTop_toBottomOf="@+id/tituloResumo" />
+
+    <TextView
+        android:id="@+id/conteudoResumo"
+        style="@style/nunito_regular"
+        android:layout_width="340dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical|end"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="15dp"
+        android:justificationMode="inter_word"
+        android:text="   Estuda o desenvolvimento dos embriões, desde a fecundação até a formação completa dos seres vivos;\n    > Fases:\n 1.Fecundação: Nessa fase, o espermatozoide penetra o óvulo e os núcleos dos gametas se fundem, formando o zigoto"
+        android:textColor="@color/cinza_hint"
+        android:textSize="15dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/disciplinaResumo"
+        app:layout_constraintTop_toBottomOf="@+id/disciplinaResumo" />
+
+    <View
+        android:id="@+id/barrinhaResumo"
+        android:layout_width="335dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/barrinha"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/disciplinaResumo" />
+
+    <ImageView
+        android:id="@+id/imageView20"
+        android:layout_width="22dp"
+        android:layout_height="22dp"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintBottom_toBottomOf="@+id/tituloResumo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tituloResumo"
+        app:srcCompat="@drawable/editar" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

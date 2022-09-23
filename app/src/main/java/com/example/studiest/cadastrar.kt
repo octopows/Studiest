@@ -210,6 +210,8 @@ class cadastrar : AppCompatActivity() {
             super.onPostExecute(resultado)
             builder.dismiss()
 
+            val sharedPreference =  getSharedPreferences("dadosUsuario", Context.MODE_PRIVATE)
+            sharedPreference.edit().clear().commit();
             val campoNome = findViewById<EditText>(R.id.campoNome)
             val campoEmailCadastrar = findViewById<EditText>(R.id.campoEmailCadastrar)
             val campoSenhaCadastrar = findViewById<EditText>(R.id.campoSenhaCadastrar)

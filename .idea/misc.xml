@@ -7,6 +7,7 @@
         <entry key="..\:/Users/david/OneDrive/Desktop/Study/STUDIEST/Studiest/app/src/main/res/drawable/indicador.xml" value="0.129" />
         <entry key="..\:/Users/david/OneDrive/Desktop/Study/STUDIEST/Studiest/app/src/main/res/drawable/perfil.xml" value="0.129" />
         <entry key="..\:/Users/david/OneDrive/Desktop/Study/STUDIEST/Studiest/app/src/main/res/drawable/retangulo.xml" value="0.129" />
+        <entry key="..\:/Users/david/OneDrive/Desktop/Study/STUDIEST/Studiest/app/src/main/res/drawable/retangulo_azul_corner.xml" value="0.18" />
         <entry key="..\:/Users/david/OneDrive/Desktop/Study/STUDIEST/Studiest/app/src/main/res/drawable/switch_color.xml" value="0.129" />
         <entry key="..\:/Users/david/OneDrive/Desktop/Study/STUDIEST/Studiest/app/src/main/res/drawable/switch_off.xml" value="0.129" />
         <entry key="..\:/Users/david/OneDrive/Desktop/Study/STUDIEST/Studiest/app/src/main/res/drawable/switch_on.xml" value="0.129" />
@@ -15,10 +16,10 @@
         <entry key="..\:/Users/david/OneDrive/Desktop/Study/STUDIEST/Studiest/app/src/main/res/drawable/tra_color.xml" value="0.129" />
         <entry key="..\:/Users/david/OneDrive/Desktop/Study/STUDIEST/Studiest/app/src/main/res/drawable/track_color.xml" value="0.129" />
         <entry key="..\:/Users/david/OneDrive/Desktop/Study/STUDIEST/Studiest/app/src/main/res/layout/activity_adicionar_item.xml" value="0.25" />
-        <entry key="..\:/Users/david/OneDrive/Desktop/Study/STUDIEST/Studiest/app/src/main/res/layout/activity_adicionar_resumo.xml" value="0.25" />
+        <entry key="..\:/Users/david/OneDrive/Desktop/Study/STUDIEST/Studiest/app/src/main/res/layout/activity_adicionar_resumo.xml" value="0.18" />
         <entry key="..\:/Users/david/OneDrive/Desktop/Study/STUDIEST/Studiest/app/src/main/res/layout/activity_alterar_senha.xml" value="0.67" />
         <entry key="..\:/Users/david/OneDrive/Desktop/Study/STUDIEST/Studiest/app/src/main/res/layout/activity_anexador_documentos.xml" value="0.15604959384352288" />
-        <entry key="..\:/Users/david/OneDrive/Desktop/Study/STUDIEST/Studiest/app/src/main/res/layout/activity_anexo_documentos.xml" value="0.18" />
+        <entry key="..\:/Users/david/OneDrive/Desktop/Study/STUDIEST/Studiest/app/src/main/res/layout/activity_anexo_documentos.xml" value="0.2" />
         <entry key="..\:/Users/david/OneDrive/Desktop/Study/STUDIEST/Studiest/app/src/main/res/layout/activity_auxiliares_academicos.xml" value="0.25" />
         <entry key="..\:/Users/david/OneDrive/Desktop/Study/STUDIEST/Studiest/app/src/main/res/layout/activity_bemvindo.xml" value="0.2" />
         <entry key="..\:/Users/david/OneDrive/Desktop/Study/STUDIEST/Studiest/app/src/main/res/layout/activity_cadastrar.xml" value="0.22" />
@@ -27,9 +28,9 @@
         <entry key="..\:/Users/david/OneDrive/Desktop/Study/STUDIEST/Studiest/app/src/main/res/layout/activity_entrar.xml" value="0.2" />
         <entry key="..\:/Users/david/OneDrive/Desktop/Study/STUDIEST/Studiest/app/src/main/res/layout/activity_estudos.xml" value="0.22" />
         <entry key="..\:/Users/david/OneDrive/Desktop/Study/STUDIEST/Studiest/app/src/main/res/layout/activity_main.xml" value="0.20416666666666666" />
-        <entry key="..\:/Users/david/OneDrive/Desktop/Study/STUDIEST/Studiest/app/src/main/res/layout/activity_perfil.xml" value="0.25" />
+        <entry key="..\:/Users/david/OneDrive/Desktop/Study/STUDIEST/Studiest/app/src/main/res/layout/activity_perfil.xml" value="0.33" />
         <entry key="..\:/Users/david/OneDrive/Desktop/Study/STUDIEST/Studiest/app/src/main/res/layout/activity_recuperar_senha.xml" value="0.5" />
-        <entry key="..\:/Users/david/OneDrive/Desktop/Study/STUDIEST/Studiest/app/src/main/res/layout/activity_resumos.xml" value="0.2" />
+        <entry key="..\:/Users/david/OneDrive/Desktop/Study/STUDIEST/Studiest/app/src/main/res/layout/activity_resumos.xml" value="0.22" />
         <entry key="..\:/Users/david/OneDrive/Desktop/Study/STUDIEST/Studiest/app/src/main/res/layout/activity_tela_principal.xml" value="0.25" />
         <entry key="..\:/Users/david/OneDrive/Desktop/Study/STUDIEST/Studiest/app/src/main/res/layout/activity_verificar_email.xml" value="0.2552204176334107" />
         <entry key="..\:/Users/david/OneDrive/Desktop/Study/STUDIEST/Studiest/app/src/main/res/layout/checklist_item.xml" value="0.25" />
@@ -45,6 +46,7 @@
         <entry key="..\:/Users/david/OneDrive/Desktop/Study/STUDIEST/Studiest/app/src/main/res/layout/nav_header.xml" value="0.2" />
         <entry key="..\:/Users/david/OneDrive/Desktop/Study/STUDIEST/Studiest/app/src/main/res/layout/progress_bar.xml" value="0.1890625" />
         <entry key="..\:/Users/david/OneDrive/Desktop/Study/STUDIEST/Studiest/app/src/main/res/layout/progress_view.xml" value="0.1890625" />
+        <entry key="..\:/Users/david/OneDrive/Desktop/Study/STUDIEST/Studiest/app/src/main/res/layout/resumo_view.xml" value="0.18" />
         <entry key="..\:/Users/david/OneDrive/Desktop/Study/STUDIEST/Studiest/app/src/main/res/menu/barra_nav.xml" value="0.20416666666666666" />
       </map>
     </option>

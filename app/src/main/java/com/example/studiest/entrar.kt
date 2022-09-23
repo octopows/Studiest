@@ -207,6 +207,7 @@ class entrar : AppCompatActivity() {
                 var editor = sharedPreference.edit()
                 editor.putString("nome", usuario.nome)
                 editor.putString("email", usuario.email)
+                editor.putInt("id", usuario.id)
                 editor.commit()
 
                 //cria uma intent para chamar a proxima tela

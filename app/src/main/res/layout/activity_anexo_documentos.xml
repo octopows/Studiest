@@ -7,29 +7,16 @@
     android:background="@drawable/fundo_perfil"
     tools:context=".anexo_documentos">
 
+
     <ImageView
         android:id="@+id/semAnexos"
-        android:layout_width="237dp"
-        android:layout_height="229dp"
+        android:layout_width="265dp"
+        android:layout_height="249dp"
         android:layout_marginTop="70dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView3"
-        app:srcCompat="@drawable/tudo_concluido" />
-
-    <TextView
-        android:id="@+id/tudoConcluido"
-        style="@style/nunito_regular"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="-20dp"
-        android:text="Você ainda não possui anexos.\n
-Clique em adicionar para criar um."
-        android:textAlignment="center"
-        android:textSize="16dp"
-        app:layout_constraintEnd_toEndOf="@+id/semAnexos"
-        app:layout_constraintStart_toStartOf="@+id/semAnexos"
-        app:layout_constraintTop_toBottomOf="@+id/semAnexos" />
+        app:srcCompat="@drawable/sem_anexos" />
 
     <ImageView
         android:id="@+id/btnVoltar"
@@ -68,6 +55,7 @@ Clique em adicionar para criar um."
 
     <ImageView
         android:id="@+id/btnAddAnexo"
+        android:elevation="100dp"
         android:layout_width="65dp"
         android:layout_height="65dp"
         android:layout_marginEnd="30dp"
@@ -75,6 +63,37 @@ Clique em adicionar para criar um."
         android:src="@drawable/adicionar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/refresh"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginTop="260dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView3"
+        app:layout_constraintVertical_bias="1.0">
+
+        <ListView
+            android:id="@+id/listview_anexo"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="12dp"
+            android:paddingStart="12dp"
+            android:divider="@android:color/transparent"
+            android:dividerHeight="8.0sp"
+            android:paddingBottom="10dp"
+            app:layout_constraintBottom_toBottomOf="@id/refresh"
+            app:layout_constraintEnd_toEndOf="@id/refresh"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@id/refresh"
+            app:layout_constraintTop_toBottomOf="@+id/imageView3"
+            app:layout_constraintVertical_bias="0.0" />
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

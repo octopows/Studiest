@@ -3,6 +3,8 @@ package com.example.studiest
 import android.app.ProgressDialog
 import android.content.Context
 import android.content.Intent
+import android.content.res.Resources
+import android.graphics.pdf.PdfDocument.Page
 import android.os.Bundle
 import android.view.View
 import android.widget.*
@@ -12,18 +14,41 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.fragment.app.Fragment
+import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.navigation.NavigationView
+import com.google.android.material.tabs.TabItem
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayoutMediator
 import java.util.*
 import kotlin.concurrent.schedule
 
-class tela_principal : AppCompatActivity() {
+class tela_principal : AppCompatActivity(){
 
     lateinit var itemChecklistAdapter: ItemChecklistAdapter
     private lateinit var dialog: AlertDialog
 
+    private lateinit var tabChecklists: TabLayout
+    private lateinit var viewPager: ViewPager2
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_tela_principal)
+
+        tabChecklists = findViewById(R.id.tabChecklists)
+        viewPager = findViewById(R.id.viewPager)
+       viewPager.adapter = PagerAdapter(this)
+
+        TabLayoutMediator(tabChecklists,viewPager){ tab, index ->
+            tab.text = when(index){
+                0 -> {"Avaliações"}
+                1 -> {"Atividades"}
+                2 -> {"Lembretes"}
+                else -> throw Resources.NotFoundException("Position Not Found")
+            }
+        }.attach()
+
+
 /*
         //definindo adapter
         itemChecklistAdapter = ItemChecklistAdapter(this)
@@ -43,7 +68,6 @@ class tela_principal : AppCompatActivity() {
         val icon_estudo = findViewById<ImageView>(R.id.icon_estudo)
         val icon_auxiliares = findViewById<ImageView>(R.id.icon_auxiliares)
         val icon_calendario = findViewById<ImageView>(R.id.icon_calendario)
-        val btnAddItem2 = findViewById<Button>(R.id.btnAddItem2)
         val btnAddItem = findViewById<ImageView>(R.id.btnAddItem)
         val cumprimento = findViewById<TextView>(R.id.cumprimento)
         val btnOrdenar = findViewById<TextView>(R.id.btnOrdenar)
@@ -103,10 +127,6 @@ class tela_principal : AppCompatActivity() {
         //botões para adicionar item
         btnAddItem.setOnClickListener{
             val intent = Intent(this, adicionar_item::class.java)
-            startActivity(intent)
-        }
-        btnAddItem2.setOnClickListener{
-            val intent = Intent(this,adicionar_item::class.java)
             startActivity(intent)
         }
 
@@ -181,11 +201,12 @@ class tela_principal : AppCompatActivity() {
         dialog = build.create()
         dialog.show()
     }
+
+
+    }
 /*
     override fun onResume() {
         super.onResume()
         itemChecklistAdapter.clear()
         itemChecklistAdapter.addAll(ItemChecklistController.listaDeItensChecklist())
     }*/
-
-}

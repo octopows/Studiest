@@ -37,7 +37,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
         android:layout_marginTop="20dp"
-        android:text="Adicionar Resumo"
+        android:text="Detalhes do Resumo"
         android:textSize="18dp"
         app:layout_constraintStart_toStartOf="@+id/retanguloAddResumo"
         app:layout_constraintTop_toTopOf="@+id/retanguloAddResumo" />
@@ -55,13 +55,13 @@
         app:layout_constraintTop_toBottomOf="@+id/AdicionarResumo" />
 
     <EditText
-        android:id="@+id/campoAssunto"
+        android:id="@+id/campoTituloResumo"
         style="@style/campoTexto"
         android:layout_width="320dp"
         android:layout_height="50dp"
         android:layout_marginTop="10dp"
         android:ems="10"
-        android:maxLength="50"
+        android:maxLength="80"
         app:layout_constraintStart_toStartOf="@+id/textoAssunto"
         app:layout_constraintTop_toBottomOf="@+id/textoAssunto" />
 
@@ -72,12 +72,12 @@
         android:layout_height="50dp"
         android:layout_marginTop="10dp"
         android:ems="10"
-        android:maxLength="60"
+        android:maxLength="90"
         app:layout_constraintStart_toStartOf="@+id/textoDisciplinaResumo"
         app:layout_constraintTop_toBottomOf="@+id/textoDisciplinaResumo" />
 
     <EditText
-        android:id="@+id/campoResumo"
+        android:id="@+id/campoConteudoResumo"
         style="@style/campoTexto"
         android:layout_width="320dp"
         android:layout_height="230dp"
@@ -85,7 +85,6 @@
         android:ems="10"
         android:gravity="left|top"
         android:inputType="textMultiLine"
-        android:maxLength="250"
         android:paddingTop="12dp"
         app:layout_constraintStart_toStartOf="@+id/textoResumo"
         app:layout_constraintTop_toBottomOf="@+id/textoResumo" />
@@ -98,8 +97,8 @@
         android:layout_marginTop="10dp"
         android:text="Disciplina"
         android:textSize="16dp"
-        app:layout_constraintStart_toStartOf="@+id/campoAssunto"
-        app:layout_constraintTop_toBottomOf="@+id/campoAssunto" />
+        app:layout_constraintStart_toStartOf="@+id/campoTituloResumo"
+        app:layout_constraintTop_toBottomOf="@+id/campoTituloResumo" />
 
     <TextView
         android:id="@+id/textoResumo"
@@ -123,7 +122,7 @@
         app:srcCompat="@drawable/lixeira" />
 
     <Button
-        android:id="@+id/btnSalvarItem"
+        android:id="@+id/btnSalvarResumo"
         android:layout_width="200dp"
         android:layout_height="60dp"
         android:layout_marginEnd="30dp"

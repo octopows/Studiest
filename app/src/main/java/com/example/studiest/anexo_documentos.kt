@@ -1,22 +1,46 @@
 package com.example.studiest
 
+import android.app.Activity
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
+import android.net.Uri
 import android.os.Bundle
+import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
+import com.example.studiest.R.layout.dialog_adicionar_anexo
+
 
 class anexo_documentos : AppCompatActivity() {
 
+    val PDF: Int = 100
+    lateinit var uri: Uri
+    var uricopy: String = "Selecionar Arquivo ▼"
     private lateinit var dialog: AlertDialog
     private lateinit var dialog2: AlertDialog
+    lateinit var anexoAdapter: AnexoAdapter
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_anexo_documentos)
 
+        anexoAdapter = AnexoAdapter(this)
+        anexoAdapter.addAll(AnexoController.listaDeAnexos())
+        val semAnexos = findViewById<ImageView>(R.id.semAnexos)
+        val listViewAnexo = findViewById<ListView>(R.id.listview_anexo)
+        listViewAnexo.adapter = anexoAdapter
+
+        listViewAnexo.setEmptyView(semAnexos)
+
         val btnVoltar = findViewById<ImageView>(R.id.btnVoltar)
         val btnAddAnexo = findViewById<ImageView>(R.id.btnAddAnexo)
+
+        listViewAnexo.setOnItemClickListener{parent, view, position, id ->
+            var anexo: Anexo = AnexoController.getAnexo(position)
+             showDialogAddAnexo(position)
+        }
+
 
         //botão para voltar
         btnVoltar.setOnClickListener{
@@ -25,49 +49,101 @@ class anexo_documentos : AppCompatActivity() {
 
         //abrir dialog para add/editar anexo
         btnAddAnexo.setOnClickListener{
-            showDialogAddAnexo()
+            showDialogAddAnexo(-1)
         }
 
     }
 
+    override fun onResume() {
+        super.onResume()
+        anexoAdapter.clear()
+        anexoAdapter.addAll(AnexoController.listaDeAnexos())
 
+    }
 
     //função para chamar dialog sair
-    private fun showDialogAddAnexo(){
+    private fun showDialogAddAnexo(p: Int){
+
         val build = AlertDialog.Builder(this, R.style.ThemeCustomDialog)
-        val view = layoutInflater.inflate(R.layout.dialog_adicionar_anexo, null)
+        val view = layoutInflater.inflate(dialog_adicionar_anexo, null)
         build.setView(view)
 
-
         val cancelarAnexo = view.findViewById<TextView>(R.id.cancelarAnexo)
-        val btnConfirmarAnexo = view.findViewById<TextView>(R.id.btnConfirmarAnexo)
-        val campoNomeAnexo = view.findViewById<EditText>(R.id.campoNomeAnexo)
+        val btnConfirmarAnexo = view.findViewById<Button>(R.id.btnConfirmarAnexo)
+        val campoTituloAnexo = view.findViewById<EditText>(R.id.campoNomeAnexo)
         val btnDeletarAnexo = view.findViewById<ImageView>(R.id.btnDeletarAnexo)
+        val retanguloArquivo = view.findViewById<View>(R.id.retanguloArquivo)
+        val campoSelecionarArquivo = view.findViewById<TextView>(R.id.campoSelecionarArquivo)
+        alteraNomeArquivo(campoSelecionarArquivo)
 
-        cancelarAnexo.setOnClickListener { dialog.dismiss() }
-
-        btnDeletarAnexo.setOnClickListener {
-            showDialogDeletarAnexo() }
-
-        btnConfirmarAnexo.setOnClickListener {
-            var anexo = campoNomeAnexo.text.toString()
-
-            if(anexo.isNotEmpty()){
-                dialog.dismiss()
-                Toast.makeText(this, "Anexo Adicionado!", Toast.LENGTH_SHORT).show()
-            }
-            else{
-                campoNomeAnexo.error = if(anexo.isEmpty()) "Insira um nome para o arquivo" else null
-            }
+        retanguloArquivo.setOnClickListener {
+            val intentPDF = Intent(Intent.ACTION_GET_CONTENT)
+            intentPDF.type = "application/pdf"
+            intentPDF.addCategory(Intent.CATEGORY_OPENABLE)
+            startActivityForResult(Intent.createChooser(intentPDF, "Selecione um pdf"), PDF)
+            alteraNomeArquivo(campoSelecionarArquivo)
 
         }
 
+        cancelarAnexo.setOnClickListener { dialog.dismiss() }
+
+        var position = p
+        btnDeletarAnexo.setOnClickListener {
+            showDialogDeletarAnexo(position)
+        }
+
+        btnConfirmarAnexo.setOnClickListener {
+            var id = -1
+            val titulo = campoTituloAnexo.text.toString()
+
+            if(titulo.isNotEmpty()){
+                val anexo = Anexo(id,titulo)
+                campoTituloAnexo.text.clear()
+
+                if (p == -1){
+                    AnexoController.cadastra(anexo)
+                    /*
+                    var cadastraAnexo: CadastraAnexo? = CadastraAnexo()
+                    cadastraAnexo?.execute(anexo)
+                    cadastraAnexo= null
+
+                     */
+
+                }
+                else{
+                    val anexoEdit = AnexoController.getAnexo(p)
+                    val anexo = Anexo(anexoEdit.id,titulo)
+                    AnexoController.atualiza(p,anexo)
+                    /*
+                    var editaAnexo: EditaAnexo? = EditaAnexo()
+                    editaAnexo?.execute(anexo)
+                    editaAnexo = null
+
+                     */
+
+                }
+                dialog.dismiss()
+
+            }
+            else{
+                campoTituloAnexo.error = if(titulo.isEmpty()) "Insira um nome para o arquivo" else null
+            }
+
+            anexoAdapter.clear()
+            anexoAdapter.addAll(AnexoController.listaDeAnexos())
+        }
+
+        if (p!=-1) {
+            val anexo: Anexo = AnexoController.getAnexo(p)
+            campoTituloAnexo.setText(anexo.titulo)
+
+        }
         dialog = build.create()
         dialog.show()
     }
 
     //função para chamar dialog sair
-    private fun showDialogDeletarAnexo(){
+    private fun showDialogDeletarAnexo(p: Int){
         val build = AlertDialog.Builder(this, R.style.ThemeCustomDialog)
         val view = layoutInflater.inflate(R.layout.dialog_deletar_anexo, null)
         build.setView(view)
@@ -75,14 +151,41 @@ class anexo_documentos : AppCompatActivity() {
         val cancelarDeletarAnexo = view.findViewById<TextView>(R.id.cancelarRemoverAnexo)
         val confirmarDeletarAnexo = view.findViewById<TextView>(R.id.confirmarRemoverAnexo)
 
+
         cancelarDeletarAnexo.setOnClickListener {
             dialog2.dismiss() }
 
         confirmarDeletarAnexo.setOnClickListener {
+            if(p!=-1) {
+                val anexoEdit = AnexoController.getAnexo(p)
+              /*  val resumo = Resumo(resumoEdit.id,resumoEdit.titulo,resumoEdit.disciplina,resumoEdit.conteudo)
+                var deletaResumo: adicionar_resumo.DeletaResumo? = DeletaResumo()
+                deletaResumo?.execute(resumo)
+                deletaResumo = null*/
+                AnexoController.apaga(p)
+                anexoAdapter.clear()
+                anexoAdapter.addAll(AnexoController.listaDeAnexos())
+            }
             dialog.dismiss()
             dialog2.dismiss()
         }
         dialog2 = build.create()
         dialog2.show()
     }
+
+    override fun onActivityResult(requestCode: Int,resultCode: Int, data: Intent?){
+        super.onActivityResult(requestCode, resultCode, data)
+
+        val legendaAnexador = findViewById<TextView>(R.id.legendaAnexador)
+        if(resultCode == Activity.RESULT_OK && requestCode == PDF && data != null){
+            uri = data.data!!
+            uricopy = uri.toString()
+        }
+
+    }
+
+    fun alteraNomeArquivo(campo: TextView){
+        campo.text = uricopy
+    }
+
 }

@@ -57,7 +57,7 @@
     <TextView
         android:id="@+id/nomeUsuario"
         style="@style/nunito_semibold"
-        android:layout_width="210dp"
+        android:layout_width="200dp"
         android:layout_height="30dp"
         android:layout_marginStart="12dp"
         android:layout_marginTop="8dp"
@@ -86,10 +86,11 @@
         android:id="@+id/btnAlterarNome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
+        android:layout_marginEnd="15dp"
         app:layout_constraintBottom_toBottomOf="@+id/nomeUsuario"
-        app:layout_constraintStart_toEndOf="@+id/nomeUsuario"
+        app:layout_constraintEnd_toEndOf="@+id/faixa_perfil"
         app:layout_constraintTop_toTopOf="@+id/nomeUsuario"
+        app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/editar" />
 
     <ScrollView

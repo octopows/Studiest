@@ -62,34 +62,62 @@
     <TextView
         android:id="@+id/InstrucaoCalendario"
         style="@style/nunito_regular"
-        android:layout_width="336dp"
-        android:layout_height="49dp"
+        android:layout_width="333dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="5dp"
         android:text="Selecione uma data para saber quantos dias faltam para ela:"
         android:textSize="18dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/calendar_view" />
 
+    <View
+        android:id="@+id/fundoPara"
+        android:layout_width="338dp"
+        android:layout_height="60dp"
+        android:background="@drawable/fundo_cinza"
+        app:layout_constraintBottom_toBottomOf="@+id/Para"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/Para" />
+
+    <View
+        android:id="@+id/fundoFaltam"
+        android:layout_width="340dp"
+        android:layout_height="60dp"
+        android:background="@drawable/fundo_azul"
+        app:layout_constraintBottom_toBottomOf="@+id/Faltam"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.478"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/Faltam" />
+
     <TextView
         android:id="@+id/Para"
         style="@style/nunito_regular"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:text="PARA: "
-        android:textSize="24dp"
-        app:layout_constraintStart_toStartOf="@+id/InstrucaoCalendario"
+        android:layout_marginTop="35dp"
+        android:text="Para: "
+        android:textColor="@color/black"
+        android:textSize="20dp"
+        app:layout_constraintEnd_toEndOf="@+id/fundoPara"
+        app:layout_constraintStart_toStartOf="@+id/fundoPara"
         app:layout_constraintTop_toBottomOf="@+id/InstrucaoCalendario" />
 
     <TextView
         android:id="@+id/Faltam"
-        style="@style/nunito_regular"
+        style="@style/nunito_semibold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
-        android:text="FALTAM: "
-        android:textSize="24dp"
-        app:layout_constraintStart_toStartOf="@+id/Para"
+        android:layout_marginTop="50dp"
+        android:text="Faltam: "
+        android:textColor="@color/white"
+        android:textSize="20dp"
+        app:layout_constraintEnd_toEndOf="@+id/fundoFaltam"
+        app:layout_constraintStart_toStartOf="@+id/fundoFaltam"
         app:layout_constraintTop_toBottomOf="@+id/Para" />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
