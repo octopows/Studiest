@@ -27,7 +27,6 @@ class tela_principal : AppCompatActivity(){
 
     lateinit var itemChecklistAdapter: ItemChecklistAdapter
     private lateinit var dialog: AlertDialog
-
     private lateinit var tabChecklists: TabLayout
     private lateinit var viewPager: ViewPager2
 
@@ -70,7 +69,6 @@ class tela_principal : AppCompatActivity(){
         val icon_calendario = findViewById<ImageView>(R.id.icon_calendario)
         val btnAddItem = findViewById<ImageView>(R.id.btnAddItem)
         val cumprimento = findViewById<TextView>(R.id.cumprimento)
-        val btnOrdenar = findViewById<TextView>(R.id.btnOrdenar)
 
         val tresBarras = findViewById<ImageView>(R.id.imageView15)
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
@@ -124,9 +122,11 @@ class tela_principal : AppCompatActivity(){
             startActivity(intent)
         }
 
-        //botões para adicionar item
+        //botão para adicionar item
         btnAddItem.setOnClickListener{
+            var selecionado = tabChecklists.selectedTabPosition
             val intent = Intent(this, adicionar_item::class.java)
+            intent.putExtra("selecionado",selecionado)
             startActivity(intent)
         }
 
@@ -134,10 +134,6 @@ class tela_principal : AppCompatActivity(){
         icon_auxiliares.setOnClickListener{
             val intent = Intent(this, auxiliares_academicos::class.java)
             startActivity(intent)
-        }
-        //abrir dialog ordenar
-        btnOrdenar.setOnClickListener {
-            showDialogOrdenar()
         }
     }
 
@@ -163,41 +159,6 @@ class tela_principal : AppCompatActivity(){
             else
                 campoAddChecklist.error = if(nomeCheck.isEmpty()) "Insira um nome" else null
         }
-        dialog = build.create()
-        dialog.show()
-    }
-
-    //função para chamar dialog sair
-    private fun showDialogOrdenar(){
-        val build = AlertDialog.Builder(this, R.style.ThemeCustomDialog)
-        val view = layoutInflater.inflate(R.layout.dialog_ordenar, null)
-        build.setView(view)
-
-        val ordenarPrazo = view.findViewById<TextView>(R.id.ordenarPrazo)
-        val ordenarAlfabetica = view.findViewById<TextView>(R.id.ordenarAlfabetica)
-        val vistoPrazo = view.findViewById<ImageView>(R.id.vistoPrazo)
-        val vistoAlfabetica = view.findViewById<ImageView>(R.id.vistoAlfabetica)
-
-        ordenarPrazo.setOnClickListener {
-            ordenarPrazo.setTextColor(ContextCompat.getColor(this,R.color.azul))
-            vistoPrazo.setImageResource(R.drawable.visto)
-            ordenarAlfabetica.setTextColor(ContextCompat.getColor(this,R.color.cinza_hint))
-            vistoAlfabetica.setImageResource(0)
-            Timer().schedule(200){
-                dialog.dismiss()
-            }
-        }
-
-        ordenarAlfabetica.setOnClickListener {
-            ordenarPrazo.setTextColor(ContextCompat.getColor(this,R.color.cinza_hint))
-            vistoPrazo.setImageResource(0)
-            ordenarAlfabetica.setTextColor(ContextCompat.getColor(this,R.color.azul))
-            vistoAlfabetica.setImageResource(R.drawable.visto)
-            Timer().schedule(200){
-                dialog.dismiss()
-            }
-        }
-
         dialog = build.create()
         dialog.show()
     }

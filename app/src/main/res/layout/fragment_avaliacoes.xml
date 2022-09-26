@@ -7,10 +7,36 @@
     android:layout_height="match_parent"
     tools:context=".FragmentAvaliacoes">
 
+    <TextView
+        android:id="@+id/btnOrdenar"
+        android:elevation="100dp"
+        style="@style/nunito_bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="1dp"
+        android:text="Ordenar"
+        android:textColor="#959595"
+        android:textSize="14dp"
+        app:layout_constraintBottom_toBottomOf="@+id/iconOrdenar"
+        app:layout_constraintEnd_toStartOf="@+id/iconOrdenar"
+        app:layout_constraintTop_toTopOf="@+id/iconOrdenar" />
+
     <ImageView
-        android:id="@+id/ConcluidoAval"
-        android:layout_width="167dp"
-        android:layout_height="175dp"
+        android:id="@+id/iconOrdenar"
+        android:elevation="100dp"
+        android:layout_width="21dp"
+        android:layout_height="21dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/filtrar" />
+
+    <ImageView
+        android:id="@+id/semAvaliacoes"
+        android:layout_width="261dp"
+        android:layout_height="259dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -18,16 +44,33 @@
         app:layout_constraintVertical_bias="0.307"
         app:srcCompat="@drawable/tudo_concluido" />
 
-    <TextView
-        android:id="@+id/semAvaliacoes"
-        style="@style/nunito_regular"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/refresh_avaliacoes"
+        android:layout_marginTop="6dp"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="-20dp"
-        android:text="Sem avaliações"
-        android:textSize="18dp"
-        app:layout_constraintEnd_toEndOf="@+id/ConcluidoAval"
-        app:layout_constraintStart_toStartOf="@+id/ConcluidoAval"
-        app:layout_constraintTop_toBottomOf="@+id/ConcluidoAval" />
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="parent"
+        app:layout_constraintVertical_bias="1.0">
+
+        <ListView
+            android:id="@+id/listview_avaliacoes"
+            android:paddingTop="45dp"
+            android:listSelector="@android:color/transparent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="@android:color/transparent"
+            android:dividerHeight="1.0sp"
+            app:layout_constraintBottom_toBottomOf="@id/refresh_avaliacoes"
+            app:layout_constraintEnd_toEndOf="@id/refresh_avaliacoes"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@id/refresh_avaliacoes"
+            app:layout_constraintTop_toBottomOf="@+id/imageView3"
+            app:layout_constraintVertical_bias="0.0" />
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

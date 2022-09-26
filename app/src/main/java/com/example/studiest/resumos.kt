@@ -4,10 +4,8 @@ import android.content.Context
 import android.content.Intent
 import android.os.AsyncTask
 import android.os.Bundle
-import android.os.Handler
 import android.widget.ImageView
 import android.widget.ListView
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import org.json.JSONObject

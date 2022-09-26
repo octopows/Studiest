@@ -210,6 +210,12 @@ class entrar : AppCompatActivity() {
                 editor.putInt("id", usuario.id)
                 editor.commit()
 
+                AvaliacaoController.listaDeAvaliacoes().clear()
+                AtividadeController.listaDeAtividades().clear()
+                LembreteController.listaDeLembretes().clear()
+                ResumoController.listaDeResumos().clear()
+
+
                 //cria uma intent para chamar a proxima tela
                 val intent = Intent(applicationContext, tela_principal::class.java)
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK

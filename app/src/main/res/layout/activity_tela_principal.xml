@@ -303,36 +303,11 @@
             android:id="@+id/viewPager"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/navegacao"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tabChecklists"
-            app:layout_constraintVertical_bias="0.345" />
-
-        <TextView
-        android:id="@+id/btnOrdenar"
-        style="@style/nunito_bold"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="1dp"
-        android:text="Ordenar"
-        android:textColor="#959595"
-        android:textSize="14dp"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView4"
-        app:layout_constraintEnd_toStartOf="@+id/imageView4"
-        app:layout_constraintTop_toTopOf="@+id/imageView4" />
-
-    <ImageView
-        android:id="@+id/imageView4"
-        android:layout_width="21dp"
-        android:layout_height="21dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/barrinha"
-        app:srcCompat="@drawable/filtrar" />
+            app:layout_constraintTop_toBottomOf="@+id/tabChecklists" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

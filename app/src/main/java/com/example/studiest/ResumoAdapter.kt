@@ -5,10 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import android.widget.ImageView
 import android.widget.TextView
-import java.text.NumberFormat
-import java.util.*
 
 class ResumoAdapter(contexto: Context): ArrayAdapter<Resumo>(contexto,0) {
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {

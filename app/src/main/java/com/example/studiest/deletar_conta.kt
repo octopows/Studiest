@@ -46,8 +46,8 @@ class deletar_conta : AppCompatActivity() {
         val view = layoutInflater.inflate(R.layout.dialog_deletar, null)
         build.setView(view)
 
-        val cancelarDeletar = view.findViewById<TextView>(R.id.cancelarRemoverResumo)
-        val confirmarDeletar = view.findViewById<TextView>(R.id.confirmarRemoverResumo)
+        val cancelarDeletar = view.findViewById<TextView>(R.id.cancelarRemoverConta)
+        val confirmarDeletar = view.findViewById<TextView>(R.id.confirmarRemoverConta)
 
         cancelarDeletar.setOnClickListener { dialog.dismiss() }
 
@@ -130,6 +130,9 @@ class deletar_conta : AppCompatActivity() {
                 intent.putExtra("EXIT", true)
                 finish()
                 startActivity(intent)
+            }else{
+                dialog.dismiss()
+                Toast.makeText(this@deletar_conta, "Erro. Tente Novamente.", Toast.LENGTH_SHORT).show()
             }
         }
         //função de validar erros

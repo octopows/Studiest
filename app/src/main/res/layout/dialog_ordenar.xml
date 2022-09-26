@@ -21,32 +21,42 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/ordenarPrazo"
+        android:id="@+id/ordenarCriacao"
         style="@style/nunito_semibold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
         android:layout_marginTop="15dp"
-        android:text="Prazo"
+        android:text="Data de Criação"
         android:textColor="@color/azul"
         android:textSize="18dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/OrdenarPor" />
 
     <TextView
-        android:id="@+id/ordenarAlfabetica"
+        android:id="@+id/ordenarPrazo"
         style="@style/nunito_semibold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
         android:layout_marginTop="20dp"
         android:layout_marginBottom="20dp"
-        android:text="Ordenar Alfabética"
+        android:text="Prazo"
         android:textColor="@color/cinza_hint"
         android:textSize="18dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ordenarPrazo" />
+        app:layout_constraintTop_toBottomOf="@+id/ordenarCriacao" />
+
+    <ImageView
+        android:id="@+id/vistoCriacao"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginEnd="30dp"
+        app:layout_constraintBottom_toBottomOf="@+id/ordenarCriacao"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/ordenarCriacao"
+        app:srcCompat="@drawable/visto" />
 
     <ImageView
         android:id="@+id/vistoPrazo"
@@ -56,16 +66,6 @@
         app:layout_constraintBottom_toBottomOf="@+id/ordenarPrazo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/ordenarPrazo"
-        app:srcCompat="@drawable/visto" />
-
-    <ImageView
-        android:id="@+id/vistoAlfabetica"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:layout_marginEnd="30dp"
-        app:layout_constraintBottom_toBottomOf="@+id/ordenarAlfabetica"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/ordenarAlfabetica"
       />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

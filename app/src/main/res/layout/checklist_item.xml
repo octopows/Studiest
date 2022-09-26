@@ -2,15 +2,15 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/disciplinaItem"
+    android:descendantFocusability="blocksDescendants"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageView
+    <View
         android:id="@+id/fundoItem"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/retangulo_item_azul"
+        android:layout_width="390dp"
+        android:layout_height="125dp"
+        android:background="@drawable/retangulo_item_azul"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -18,8 +18,8 @@
 
     <ImageView
         android:id="@+id/btnMarcarConcluido"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
         android:layout_marginEnd="30dp"
         app:layout_constraintBottom_toBottomOf="@+id/fundoItem"
         app:layout_constraintEnd_toEndOf="@+id/fundoItem"
@@ -29,23 +29,29 @@
     <TextView
         android:id="@+id/tituloItem"
         style="@style/nunito_semibold"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="250dp"
+        android:layout_height="25dp"
         android:layout_marginStart="35dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="11dp"
         android:text="Título do Item"
-        android:textSize="18dp"
+        android:textSize="20dp"
+        android:autoSizeTextType="uniform"
+        android:autoSizeMaxTextSize="20dp"
+        android:autoSizeMinTextSize="10dp"
         app:layout_constraintStart_toStartOf="@+id/fundoItem"
         app:layout_constraintTop_toTopOf="@+id/fundoItem" />
 
     <TextView
-        android:id="@+id/DisciplinaItem"
+        android:id="@+id/disciplinaItem"
         style="@style/nunito_regular"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
+        android:layout_width="250dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="2dp"
         android:text="Disciplina"
         android:textSize="15dp"
+        android:autoSizeTextType="uniform"
+        android:autoSizeMaxTextSize="15dp"
+        android:autoSizeMinTextSize="10dp"
         app:layout_constraintStart_toStartOf="@+id/tituloItem"
         app:layout_constraintTop_toBottomOf="@+id/tituloItem" />
 
@@ -71,25 +77,25 @@
         android:text="Ver descrição"
         android:textColor="@color/cinza_hint"
         android:textSize="13dp"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView13"
-        app:layout_constraintStart_toEndOf="@+id/imageView13"
-        app:layout_constraintTop_toTopOf="@+id/imageView13" />
+        app:layout_constraintBottom_toBottomOf="@+id/descricaoIcon"
+        app:layout_constraintStart_toEndOf="@+id/descricaoIcon"
+        app:layout_constraintTop_toTopOf="@+id/descricaoIcon" />
 
     <ImageView
         android:id="@+id/imageView9"
         android:layout_width="14dp"
         android:layout_height="14dp"
         android:layout_marginTop="8dp"
-        app:layout_constraintStart_toStartOf="@+id/DisciplinaItem"
-        app:layout_constraintTop_toBottomOf="@+id/DisciplinaItem"
+        app:layout_constraintStart_toStartOf="@+id/disciplinaItem"
+        app:layout_constraintTop_toBottomOf="@+id/disciplinaItem"
         app:srcCompat="@drawable/relogio" />
 
     <ImageView
-        android:id="@+id/imageView13"
+        android:id="@+id/descricaoIcon"
         android:layout_width="14dp"
         android:layout_height="14dp"
         android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="@+id/imageView9"
         app:layout_constraintTop_toBottomOf="@+id/imageView9"
-        app:srcCompat="@drawable/descricao"
-        tools:layout_editor_absoluteX="43dp" />
+        app:srcCompat="@drawable/descricao" />
 </androidx.constraintlayout.widget.ConstraintLayout>

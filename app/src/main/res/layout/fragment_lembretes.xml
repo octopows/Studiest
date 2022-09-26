@@ -8,9 +8,9 @@
     tools:context=".FragmentAvaliacoes">
 
     <ImageView
-        android:id="@+id/ConcluidoLembrete"
-        android:layout_width="167dp"
-        android:layout_height="175dp"
+        android:id="@+id/semLembretes"
+        android:layout_width="261dp"
+        android:layout_height="259dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -19,15 +19,59 @@
         app:srcCompat="@drawable/tudo_concluido" />
 
     <TextView
-        android:id="@+id/semLembretes"
-        style="@style/nunito_regular"
+        android:id="@+id/btnOrdenar"
+        android:elevation="100dp"
+        style="@style/nunito_bold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="-20dp"
-        android:text="Sem lembretes"
-        android:textSize="18dp"
-        app:layout_constraintEnd_toEndOf="@+id/ConcluidoLembrete"
-        app:layout_constraintStart_toStartOf="@+id/ConcluidoLembrete"
-        app:layout_constraintTop_toBottomOf="@+id/ConcluidoLembrete" />
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="1dp"
+        android:text="Ordenar"
+        android:textColor="#959595"
+        android:textSize="14dp"
+        app:layout_constraintBottom_toBottomOf="@+id/iconOrdenar"
+        app:layout_constraintEnd_toStartOf="@+id/iconOrdenar"
+        app:layout_constraintTop_toTopOf="@+id/iconOrdenar" />
+
+    <ImageView
+        android:id="@+id/iconOrdenar"
+        android:elevation="100dp"
+        android:layout_width="21dp"
+        android:layout_height="21dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/filtrar" />
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/refresh_lembretes"
+        android:layout_marginTop="6dp"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="parent"
+        app:layout_constraintVertical_bias="1.0">
+
+        <ListView
+            android:id="@+id/listview_lembretes"
+            android:paddingTop="45dp"
+            android:listSelector="@android:color/transparent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="@android:color/transparent"
+            android:dividerHeight="1.0sp"
+            app:layout_constraintBottom_toBottomOf="@id/refresh_lembretes"
+            app:layout_constraintEnd_toEndOf="@id/refresh_lembretes"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@id/refresh_lembretes"
+            app:layout_constraintTop_toBottomOf="@+id/imageView3"
+            app:layout_constraintVertical_bias="0.0" />
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
