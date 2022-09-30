@@ -149,6 +149,8 @@ class perfil : AppCompatActivity() {
             super.onPreExecute()
             builder.setCancelable(false)
             builder.show()
+
+            dialog.dismiss()
         }
 
         override fun doInBackground(vararg params:String?): String?{
@@ -169,7 +171,7 @@ class perfil : AppCompatActivity() {
                 val conexao = (url.openConnection() as HttpURLConnection)
 
                 conexao.readTimeout = 10000
-                conexao.connectTimeout = 15000
+                conexao.connectTimeout = 10000
                 conexao.requestMethod = "POST"
                 conexao.doInput = true
                 conexao.doOutput = true
@@ -217,12 +219,14 @@ class perfil : AppCompatActivity() {
 
             //verificando se o usuario retornado foi nao nulo
             if (resposta == "sim") {
-                dialog.dismiss()
                 nomeUsuario.text = novoNome
                 val sharedPreference =  getSharedPreferences("dadosUsuario", Context.MODE_PRIVATE)
                 var editor = sharedPreference.edit()
                 editor.putString("nome",novoNome)
                 editor.commit()
+            }
+            else{
+                Toast.makeText(this@perfil, "Erro de conexão. Tente Novamente", Toast.LENGTH_SHORT).show()
             }
         }
 

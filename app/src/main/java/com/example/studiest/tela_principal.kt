@@ -1,27 +1,23 @@
 package com.example.studiest
 
-import android.app.ProgressDialog
 import android.content.Context
 import android.content.Intent
 import android.content.res.Resources
-import android.graphics.pdf.PdfDocument.Page
 import android.os.Bundle
+import android.os.Handler
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.navigation.NavigationView
-import com.google.android.material.tabs.TabItem
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
+import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.concurrent.schedule
 
 class tela_principal : AppCompatActivity(){
 
@@ -47,22 +43,15 @@ class tela_principal : AppCompatActivity(){
             }
         }.attach()
 
+        val ha = Handler()
+        ha.postDelayed(object : Runnable {
+            override fun run() {
+                var selecionado = tabChecklists.selectedTabPosition
+                quadroInformativo(selecionado)
+                ha.postDelayed(this, 500)
+            }
+        }, 500)
 
-/*
-        //definindo adapter
-        itemChecklistAdapter = ItemChecklistAdapter(this)
-        itemChecklistAdapter.addAll(ItemChecklistController.listaDeItensChecklist())
-
-        val listViewItemChecklist = findViewById<ListView>(R.id.lista_checklists)
-        listViewItemChecklist.adapter = itemChecklistAdapter
-
-        listViewItemChecklist.setOnItemClickListener { parent, view, position, id ->
-            var itemChecklist: ItemChecklist = ItemChecklistController.getItemChecklist(position)
-            val intentAlterar = Intent(this, adicionar_item::class.java)
-            intentAlterar.putExtra("p",position)
-            startActivity(intentAlterar)
-        }
-*/
         val icon_perfil = findViewById<ImageView>(R.id.icon_perfil)
         val icon_estudo = findViewById<ImageView>(R.id.icon_estudo)
         val icon_auxiliares = findViewById<ImageView>(R.id.icon_auxiliares)
@@ -77,6 +66,7 @@ class tela_principal : AppCompatActivity(){
         val headerview: View = navigationView.getHeaderView(0)
         val btnAddChecklist = headerview.findViewById<TextView>(R.id.btnAddChecklist)
         val navHeader: ConstraintLayout = headerview.findViewById(R.id.nav_header)
+
         //abrir barra de navegação lateral
         tresBarras.setOnClickListener {
             drawerLayout.openDrawer(GravityCompat.END);
@@ -137,6 +127,14 @@ class tela_principal : AppCompatActivity(){
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+
+        tabChecklists = findViewById(R.id.tabChecklists)
+        var selecionado = tabChecklists.selectedTabPosition
+
+        quadroInformativo(selecionado)
+    }
     //função para chamar dialog sair
     private fun showDialogAddChecklist(){
         val build = AlertDialog.Builder(this, R.style.ThemeCustomDialog)
@@ -163,11 +161,126 @@ class tela_principal : AppCompatActivity(){
         dialog.show()
     }
 
+    private fun quadroInformativo(tipo: Int){
+        val qtdPrioridade = findViewById<TextView>(R.id.qtdPrioridade)
+        val qtdChegando = findViewById<TextView>(R.id.qtdChegando)
+        val qtdDistante = findViewById<TextView>(R.id.qtdDistante)
+
+        if(tipo ==0){
+            var lista = AvaliacaoController.listaDeAvaliacoes()
+            var prioridade = 0
+            var chegando = 0
+            var distante = 0
+
+            for (j in 0 until lista.size) {
+                var item = AvaliacaoController.getAvaliacao(j)
+                val data = SimpleDateFormat("dd/MM/yyyy").parse(item.prazo)
+
+                val data_atual = Date()
+                val diff =  (data.time - data_atual.time)/(24*60*60*1000).toLong()
+                if(diff >= 2){
+                    distante=distante+1
+                } else if(diff>=1){
+                    chegando = chegando+1
+                } else if(diff<1){
+                    prioridade = prioridade+1
+                }
+            }
+            //definindo os valores do quadro
+            if(prioridade>0){
+                qtdPrioridade.text = prioridade.toString()
+            }else{
+                qtdPrioridade.text = "-"
+            }
+
+            if(chegando>0){
+                qtdChegando.text = chegando.toString()
+            }else
+                qtdChegando.text = "-"
+
+            if(distante>0){
+                qtdDistante.text = distante.toString()
+            }else{
+                qtdDistante.text = "-"
+            }
+        } else if(tipo ==1){
+            var lista = AtividadeController.listaDeAtividades()
+            var prioridade = 0
+            var chegando = 0
+            var distante = 0
+
+            for (j in 0 until lista.size) {
+                var item = AtividadeController.getAtividade(j)
+                val data = SimpleDateFormat("dd/MM/yyyy").parse(item.prazo)
+
+                val data_atual = Date()
+                val diff =  (data.time - data_atual.time)/(24*60*60*1000).toLong()
+                if(diff >= 2){
+                    distante=distante+1
+                } else if(diff>=1){
+                    chegando = chegando+1
+                } else if(diff<1){
+                    prioridade = prioridade+1
+                }
+            }
+            //definindo os valores do quadro
+            if(prioridade>0){
+                qtdPrioridade.text = prioridade.toString()
+            }else{
+                qtdPrioridade.text = "-"
+            }
+
+            if(chegando>0){
+                qtdChegando.text = chegando.toString()
+            }else
+                qtdChegando.text = "-"
+
+            if(distante>0){
+                qtdDistante.text = distante.toString()
+            }else{
+                qtdDistante.text = "-"
+            }
+        }else if (tipo ==2){
+            var lista = LembreteController.listaDeLembretes()
+            var prioridade = 0
+            var chegando = 0
+            var distante = 0
+
+            for (j in 0 until lista.size) {
+                var item = LembreteController.getLembrete(j)
+                val data = SimpleDateFormat("dd/MM/yyyy").parse(item.prazo)
+
+                val data_atual = Date()
+                val diff =  (data.time - data_atual.time)/(24*60*60*1000).toLong()
+                if(diff >= 2){
+                    distante=distante+1
+                } else if(diff>=1){
+                    chegando = chegando+1
+                } else if(diff<1){
+                    prioridade = prioridade+1
+                }
+            }
+            //definindo os valores do quadro
+            if(prioridade>0){
+                qtdPrioridade.text = prioridade.toString()
+            }else{
+                qtdPrioridade.text = "-"
+            }
+
+            if(chegando>0){
+                qtdChegando.text = chegando.toString()
+            }else
+                qtdChegando.text = "-"
+
+            if(distante>0){
+                qtdDistante.text = distante.toString()
+            }else{
+                qtdDistante.text = "-"
+            }
+        }
+
+
+
 
     }
-/*
-    override fun onResume() {
-        super.onResume()
-        itemChecklistAdapter.clear()
-        itemChecklistAdapter.addAll(ItemChecklistController.listaDeItensChecklist())
-    }*/
+}

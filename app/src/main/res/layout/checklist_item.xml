@@ -18,6 +18,7 @@
 
     <ImageView
         android:id="@+id/btnMarcarConcluido"
+        android:elevation="10dp"
         android:layout_width="45dp"
         android:layout_height="45dp"
         android:layout_marginEnd="30dp"

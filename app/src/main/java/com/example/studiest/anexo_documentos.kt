@@ -1,6 +1,7 @@
 package com.example.studiest
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -14,8 +15,7 @@ import com.example.studiest.R.layout.dialog_adicionar_anexo
 class anexo_documentos : AppCompatActivity() {
 
     val PDF: Int = 100
-    lateinit var uri: Uri
-    var uricopy: String = "Selecionar Arquivo ▼"
+    lateinit var arquivo: ByteArray
     private lateinit var dialog: AlertDialog
     private lateinit var dialog2: AlertDialog
     lateinit var anexoAdapter: AnexoAdapter
@@ -74,14 +74,12 @@ class anexo_documentos : AppCompatActivity() {
         val btnDeletarAnexo = view.findViewById<ImageView>(R.id.btnDeletarAnexo)
         val retanguloArquivo = view.findViewById<View>(R.id.retanguloArquivo)
         val campoSelecionarArquivo = view.findViewById<TextView>(R.id.campoSelecionarArquivo)
-        alteraNomeArquivo(campoSelecionarArquivo)
 
         retanguloArquivo.setOnClickListener {
             val intentPDF = Intent(Intent.ACTION_GET_CONTENT)
             intentPDF.type = "application/pdf"
             intentPDF.addCategory(Intent.CATEGORY_OPENABLE)
             startActivityForResult(Intent.createChooser(intentPDF, "Selecione um pdf"), PDF)
-            alteraNomeArquivo(campoSelecionarArquivo)
 
         }
 
@@ -177,15 +175,17 @@ class anexo_documentos : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
 
         val legendaAnexador = findViewById<TextView>(R.id.legendaAnexador)
-        if(resultCode == Activity.RESULT_OK && requestCode == PDF && data != null){
-            uri = data.data!!
-            uricopy = uri.toString()
+        if(resultCode == Activity.RESULT_OK && requestCode == PDF && data != null && data.data != null ){
+            val selectedPdfFromStorage = data.data
+            openPDF(this,selectedPdfFromStorage)
         }
 
     }
 
-    fun alteraNomeArquivo(campo: TextView){
-        campo.text = uricopy
+    fun openPDF(context: Context, localUri: Uri?) {
+        val i = Intent(Intent.ACTION_VIEW)
+        i.setDataAndType(localUri, "application/pdf")
+        context.startActivity(i)
     }
 
 }

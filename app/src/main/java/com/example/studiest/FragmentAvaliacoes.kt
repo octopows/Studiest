@@ -4,12 +4,15 @@ import android.content.Context
 import android.content.Intent
 import android.os.AsyncTask
 import android.os.Bundle
+import android.os.Handler
+import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.ListView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -21,6 +24,7 @@ import java.io.OutputStream
 import java.net.HttpURLConnection
 import java.net.URL
 import java.nio.charset.Charset
+import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.concurrent.schedule
 
@@ -42,6 +46,7 @@ class FragmentAvaliacoes : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
+
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_avaliacoes, container, false)
     }
@@ -52,6 +57,7 @@ class FragmentAvaliacoes : Fragment() {
         itemChecklistAdapter = ItemChecklistAdapter(requireContext())
 
         if(sortType == 1){
+            AvaliacaoController.sortCriacao()
             itemChecklistAdapter.addAll(AvaliacaoController.listaDeAvaliacoes())
         }else if(sortType == 2){
             AvaliacaoController.sortPrazo()
@@ -70,18 +76,36 @@ class FragmentAvaliacoes : Fragment() {
             intentAlterar.putExtra("p",position)
             intentAlterar.putExtra("selecionado",0)
             activity?.startActivity(intentAlterar)
+
         }
 
         var avaliacoesDownload = AvaliacoesDownload()
         avaliacoesDownload?.execute()
 
-
         val refresh = view.findViewById<SwipeRefreshLayout>(R.id.refresh_avaliacoes)
         refresh.setOnRefreshListener {
             var avaliacoesDownload = AvaliacoesDownload()
             avaliacoesDownload?.execute()
-
         }
+
+        val ha = Handler()
+        ha.postDelayed(object : Runnable {
+            override fun run() {
+                val sharedPreference = getActivity()?.getSharedPreferences("dadosUsuario", Context.MODE_PRIVATE)
+                var valor = sharedPreference?.getInt("deletarItem",-1)
+
+                if(valor!=0){
+                    var avaliacoesDownload = AvaliacoesDownload()
+                    avaliacoesDownload?.execute()
+                    itemChecklistAdapter.clear()
+                    itemChecklistAdapter.addAll(AvaliacaoController.listaDeAvaliacoes())
+                    var editor = sharedPreference?.edit()
+                    editor?.putInt("deletarItem", 0)
+                    editor?.commit()
+                }
+                ha.postDelayed(this, 100)
+            }
+        }, 100)
 
         val btnOrdenar = view.findViewById<TextView>(R.id.btnOrdenar)
 
@@ -102,6 +126,9 @@ class FragmentAvaliacoes : Fragment() {
             AvaliacaoController.sortPrazo()
             itemChecklistAdapter.addAll(AvaliacaoController.listaDeAvaliacoes())
         }
+        var avaliacoesDownload = AvaliacoesDownload()
+        avaliacoesDownload?.execute()
+
 
     }
 
@@ -161,6 +188,7 @@ class FragmentAvaliacoes : Fragment() {
 
                 if(sortType == 1){
                     itemChecklistAdapter.clear()
+                    AvaliacaoController.sortCriacao()
                     itemChecklistAdapter.addAll(AvaliacaoController.listaDeAvaliacoes())
                 }else if(sortType == 2){
                     itemChecklistAdapter.clear()
@@ -244,9 +272,10 @@ class FragmentAvaliacoes : Fragment() {
 
         ordenarCriacao.setOnClickListener {
             sortType = 1
-            var avaliacoesDownload = AvaliacoesDownload()
-            avaliacoesDownload?.execute()
 
+            itemChecklistAdapter.clear()
+            AvaliacaoController.sortCriacao()
+            itemChecklistAdapter.addAll(AvaliacaoController.listaDeAvaliacoes())
             ordenarPrazo.setTextColor(ContextCompat.getColor(requireActivity(),R.color.cinza_hint))
             vistoPrazo.setImageResource(0)
             ordenarCriacao.setTextColor(ContextCompat.getColor(requireActivity(),R.color.azul))
@@ -259,4 +288,5 @@ class FragmentAvaliacoes : Fragment() {
         dialog = build.create()
         dialog.show()
     }
+
 }

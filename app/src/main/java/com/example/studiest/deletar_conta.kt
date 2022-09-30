@@ -21,13 +21,27 @@ import java.nio.charset.Charset
 
 class deletar_conta : AppCompatActivity() {
     private lateinit var dialog: AlertDialog
+    private lateinit var builder: Dialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_deletar_conta)
 
+        builder = Dialog(this)
+
         val btnVoltar = findViewById<ImageView>(R.id.btnVoltar)
         val btnConfirmarDeletar = findViewById<Button>(R.id.btnConfirmarDeletar)
+        val nomeUsuario = findViewById<TextView>(R.id.nomeUsuario)
+        val emailUsuario = findViewById<TextView>(R.id.emailUsuario)
+
+        //colocando informações do usuário
+        val sharedPreference =  getSharedPreferences("dadosUsuario", Context.MODE_PRIVATE)
+        var nome = sharedPreference.getString("nome","Null")
+        var email = sharedPreference.getString("email","Null")
+
+        nomeUsuario.text = "$nome"
+        emailUsuario.text = "$email"
+
 
         //botão para voltar
         btnVoltar.setOnClickListener{
@@ -65,6 +79,10 @@ class deletar_conta : AppCompatActivity() {
     inner class DeletaConta: AsyncTask<String?, Void, String?>(){
         override fun onPreExecute() {
             super.onPreExecute()
+            builder.setCancelable(false)
+            builder.show()
+            dialog.dismiss()
+
         }
 
         override fun doInBackground(vararg params:String?): String?{
@@ -81,7 +99,7 @@ class deletar_conta : AppCompatActivity() {
                 val conexao = (url.openConnection() as HttpURLConnection)
 
                 conexao.readTimeout = 10000
-                conexao.connectTimeout = 15000
+                conexao.connectTimeout = 10000
                 conexao.requestMethod = "POST"
                 conexao.doInput = true
                 conexao.doOutput = true
@@ -119,11 +137,11 @@ class deletar_conta : AppCompatActivity() {
         override fun onPostExecute(resultado: String?) {
             super.onPostExecute(resultado)
 
+            builder.dismiss()
             val sharedPreference =  getSharedPreferences("dadosUsuario", Context.MODE_PRIVATE)
 
             //verificando se o usuario retornado foi nao nulo
             if (resultado == "sim") {
-                dialog.dismiss()
                 sharedPreference.edit().clear().commit();
                 val intent = Intent(applicationContext, bemvindo::class.java)
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
@@ -131,7 +149,6 @@ class deletar_conta : AppCompatActivity() {
                 finish()
                 startActivity(intent)
             }else{
-                dialog.dismiss()
                 Toast.makeText(this@deletar_conta, "Erro. Tente Novamente.", Toast.LENGTH_SHORT).show()
             }
         }

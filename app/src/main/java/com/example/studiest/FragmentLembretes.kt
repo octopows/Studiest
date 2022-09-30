@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.AsyncTask
 import android.os.Bundle
+import android.os.Handler
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -21,6 +22,7 @@ import java.io.OutputStream
 import java.net.HttpURLConnection
 import java.net.URL
 import java.nio.charset.Charset
+import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.concurrent.schedule
 
@@ -50,6 +52,7 @@ class FragmentLembretes : Fragment() {
         itemChecklistAdapter = ItemChecklistAdapter(requireContext())
 
         if(sortType == 1){
+            LembreteController.sortCriacao()
             itemChecklistAdapter.addAll(LembreteController.listaDeLembretes())
         }else if(sortType == 2){
             LembreteController.sortPrazo()
@@ -58,6 +61,7 @@ class FragmentLembretes : Fragment() {
 
         val listViewLembretes = view.findViewById<ListView>(R.id.listview_lembretes)
         listViewLembretes.adapter = itemChecklistAdapter
+
 
         val semLembretes = view.findViewById<ImageView>(R.id.semLembretes)
         listViewLembretes.setEmptyView(semLembretes)
@@ -79,6 +83,25 @@ class FragmentLembretes : Fragment() {
             lembretesDownload?.execute()
         }
 
+        val ha = Handler()
+        ha.postDelayed(object : Runnable {
+            override fun run() {
+                val sharedPreference = getActivity()?.getSharedPreferences("dadosUsuario", Context.MODE_PRIVATE)
+                var valor = sharedPreference?.getInt("deletarItem",-1)
+
+                if(valor!=0){
+                    var lembretesDownload = LembretesDownload()
+                    lembretesDownload?.execute()
+                    itemChecklistAdapter.clear()
+                    itemChecklistAdapter.addAll(LembreteController.listaDeLembretes())
+                    var editor = sharedPreference?.edit()
+                    editor?.putInt("deletarItem", 0)
+                    editor?.commit()
+                }
+                ha.postDelayed(this, 100)
+            }
+        }, 100)
+
         val btnOrdenar = view.findViewById<TextView>(R.id.btnOrdenar)
 
         //abrir dialog ordenar
@@ -98,6 +121,8 @@ class FragmentLembretes : Fragment() {
             LembreteController.sortPrazo()
             itemChecklistAdapter.addAll(LembreteController.listaDeLembretes())
         }
+        var lembretesDownload = LembretesDownload()
+        lembretesDownload?.execute()
     }
 
     inner class LembretesDownload : AsyncTask<Void, Void, List<ItemChecklist>?>() {
@@ -154,9 +179,9 @@ class FragmentLembretes : Fragment() {
                 LembreteController.listaDeLembretes().clear()
                 LembreteController.listaDeLembretes().addAll(lembretes)
 
-
                 if(sortType == 1){
                     itemChecklistAdapter.clear()
+                    LembreteController.sortCriacao()
                     itemChecklistAdapter.addAll(LembreteController.listaDeLembretes())
                 }else if(sortType == 2){
                     itemChecklistAdapter.clear()
@@ -240,8 +265,10 @@ class FragmentLembretes : Fragment() {
 
         ordenarCriacao.setOnClickListener {
             sortType = 1
-            var lembretesDownload = LembretesDownload()
-            lembretesDownload?.execute()
+
+            itemChecklistAdapter.clear()
+            LembreteController.sortCriacao()
+            itemChecklistAdapter.addAll(LembreteController.listaDeLembretes())
 
             ordenarPrazo.setTextColor(ContextCompat.getColor(requireActivity(),R.color.cinza_hint))
             vistoPrazo.setImageResource(0)
@@ -255,4 +282,5 @@ class FragmentLembretes : Fragment() {
         dialog = build.create()
         dialog.show()
     }
+
 }

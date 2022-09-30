@@ -1,10 +1,16 @@
 package com.example.studiest
 
+import java.text.SimpleDateFormat
+
 object AtividadeController {
 
     private val ATIVIDADES: MutableList<ItemChecklist> = arrayListOf()
 
-    fun sortPrazo() = ATIVIDADES.sortBy{it.prazo}
+    fun sortPrazo() = ATIVIDADES.sortBy{
+        val data = SimpleDateFormat("dd/MM/yyyy").parse(it.prazo)
+        data}
+
+    fun sortCriacao() = ATIVIDADES.sortBy{it.id}
 
     fun cadastra(itemChecklist: ItemChecklist){
         ATIVIDADES.add(itemChecklist)

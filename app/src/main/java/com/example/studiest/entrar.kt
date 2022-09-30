@@ -150,7 +150,7 @@ class entrar : AppCompatActivity() {
                 val conexao = (url.openConnection() as HttpURLConnection)
 
                 conexao.readTimeout = 10000
-                conexao.connectTimeout = 15000
+                conexao.connectTimeout = 10000
                 conexao.requestMethod = "POST"
                 conexao.doInput = true
                 conexao.doOutput = true

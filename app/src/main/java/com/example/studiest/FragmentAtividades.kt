@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.AsyncTask
 import android.os.Bundle
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,6 +22,7 @@ import java.io.OutputStream
 import java.net.HttpURLConnection
 import java.net.URL
 import java.nio.charset.Charset
+import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.concurrent.schedule
 
@@ -50,6 +52,7 @@ class FragmentAtividades : Fragment() {
         itemChecklistAdapter = ItemChecklistAdapter(requireContext())
 
         if(sortType == 1){
+            AtividadeController.sortCriacao()
             itemChecklistAdapter.addAll(AtividadeController.listaDeAtividades())
         }else if(sortType == 2){
             AtividadeController.sortPrazo()
@@ -80,6 +83,28 @@ class FragmentAtividades : Fragment() {
 
         }
 
+        val ha = Handler()
+        ha.postDelayed(object : Runnable {
+            override fun run() {
+                val sharedPreference = getActivity()?.getSharedPreferences("dadosUsuario", Context.MODE_PRIVATE)
+                var valor = sharedPreference?.getInt("deletarItem",-1)
+
+                if(valor!=0){
+                    var atividadesDownload = AtividadesDownload()
+                    atividadesDownload?.execute()
+                    itemChecklistAdapter.clear()
+                    itemChecklistAdapter.addAll(AtividadeController.listaDeAtividades())
+                    var editor = sharedPreference?.edit()
+                    editor?.putInt("deletarItem", 0)
+                    editor?.commit()
+                }
+                var atividadesDownload = AtividadesDownload()
+                atividadesDownload?.execute()
+
+                ha.postDelayed(this, 100)
+            }
+        }, 100)
+
         val btnOrdenar = view.findViewById<TextView>(R.id.btnOrdenar)
 
         //abrir dialog ordenar
@@ -99,6 +124,9 @@ class FragmentAtividades : Fragment() {
             AtividadeController.sortPrazo()
             itemChecklistAdapter.addAll(AtividadeController.listaDeAtividades())
         }
+        var atividadesDownload = AtividadesDownload()
+        atividadesDownload?.execute()
+
     }
 
     inner class AtividadesDownload : AsyncTask<Void, Void, List<ItemChecklist>?>() {
@@ -157,6 +185,7 @@ class FragmentAtividades : Fragment() {
 
                 if(sortType == 1){
                     itemChecklistAdapter.clear()
+                    AtividadeController.sortCriacao()
                     itemChecklistAdapter.addAll(AtividadeController.listaDeAtividades())
                 }else if(sortType == 2){
                     itemChecklistAdapter.clear()
@@ -224,7 +253,6 @@ class FragmentAtividades : Fragment() {
 
         ordenarPrazo.setOnClickListener {
             sortType = 2
-
             itemChecklistAdapter.clear()
             AtividadeController.sortPrazo()
             itemChecklistAdapter.addAll(AtividadeController.listaDeAtividades())
@@ -240,8 +268,9 @@ class FragmentAtividades : Fragment() {
 
         ordenarCriacao.setOnClickListener {
             sortType = 1
-            var atividadesDownload = AtividadesDownload()
-            atividadesDownload?.execute()
+            itemChecklistAdapter.clear()
+            AtividadeController.sortCriacao()
+            itemChecklistAdapter.addAll(AtividadeController.listaDeAtividades())
 
             ordenarPrazo.setTextColor(ContextCompat.getColor(requireActivity(),R.color.cinza_hint))
             vistoPrazo.setImageResource(0)

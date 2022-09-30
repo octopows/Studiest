@@ -1,10 +1,17 @@
 package com.example.studiest
 
+import java.text.SimpleDateFormat
+
 object AvaliacaoController {
 
     private val AVALIACOES: MutableList<ItemChecklist> = arrayListOf()
 
-    fun sortPrazo() = AVALIACOES.sortBy{it.prazo}
+    fun sortPrazo() = AVALIACOES.sortBy{
+        val data = SimpleDateFormat("dd/MM/yyyy").parse(it.prazo)
+        data
+    }
+
+    fun sortCriacao() = AVALIACOES.sortBy{it.id}
 
     fun cadastra(itemChecklist: ItemChecklist){
         AVALIACOES.add(itemChecklist)

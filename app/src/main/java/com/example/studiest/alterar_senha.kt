@@ -195,6 +195,8 @@ class alterar_senha : AppCompatActivity() {
             //verificando se o usuario retornado foi nao nulo
             if (resultado == "sim") {
                 Toast.makeText(applicationContext, "Senha alterada com sucesso!", Toast.LENGTH_SHORT).show()
+            }else{
+                Toast.makeText(applicationContext, "Erro de conexão. Tente Novamente", Toast.LENGTH_SHORT).show()
             }
         }
         //função de validar erros

@@ -1,7 +1,6 @@
 package com.example.studiest
 
 import android.app.DatePickerDialog
-import android.content.ClipData.Item
 import android.content.Context
 import android.content.Intent
 import android.os.AsyncTask
@@ -15,7 +14,6 @@ import java.io.InputStream
 import java.io.OutputStream
 import java.net.HttpURLConnection
 import java.net.URL
-import java.net.URLConnection
 import java.nio.charset.Charset
 import java.util.*
 
