@@ -1,13 +1,19 @@
 package com.example.studiest
 
+import NotificationUtils
 import android.app.DatePickerDialog
 import android.content.Context
 import android.content.Intent
+import android.icu.text.DateFormat
+import android.icu.text.SimpleDateFormat
 import android.os.AsyncTask
-import androidx.appcompat.app.AppCompatActivity
+import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.widget.*
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import org.json.JSONObject
 import java.io.ByteArrayOutputStream
 import java.io.InputStream
@@ -21,6 +27,7 @@ class adicionar_item : AppCompatActivity() {
 
     private lateinit var dialog: AlertDialog
 
+    @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_adicionar_item)
@@ -100,7 +107,6 @@ class adicionar_item : AppCompatActivity() {
                 campoDisciplinaItem.text.clear()
                 campoDescricaoItem.text.clear()
                 campoPrazo.text = "Selecionar ▼"
-
                 if (p == -1){
                     if(tipo == 0){
                        AvaliacaoController.cadastra(item)
@@ -126,6 +132,7 @@ class adicionar_item : AppCompatActivity() {
                         var editaItem: EditaItem? = EditaItem()
                         editaItem?.execute(item)
                         editaItem = null
+                        NotificationUtils.notificationSimple(applicationContext, item?.titulo, item?.tipo, item?.id)
 
                     } else if(tipo == 1){
                         val itemEdit =AtividadeController.getAtividade(p)
@@ -138,6 +145,7 @@ class adicionar_item : AppCompatActivity() {
                         var editaItem: EditaItem? = EditaItem()
                         editaItem?.execute(item)
                         editaItem = null
+                        NotificationUtils.notificationSimple(applicationContext, item?.titulo, item?.tipo, item?.id)
                     } else if(tipo == 2){
                         val itemEdit =LembreteController.getLembrete(p)
                         if(prazoLimpo != null){
@@ -149,10 +157,26 @@ class adicionar_item : AppCompatActivity() {
                         var editaItem: EditaItem? = EditaItem()
                         editaItem?.execute(item)
                         editaItem = null
+                        NotificationUtils.notificationSimple(applicationContext, item?.titulo, item?.tipo, item?.id)
 
                     }
                 }
-                finish()
+                NotificationUtils.notificationSimple(applicationContext, item?.titulo, item?.tipo, item?.id)
+                        try {
+                            val yourDate = "03/10/2022"
+                            val yourHour = "16:40:10"
+                            val d = Date()
+
+                            val date: DateFormat = SimpleDateFormat("dd/MM/yyyy")
+                            val hour: DateFormat = SimpleDateFormat("HH:mm:ss")
+                            if (date.equals(yourDate) && hour.equals(yourHour)) {
+                                NotificationUtils.notificationSimple(applicationContext, item?.titulo, item?.tipo, item?.id)
+                            }
+                        }catch (e: Exception) {
+                            e.printStackTrace()
+                        }
+
+                    finish()
             }else{
                 if(campoPrazo.text == "Selecionar ▼"){
                     Toast.makeText(this, "Selecione uma data", Toast.LENGTH_SHORT).show()
