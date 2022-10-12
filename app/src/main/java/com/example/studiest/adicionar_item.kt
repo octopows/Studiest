@@ -9,6 +9,7 @@ import android.icu.text.SimpleDateFormat
 import android.os.AsyncTask
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import android.widget.*
 import androidx.annotation.RequiresApi
@@ -31,7 +32,6 @@ class adicionar_item : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_adicionar_item)
-
 
         val btnVoltar = findViewById<ImageView>(R.id.btnVoltar)
         val campoDataEntrega = findViewById<TextView>(R.id.campoPrazo)
@@ -132,7 +132,6 @@ class adicionar_item : AppCompatActivity() {
                         var editaItem: EditaItem? = EditaItem()
                         editaItem?.execute(item)
                         editaItem = null
-                        NotificationUtils.notificationSimple(applicationContext, item?.titulo, item?.tipo, item?.id)
 
                     } else if(tipo == 1){
                         val itemEdit =AtividadeController.getAtividade(p)
@@ -145,7 +144,6 @@ class adicionar_item : AppCompatActivity() {
                         var editaItem: EditaItem? = EditaItem()
                         editaItem?.execute(item)
                         editaItem = null
-                        NotificationUtils.notificationSimple(applicationContext, item?.titulo, item?.tipo, item?.id)
                     } else if(tipo == 2){
                         val itemEdit =LembreteController.getLembrete(p)
                         if(prazoLimpo != null){
@@ -157,25 +155,8 @@ class adicionar_item : AppCompatActivity() {
                         var editaItem: EditaItem? = EditaItem()
                         editaItem?.execute(item)
                         editaItem = null
-                        NotificationUtils.notificationSimple(applicationContext, item?.titulo, item?.tipo, item?.id)
-
                     }
                 }
-                NotificationUtils.notificationSimple(applicationContext, item?.titulo, item?.tipo, item?.id)
-                        try {
-                            val yourDate = "03/10/2022"
-                            val yourHour = "16:40:10"
-                            val d = Date()
-
-                            val date: DateFormat = SimpleDateFormat("dd/MM/yyyy")
-                            val hour: DateFormat = SimpleDateFormat("HH:mm:ss")
-                            if (date.equals(yourDate) && hour.equals(yourHour)) {
-                                NotificationUtils.notificationSimple(applicationContext, item?.titulo, item?.tipo, item?.id)
-                            }
-                        }catch (e: Exception) {
-                            e.printStackTrace()
-                        }
-
                     finish()
             }else{
                 if(campoPrazo.text == "Selecionar ▼"){
@@ -280,11 +261,11 @@ class adicionar_item : AppCompatActivity() {
                 var url: URL? = null
 
                 if(item.tipo == 0){
-                    url = URL("http://192.168.1.11:8080/Studiest/cadastraAvaliacao.php")
+                    url = URL("http://studiestoficial.000webhostapp.com/app/cadastraAvaliacao.php")
                 } else if(item.tipo == 1){
-                    url = URL("http://192.168.1.11:8080/Studiest/cadastraAtividade.php")
+                    url = URL("http://studiestoficial.000webhostapp.com/app/cadastraAtividade.php")
                 } else if(item.tipo == 2){
-                    url = URL("http://192.168.1.11:8080/Studiest/cadastraLembrete.php")
+                    url = URL("http://studiestoficial.000webhostapp.com/app/cadastraLembrete.php")
                 }
 
                 val conexao = (url!!.openConnection() as HttpURLConnection)
@@ -357,11 +338,11 @@ class adicionar_item : AppCompatActivity() {
                 var url: URL? = null
 
                 if(item.tipo == 0){
-                    url = URL("http://192.168.1.11:8080/Studiest/editaAvaliacao.php")
+                    url = URL("http://studiestoficial.000webhostapp.com/app/editaAvaliacao.php")
                 } else if(item.tipo == 1){
-                    url = URL("http://192.168.1.11:8080/Studiest/editaAtividade.php")
+                    url = URL("http://studiestoficial.000webhostapp.com/app/editaAtividade.php")
                 } else if(item.tipo == 2){
-                    url = URL("http://192.168.1.11:8080/Studiest/editaLembrete.php")
+                    url = URL("http://studiestoficial.000webhostapp.com/app/editaLembrete.php")
                 }
 
                 val conexao = (url!!.openConnection() as HttpURLConnection)
@@ -435,11 +416,11 @@ class adicionar_item : AppCompatActivity() {
                 var url: URL? = null
 
                 if(item.tipo == 0){
-                    url = URL("http://192.168.1.11:8080/Studiest/deletaAvaliacao.php")
+                    url = URL("http://studiestoficial.000webhostapp.com/app/deletaAvaliacao.php")
                 } else if(item.tipo == 1){
-                    url = URL("http://192.168.1.11:8080/Studiest/deletaAtividade.php")
+                    url = URL("http://studiestoficial.000webhostapp.com/app/deletaAtividade.php")
                 } else if(item.tipo == 2){
-                    url = URL("http://192.168.1.11:8080/Studiest/deletaLembrete.php")
+                    url = URL("http://studiestoficial.000webhostapp.com/app/deletaLembrete.php")
                 }
 
                 val conexao = (url!!.openConnection() as HttpURLConnection)

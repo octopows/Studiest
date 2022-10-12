@@ -146,7 +146,7 @@ class entrar : AppCompatActivity() {
 
             //tentar estabelecer conexão com a internet
             try {
-                val url = URL("http://192.168.1.11:8080/Studiest/verificaUsuario.php")
+                val url = URL("http://studiestoficial.000webhostapp.com/app/verificaUsuario.php")
                 val conexao = (url.openConnection() as HttpURLConnection)
 
                 conexao.readTimeout = 10000
@@ -208,6 +208,7 @@ class entrar : AppCompatActivity() {
                 editor.putString("nome", usuario.nome)
                 editor.putString("email", usuario.email)
                 editor.putInt("id", usuario.id)
+                editor.putInt("notStatus",1)
                 editor.commit()
 
                 AvaliacaoController.listaDeAvaliacoes().clear()

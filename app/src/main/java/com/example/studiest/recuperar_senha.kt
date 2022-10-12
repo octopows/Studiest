@@ -82,7 +82,7 @@ class recuperar_senha : AppCompatActivity() {
 
             //tentar estabelecer conexão com a internet
             try {
-                val url = URL("http://192.168.1.11:8080/Studiest/validaEmail.php")
+                val url = URL("http://studiestoficial.000webhostapp.com/app/enviaEmail.php")
                 val conexao = (url.openConnection() as HttpURLConnection)
 
                 conexao.readTimeout = 10000
@@ -129,7 +129,7 @@ class recuperar_senha : AppCompatActivity() {
             val campoErroRecuperar = findViewById<TextView>(R.id.campoErroRecuperar)
             var email = campoEmailRecuperar.text.toString()
             //verificando se o usuario retornado foi nao nulo
-            if (resultado == "sim") {
+            if (resultado != null) {
                 campoErroRecuperar.text = ""
                 campoEmailRecuperar.setBackgroundResource(R.drawable.custom_input)
                 val intent = Intent(applicationContext, verificar_email::class.java)
@@ -142,6 +142,7 @@ class recuperar_senha : AppCompatActivity() {
                 campoEmailRecuperar.setCompoundDrawablesWithIntrinsicBounds(R.drawable.email, 0, 0, 0);
             }
         }
+
         //função de validar erros
 
         private fun streamToString(inputStream: InputStream): String {

@@ -135,7 +135,7 @@ class adicionar_resumo : AppCompatActivity() {
             val resumo : Resumo = params[0] as Resumo
 
             try {
-                val url = URL("http://192.168.1.11:8080/Studiest/cadastraResumo.php")
+                val url = URL("http://studiestoficial.000webhostapp.com/app/cadastraResumo.php")
                 val conexao = (url.openConnection() as HttpURLConnection)
 
                 conexao.readTimeout = 15000
@@ -201,7 +201,7 @@ class adicionar_resumo : AppCompatActivity() {
             val resumo : Resumo = params[0] as Resumo
 
             try {
-                val url = URL("http://192.168.1.11:8080/Studiest/editaResumo.php")
+                val url = URL("http://studiestoficial.000webhostapp.com/app/editaResumo.php")
                 val conexao = (url.openConnection() as HttpURLConnection)
 
                 conexao.readTimeout = 15000
@@ -274,7 +274,7 @@ class adicionar_resumo : AppCompatActivity() {
             val resumo : Resumo = params[0] as Resumo
 
             try {
-                val url = URL("http://192.168.1.11:8080/Studiest/deletaResumo.php")
+                val url = URL("http://studiestoficial.000webhostapp.com/app/deletaResumo.php")
                 val conexao = (url.openConnection() as HttpURLConnection)
 
                 conexao.readTimeout = 15000

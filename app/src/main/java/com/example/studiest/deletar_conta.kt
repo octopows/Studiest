@@ -95,7 +95,7 @@ class deletar_conta : AppCompatActivity() {
 
             //tentar estabelecer conexão com a internet
             try {
-                val url = URL("http://192.168.1.11:8080/Studiest/deletaConta.php")
+                val url = URL("http://studiestoficial.000webhostapp.com/app/deletaConta.php")
                 val conexao = (url.openConnection() as HttpURLConnection)
 
                 conexao.readTimeout = 10000

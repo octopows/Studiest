@@ -3,6 +3,7 @@ package com.example.studiest
 import android.content.Context
 import android.content.Intent
 import android.content.res.Resources
+import android.icu.text.DateFormat
 import android.os.Bundle
 import android.os.Handler
 import android.view.View
@@ -51,6 +52,18 @@ class tela_principal : AppCompatActivity(){
                 ha.postDelayed(this, 500)
             }
         }, 500)
+
+        val ha2 = Handler()
+        ha2.postDelayed(object : Runnable {
+            override fun run() {
+                val sharedPreference =  getSharedPreferences("dadosUsuario", Context.MODE_PRIVATE)
+                var notStatus = sharedPreference.getInt("notStatus",-1)
+                if(notStatus == 1){
+                    agendarNotificacoes()
+                }
+                ha2.postDelayed(this, 1000)
+            }
+        }, 1000)
 
         val icon_perfil = findViewById<ImageView>(R.id.icon_perfil)
         val icon_estudo = findViewById<ImageView>(R.id.icon_estudo)
@@ -127,6 +140,9 @@ class tela_principal : AppCompatActivity(){
         }
     }
 
+    override fun onStop() {
+        super.onStop()
+    }
     override fun onResume() {
         super.onResume()
 
@@ -159,6 +175,50 @@ class tela_principal : AppCompatActivity(){
         }
         dialog = build.create()
         dialog.show()
+    }
+
+    private fun agendarNotificacoes(){
+        var listaAvaliacoes = AvaliacaoController.listaDeAvaliacoes()
+        var listaAtividades = AtividadeController.listaDeAtividades()
+        var listaLembretes = LembreteController.listaDeLembretes()
+
+        val d = Date()
+
+        var cal = Calendar.getInstance()
+        cal.setTime(d)
+        var hora = cal.get(Calendar.HOUR_OF_DAY)
+        var minuto = cal.get(Calendar.MINUTE)
+        var segundo = cal.get(Calendar.SECOND)
+
+        val time = "${hora}:${minuto}:${segundo}"
+
+        for (j in 0 until listaAvaliacoes.size) {
+            var item = AvaliacaoController.getAvaliacao(j)
+            var yourDate = SimpleDateFormat("dd/MM/yyyy").parse(item.prazo)
+            val diff =  (d.time - yourDate.time)/(24*60*60*1000).toLong()
+            if ((diff == 0L && time.equals("08:00:10")) || (diff == 0L) && time.equals("18:00:10")) {
+                NotificationUtils.notificationAvaliacao(this, item?.titulo, item?.tipo, item?.id)
+            }
+        }
+
+        for (k in 0 until listaAtividades.size) {
+            var item = AtividadeController.getAtividade(k)
+            var yourDate = SimpleDateFormat("dd/MM/yyyy").parse(item.prazo)
+            val diff =  (d.time - yourDate.time)/(24*60*60*1000).toLong()
+            if ((diff == 0L && time.equals("08:00:10")) || (diff == 0L) && time.equals("18:00:10") ) {
+                NotificationUtils.notificationAtividade(this, item?.titulo, item?.tipo, item?.id)
+            }
+        }
+
+        for (l in 0 until listaLembretes.size) {
+            var item = LembreteController.getLembrete(l)
+            var yourDate = SimpleDateFormat("dd/MM/yyyy").parse(item.prazo)
+            val diff =  (d.time - yourDate.time)/(24*60*60*1000).toLong()
+            if ((diff == 0L && time.equals("08:00:10")) || (diff == 0L) && time.equals("18:00:10")) {
+                NotificationUtils.notificationLembrete(this, item?.titulo, item?.tipo, item?.id)
+            }
+        }
+
     }
 
     private fun quadroInformativo(tipo: Int){

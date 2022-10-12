@@ -62,7 +62,6 @@ class FragmentLembretes : Fragment() {
         val listViewLembretes = view.findViewById<ListView>(R.id.listview_lembretes)
         listViewLembretes.adapter = itemChecklistAdapter
 
-
         val semLembretes = view.findViewById<ImageView>(R.id.semLembretes)
         listViewLembretes.setEmptyView(semLembretes)
 
@@ -139,7 +138,7 @@ class FragmentLembretes : Fragment() {
             jsonUsuario.put("id", id)
 
             try {
-                val url = URL("http://192.168.1.11:8080/Studiest/carregaLembretes.php")
+                val url = URL("http://studiestoficial.000webhostapp.com/app/carregaLembretes.php")
                 val conexao = (url.openConnection() as HttpURLConnection)
                 conexao.readTimeout = 10000
                 conexao.connectTimeout = 15000

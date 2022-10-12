@@ -148,7 +148,7 @@ class alterar_senha : AppCompatActivity() {
 
             //tentar estabelecer conexão com a internet
             try {
-                val url = URL("http://192.168.1.11:8080/Studiest/alteraSenha.php")
+                val url = URL("http://studiestoficial.000webhostapp.com/app/alteraSenha.php")
                 val conexao = (url.openConnection() as HttpURLConnection)
 
                 conexao.readTimeout = 10000

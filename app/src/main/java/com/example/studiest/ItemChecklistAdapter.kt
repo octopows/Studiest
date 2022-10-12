@@ -111,11 +111,11 @@ class ItemChecklistAdapter(contexto: Context) : ArrayAdapter<ItemChecklist>(cont
                 var url: URL? = null
 
                 if(item.tipo == 0){
-                    url = URL("http://192.168.1.11:8080/Studiest/deletaAvaliacao.php")
+                    url = URL("http://studiestoficial.000webhostapp.com/app/deletaAvaliacao.php")
                 } else if(item.tipo == 1){
-                    url = URL("http://192.168.1.11:8080/Studiest/deletaAtividade.php")
+                    url = URL("http://studiestoficial.000webhostapp.com/app/deletaAtividade.php")
                 } else if(item.tipo == 2){
-                    url = URL("http://192.168.1.11:8080/Studiest/deletaLembrete.php")
+                    url = URL("http://studiestoficial.000webhostapp.com/app/deletaLembrete.php")
                 }
 
                 val conexao = (url!!.openConnection() as HttpURLConnection)

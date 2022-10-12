@@ -28,7 +28,6 @@ import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.concurrent.schedule
 
-
 class FragmentAvaliacoes : Fragment() {
 
     private var avaliacoesDowload: AvaliacoesDownload? = null
@@ -76,7 +75,6 @@ class FragmentAvaliacoes : Fragment() {
             intentAlterar.putExtra("p",position)
             intentAlterar.putExtra("selecionado",0)
             activity?.startActivity(intentAlterar)
-
         }
 
         var avaliacoesDownload = AvaliacoesDownload()
@@ -128,8 +126,6 @@ class FragmentAvaliacoes : Fragment() {
         }
         var avaliacoesDownload = AvaliacoesDownload()
         avaliacoesDownload?.execute()
-
-
     }
 
     inner class AvaliacoesDownload : AsyncTask<Void, Void, List<ItemChecklist>?>() {
@@ -146,7 +142,7 @@ class FragmentAvaliacoes : Fragment() {
             jsonUsuario.put("id", id)
 
             try {
-                val url = URL("http://192.168.1.11:8080/Studiest/carregaAvaliacoes.php")
+                val url = URL("http://studiestoficial.000webhostapp.com/app/carregaAvaliacoes.php")
                 val conexao = (url.openConnection() as HttpURLConnection)
                 conexao.readTimeout = 10000
                 conexao.connectTimeout = 15000

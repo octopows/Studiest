@@ -8,10 +8,7 @@ import android.os.AsyncTask.execute
 import android.os.Bundle
 import android.preference.PreferenceManager
 import android.view.View
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import org.json.JSONObject
@@ -42,11 +39,30 @@ class perfil : AppCompatActivity() {
         val btnAlterarNome = findViewById<ImageView>(R.id.btnAlterarNome)
         val nomeUsuario = findViewById<TextView>(R.id.nomeUsuario)
         val emailUsuario = findViewById<TextView>(R.id.emailUsuario)
+        val btnNotGeral = findViewById<Switch>(R.id.btnNotGeral)
 
+        btnNotGeral.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked){
+                val sharedPreference =  getSharedPreferences("dadosUsuario", Context.MODE_PRIVATE)
+                var editor = sharedPreference.edit()
+                editor.putInt("notStatus",1)
+                editor.commit()
+            } else {
+                val sharedPreference =  getSharedPreferences("dadosUsuario", Context.MODE_PRIVATE)
+                var editor = sharedPreference.edit()
+                editor.putInt("notStatus",0)
+                editor.commit()
+            }
+
+        }
         //colocando informações do usuário no perfil
         val sharedPreference =  getSharedPreferences("dadosUsuario", Context.MODE_PRIVATE)
         var nome = sharedPreference.getString("nome","Null")
         var email = sharedPreference.getString("email","Null")
+        var notStatus = sharedPreference.getInt("notStatus",-1)
+        if(notStatus == 0){
+            btnNotGeral.setChecked(false)
+        }
 
         nomeUsuario.text = "$nome"
         emailUsuario.text = "$email"
@@ -167,7 +183,7 @@ class perfil : AppCompatActivity() {
 
             //tentar estabelecer conexão com a internet
             try {
-                val url = URL("http://192.168.1.11:8080/Studiest/alteraNome.php")
+                val url = URL("http://studiestoficial.000webhostapp.com/app/alteraNome.php")
                 val conexao = (url.openConnection() as HttpURLConnection)
 
                 conexao.readTimeout = 10000

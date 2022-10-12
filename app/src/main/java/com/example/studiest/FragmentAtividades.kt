@@ -98,9 +98,6 @@ class FragmentAtividades : Fragment() {
                     editor?.putInt("deletarItem", 0)
                     editor?.commit()
                 }
-                var atividadesDownload = AtividadesDownload()
-                atividadesDownload?.execute()
-
                 ha.postDelayed(this, 100)
             }
         }, 100)
@@ -143,7 +140,7 @@ class FragmentAtividades : Fragment() {
             jsonUsuario.put("id", id)
 
             try {
-                val url = URL("http://192.168.1.11:8080/Studiest/carregaAtividades.php")
+                val url = URL("http://studiestoficial.000webhostapp.com/app/carregaAtividades.php")
                 val conexao = (url.openConnection() as HttpURLConnection)
                 conexao.readTimeout = 10000
                 conexao.connectTimeout = 15000

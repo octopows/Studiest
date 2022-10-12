@@ -1,7 +1,4 @@
-import android.app.Notification
-import android.app.NotificationChannel
-import android.app.NotificationManager
-import android.app.PendingIntent
+import android.app.*
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
@@ -40,14 +37,7 @@ object NotificationUtils {
         notificationManager.createNotificationChannel(channel)
     }
 
-    private fun getContentIntent(context: Context): PendingIntent? {
-        val intent = Intent(context, MainActivity::class.java).apply {
-            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-        }
-        return PendingIntent.getActivity(context, 0, intent, 0)
-    }
-
-    fun notificationSimple(context: Context, titulo: String?, tipo: Int?, id:Int) {
+    fun notificationAvaliacao(context: Context, titulo: String?, tipo: Int?, id:Int) {
         var Tipo: String? = null
         if(tipo == 0 ){
             Tipo = "Avaliação"
@@ -60,14 +50,95 @@ object NotificationUtils {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             createNotificationChannel(context)
         }
-            val notificationBuilder = NotificationCompat.Builder(context, CHANNEL_ID)
+
+        val resultIntent = Intent(context, MainActivity::class.java)
+        val resultPendingIntent: PendingIntent? = TaskStackBuilder.create(context).run {
+            addNextIntentWithParentStack(resultIntent)
+            getPendingIntent(0,
+                PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
+        }
+
+        val notificationBuilder = NotificationCompat.Builder(context, CHANNEL_ID)
             .setSmallIcon(R.mipmap.ic_launcher)
             .setContentTitle(Tipo)
             .setContentText(titulo)
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
             .setColor(ActivityCompat.getColor(context, R.color.azul))
             .setDefaults(Notification.DEFAULT_ALL)
-               // .setContentIntent(getContentIntent(context))
+                .setContentIntent(resultPendingIntent)
+            .setAutoCancel(true)
+
+
+        val notificationManager = NotificationManagerCompat.from(context)
+        notificationManager.notify(id, notificationBuilder.build())
+    }
+
+    fun notificationAtividade(context: Context, titulo: String?, tipo: Int?, id:Int) {
+        var Tipo: String? = null
+        if(tipo == 0 ){
+            Tipo = "Avaliação"
+        } else if (tipo ==1){
+            Tipo = "Atividade"
+        }else if (tipo ==2){
+            Tipo = "Lembrete"
+        }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            createNotificationChannel(context)
+        }
+
+        val resultIntent = Intent(context, MainActivity::class.java)
+        val resultPendingIntent: PendingIntent? = TaskStackBuilder.create(context).run {
+            addNextIntentWithParentStack(resultIntent)
+            getPendingIntent(0,
+                PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
+        }
+
+        val notificationBuilder = NotificationCompat.Builder(context, CHANNEL_ID)
+            .setSmallIcon(R.mipmap.ic_launcher)
+            .setContentTitle(Tipo)
+            .setContentText(titulo)
+            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+            .setColor(ActivityCompat.getColor(context, R.color.azul))
+            .setDefaults(Notification.DEFAULT_ALL)
+            .setContentIntent(resultPendingIntent)
+            .setAutoCancel(true)
+
+
+        val notificationManager = NotificationManagerCompat.from(context)
+        notificationManager.notify(id, notificationBuilder.build())
+    }
+
+    fun notificationLembrete(context: Context, titulo: String?, tipo: Int?, id:Int) {
+        var Tipo: String? = null
+        if(tipo == 0 ){
+            Tipo = "Avaliação"
+        } else if (tipo ==1){
+            Tipo = "Atividade"
+        }else if (tipo ==2){
+            Tipo = "Lembrete"
+        }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            createNotificationChannel(context)
+        }
+
+        val resultIntent = Intent(context, MainActivity::class.java)
+        val resultPendingIntent: PendingIntent? = TaskStackBuilder.create(context).run {
+            addNextIntentWithParentStack(resultIntent)
+            getPendingIntent(0,
+                PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
+        }
+
+
+        val notificationBuilder = NotificationCompat.Builder(context, CHANNEL_ID)
+            .setSmallIcon(R.mipmap.ic_launcher)
+            .setContentTitle(Tipo)
+            .setContentText(titulo)
+            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+            .setColor(ActivityCompat.getColor(context, R.color.azul))
+            .setDefaults(Notification.DEFAULT_ALL)
+            .setContentIntent(resultPendingIntent)
             .setAutoCancel(true)
 
 

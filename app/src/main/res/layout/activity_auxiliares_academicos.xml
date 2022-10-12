@@ -44,17 +44,17 @@
         app:srcCompat="@drawable/cadernos_estudos" />
 
     <View
-        android:id="@+id/retangulo_amarelo"
+        android:id="@+id/btnFisica"
         android:layout_width="385dp"
         android:layout_height="100dp"
         android:layout_marginTop="8dp"
         android:background="@drawable/retangulo_amarelo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/retangulo_azul" />
+        app:layout_constraintTop_toBottomOf="@+id/btnMat" />
 
     <View
-        android:id="@+id/retangulo_vermelho"
+        android:id="@+id/btnTabela"
         android:layout_width="385dp"
         android:layout_height="100dp"
         android:layout_marginTop="65dp"
@@ -64,14 +64,24 @@
         app:layout_constraintTop_toBottomOf="@+id/imageView3" />
 
     <View
-        android:id="@+id/retangulo_azul"
+        android:id="@+id/btnMat"
         android:layout_width="385dp"
         android:layout_height="100dp"
         android:layout_marginTop="8dp"
         android:background="@drawable/retangulo_azul"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/retangulo_vermelho" />
+        app:layout_constraintTop_toBottomOf="@+id/btnTabela" />
+
+    <View
+        android:id="@+id/btnQuimica"
+        android:layout_width="385dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/retangulo_vermelho"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnFisica" />
 
     <TextView
         android:id="@+id/textoTabelaPeri"
@@ -79,12 +89,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="25dp"
+        android:layout_marginBottom="8dp"
         android:text="Tabela Periódica"
         android:textColor="@color/white"
         android:textSize="18dp"
-        app:layout_constraintBottom_toBottomOf="@+id/retangulo_vermelho"
-        app:layout_constraintStart_toStartOf="@+id/retangulo_vermelho"
-        app:layout_constraintTop_toTopOf="@+id/retangulo_vermelho" />
+        app:layout_constraintBottom_toBottomOf="@+id/btnTabela"
+        app:layout_constraintStart_toStartOf="@+id/btnTabela"
+        app:layout_constraintTop_toTopOf="@+id/btnTabela" />
 
     <TextView
         android:id="@+id/textoFormulasMat"
@@ -92,12 +103,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="25dp"
+        android:layout_marginBottom="8dp"
         android:text="Fórmulas de Matemática"
         android:textColor="@color/white"
         android:textSize="18dp"
-        app:layout_constraintBottom_toBottomOf="@+id/retangulo_azul"
-        app:layout_constraintStart_toStartOf="@+id/retangulo_azul"
-        app:layout_constraintTop_toTopOf="@+id/retangulo_azul" />
+        app:layout_constraintBottom_toBottomOf="@+id/btnMat"
+        app:layout_constraintStart_toStartOf="@+id/btnMat"
+        app:layout_constraintTop_toTopOf="@+id/btnMat" />
 
     <TextView
         android:id="@+id/textoFormulasFis"
@@ -105,12 +117,27 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="25dp"
+        android:layout_marginBottom="8dp"
         android:text="Fórmulas de Física"
         android:textColor="@color/white"
         android:textSize="18dp"
-        app:layout_constraintBottom_toBottomOf="@+id/retangulo_amarelo"
-        app:layout_constraintStart_toStartOf="@+id/retangulo_amarelo"
-        app:layout_constraintTop_toTopOf="@+id/retangulo_amarelo" />
+        app:layout_constraintBottom_toBottomOf="@+id/btnFisica"
+        app:layout_constraintStart_toStartOf="@+id/btnFisica"
+        app:layout_constraintTop_toTopOf="@+id/btnFisica" />
+
+    <TextView
+        android:id="@+id/textoFormulasQuimica"
+        style="@style/nunito_semibold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:layout_marginBottom="8dp"
+        android:text="Fórmulas de Química"
+        android:textColor="@color/white"
+        android:textSize="18dp"
+        app:layout_constraintBottom_toBottomOf="@+id/btnQuimica"
+        app:layout_constraintStart_toStartOf="@+id/btnQuimica"
+        app:layout_constraintTop_toTopOf="@+id/btnQuimica" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
