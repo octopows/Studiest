@@ -72,24 +72,6 @@ class tela_principal : AppCompatActivity(){
         val btnAddItem = findViewById<ImageView>(R.id.btnAddItem)
         val cumprimento = findViewById<TextView>(R.id.cumprimento)
 
-        val tresBarras = findViewById<ImageView>(R.id.imageView15)
-        val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
-
-        val navigationView: NavigationView = findViewById(R.id.nav_view)
-        val headerview: View = navigationView.getHeaderView(0)
-        val btnAddChecklist = headerview.findViewById<TextView>(R.id.btnAddChecklist)
-        val navHeader: ConstraintLayout = headerview.findViewById(R.id.nav_header)
-
-        //abrir barra de navegação lateral
-        tresBarras.setOnClickListener {
-            drawerLayout.openDrawer(GravityCompat.END);
-        }
-
-        //abrir dialog para add checklist
-        headerview.setOnClickListener {
-            showDialogAddChecklist()
-        }
-
         //mensagem de cumprimento
         val horario = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
         val intent: Intent = this.intent
@@ -150,31 +132,6 @@ class tela_principal : AppCompatActivity(){
         var selecionado = tabChecklists.selectedTabPosition
 
         quadroInformativo(selecionado)
-    }
-    //função para chamar dialog sair
-    private fun showDialogAddChecklist(){
-        val build = AlertDialog.Builder(this, R.style.ThemeCustomDialog)
-        val view = layoutInflater.inflate(R.layout.dialog_adicionar_checklist, null)
-        build.setView(view)
-
-        val cancelarAdicionarChecklist = view.findViewById<TextView>(R.id.cancelarAdicionarChecklist)
-        val confirmarAdicionarChecklist = view.findViewById<TextView>(R.id.confirmarAdicionarChecklist)
-        val campoAddChecklist = view.findViewById<EditText>(R.id.campoAddChecklist)
-
-        cancelarAdicionarChecklist.setOnClickListener { dialog.dismiss() }
-
-        confirmarAdicionarChecklist.setOnClickListener {
-            var nomeCheck = campoAddChecklist.text.toString()
-
-            if(nomeCheck.isNotEmpty()){
-                dialog.dismiss()
-                Toast.makeText(this, "Checklist adicionada!", Toast.LENGTH_SHORT).show()
-            }
-            else
-                campoAddChecklist.error = if(nomeCheck.isEmpty()) "Insira um nome" else null
-        }
-        dialog = build.create()
-        dialog.show()
     }
 
     private fun agendarNotificacoes(){

@@ -129,7 +129,7 @@ class recuperar_senha : AppCompatActivity() {
             val campoErroRecuperar = findViewById<TextView>(R.id.campoErroRecuperar)
             var email = campoEmailRecuperar.text.toString()
             //verificando se o usuario retornado foi nao nulo
-            if (resultado != null) {
+            if (resultado == "sim") {
                 campoErroRecuperar.text = ""
                 campoEmailRecuperar.setBackgroundResource(R.drawable.custom_input)
                 val intent = Intent(applicationContext, verificar_email::class.java)
