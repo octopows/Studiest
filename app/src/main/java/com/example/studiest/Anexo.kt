@@ -4,9 +4,7 @@ import android.net.Uri
 import java.sql.Blob
 
 data class Anexo(
-    var id: Int,
+    var id: Long = 0L,
     var titulo: String?,
-    var arquivo: Uri?
-) {
-    constructor(id: Int, titulo: String?) : this(id,titulo, null)
-}
+    var arquivo: String?
+)

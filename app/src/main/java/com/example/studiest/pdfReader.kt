@@ -16,5 +16,6 @@ class pdfReader : AppCompatActivity() {
         var pdfName = it.getStringExtra("pdfName")
 
         pdfView.fromAsset(pdfName).load()
+
     }
 }

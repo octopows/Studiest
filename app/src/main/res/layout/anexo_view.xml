@@ -3,37 +3,67 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="385dp"
-    android:layout_height="90dp"
-    android:gravity="center"
-    android:background="@drawable/retangulo_resumo"
-    android:clipToOutline="true"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     >
+
+    <View
+        android:id="@+id/fundoAnexo"
+        android:layout_width="390dp"
+        android:layout_height="110dp"
+        android:background="@drawable/retangulo_item_azul"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 
     <TextView
         android:id="@+id/tituloAnexo"
         style="@style/nunito_semibold"
-        android:layout_width="305dp"
-        android:layout_height="35dp"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="15dp"
-        android:text="Título do Anexo"
+        android:layout_width="285dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="35dp"
+        android:layout_marginTop="25dp"
+        android:autoSizeMaxTextSize="20dp"
+        android:autoSizeMinTextSize="10dp"
         android:autoSizeTextType="uniform"
-        android:autoSizeMaxTextSize="22dp"
-        android:autoSizeMinTextSize="13dp"
-        android:textSize="22dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:text="Título do Anexo"
+        android:textSize="20dp"
+        app:layout_constraintStart_toStartOf="@+id/fundoAnexo"
+        app:layout_constraintTop_toTopOf="@+id/fundoAnexo" />
 
     <ImageView
-        android:id="@+id/editarAnexo"
-        android:elevation="100dp"
-        android:layout_width="22dp"
-        android:layout_height="22dp"
-        android:layout_marginEnd="20dp"
-        app:layout_constraintBottom_toBottomOf="@+id/tituloAnexo"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/tituloAnexo"
-        app:srcCompat="@drawable/editar" />
+        android:id="@+id/arquivo"
+        android:layout_width="28dp"
+        android:layout_height="53dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="5dp"
+        app:layout_constraintBottom_toBottomOf="@+id/fundoAnexo"
+        app:layout_constraintEnd_toEndOf="@+id/fundoAnexo"
+        app:layout_constraintTop_toTopOf="@+id/fundoAnexo"
+        app:srcCompat="@drawable/arquivo" />
+
+    <TextView
+        android:id="@+id/InfoEditar"
+        style="@style/nunito_regular"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:text="Segure para editar"
+        android:textColor="@color/cinza_hint"
+        android:textSize="14dp"
+        app:layout_constraintBottom_toBottomOf="@+id/iconEditar"
+        app:layout_constraintStart_toEndOf="@+id/iconEditar"
+        app:layout_constraintTop_toTopOf="@+id/iconEditar" />
+
+    <ImageView
+        android:id="@+id/iconEditar"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        android:layout_marginTop="5dp"
+        app:layout_constraintStart_toStartOf="@+id/tituloAnexo"
+        app:layout_constraintTop_toBottomOf="@+id/tituloAnexo"
+        app:srcCompat="@drawable/editar_cinza" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,29 +1,46 @@
 package com.example.studiest
 
 import android.app.Activity
-import android.content.Context
+import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.os.Environment
+import android.os.Handler
 import android.view.View
 import android.widget.*
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.net.toFile
+import androidx.core.net.toUri
 import com.example.studiest.R.layout.dialog_adicionar_anexo
+import java.io.File
+import java.nio.file.Path
+import java.nio.file.Paths
+import java.nio.file.Paths.get
+import kotlin.io.path.Path
 
 
-class anexo_documentos : AppCompatActivity() {
+class anexo_documentos : AppCompatActivity(){
 
     val PDF: Int = 100
     lateinit var arquivo: ByteArray
     private lateinit var dialog: AlertDialog
     private lateinit var dialog2: AlertDialog
     lateinit var anexoAdapter: AnexoAdapter
+    var arquivoURI: Uri? = null
+    lateinit var valorCampo: String
 
-
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_anexo_documentos)
+
+        val anexoRepositorio = AnexoRepositorio(this)
+        AnexoController.listaDeAnexos().clear()
+        AnexoController.listaDeAnexos().addAll(anexoRepositorio.buscarAnexos(null))
 
         anexoAdapter = AnexoAdapter(this)
         anexoAdapter.addAll(AnexoController.listaDeAnexos())
@@ -38,17 +55,42 @@ class anexo_documentos : AppCompatActivity() {
 
         listViewAnexo.setOnItemClickListener{parent, view, position, id ->
             var anexo: Anexo = AnexoController.getAnexo(position)
-             showDialogAddAnexo(position)
+            var arquivoURI = anexo.arquivo!!.toUri()
+
+            Toast.makeText(this, "${anexo.arquivo}", Toast.LENGTH_SHORT).show()
+
+            val target = Intent(Intent.ACTION_VIEW)
+            target.setDataAndType(arquivoURI, "application/pdf")
+            target.flags = Intent.FLAG_ACTIVITY_NO_HISTORY or Intent.FLAG_GRANT_READ_URI_PERMISSION or  Intent.FLAG_GRANT_WRITE_URI_PERMISSION or Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION
+
+            val intent: Intent = Intent.createChooser(target, "Open File")
+
+            try {
+                startActivity(intent)
+            } catch (e: ActivityNotFoundException) {
+                Toast.makeText(this, "Instale um leitor de PDF.", Toast.LENGTH_SHORT).show()
+            }
+/*
+            val intent = Intent(this, anexoReader::class.java)
+            intent.putExtra("pdfURI", anexo.arquivo)
+            startActivity(intent)*/
         }
 
+        listViewAnexo.setOnItemLongClickListener{parent, view, position, id ->
+            var anexo: Anexo = AnexoController.getAnexo(position)
+            showDialogAddAnexo(position)
+
+            true
+        }
 
         //botão para voltar
         btnVoltar.setOnClickListener{
             finish()
         }
-
+        valorCampo = "Selecionar Arquivo ▼"
         //abrir dialog para add/editar anexo
         btnAddAnexo.setOnClickListener{
+            valorCampo = "Selecionar Arquivo ▼"
             showDialogAddAnexo(-1)
         }
 
@@ -76,13 +118,21 @@ class anexo_documentos : AppCompatActivity() {
         val campoSelecionarArquivo = view.findViewById<TextView>(R.id.campoSelecionarArquivo)
 
         retanguloArquivo.setOnClickListener {
-            val intentPDF = Intent(Intent.ACTION_GET_CONTENT)
+            val intentPDF = Intent(Intent.ACTION_OPEN_DOCUMENT)
             intentPDF.type = "application/pdf"
             intentPDF.addCategory(Intent.CATEGORY_OPENABLE)
             startActivityForResult(Intent.createChooser(intentPDF, "Selecione um pdf"), PDF)
-
+          //  campoSelecionarArquivo.text = "Arquivo Selecionado ▼"
         }
 
+        campoSelecionarArquivo.text = valorCampo
+        val ha = Handler()
+        ha.postDelayed(object : Runnable {
+            override fun run() {
+                campoSelecionarArquivo.text = valorCampo
+                ha.postDelayed(this, 100)
+            }
+        }, 100)
         cancelarAnexo.setOnClickListener { dialog.dismiss() }
 
         var position = p
@@ -90,52 +140,63 @@ class anexo_documentos : AppCompatActivity() {
             showDialogDeletarAnexo(position)
         }
 
+        lateinit var anexo: Anexo
+        var alterar = if(p!=-1) true else false
+        if (alterar) {
+            anexo = AnexoController.getAnexo(p)
+            val anexo: Anexo = AnexoController.getAnexo(p)
+            campoTituloAnexo.setText(anexo.titulo)
+            valorCampo ="Alterar Arquivo ▼"
+        }
         btnConfirmarAnexo.setOnClickListener {
-            var id = -1
+            var campoArquivo = campoSelecionarArquivo.text.toString()
             val titulo = campoTituloAnexo.text.toString()
+            var arquivo = arquivoURI!!.toString()
 
-            if(titulo.isNotEmpty()){
-                val anexo = Anexo(id,titulo)
+            if(titulo.isNotEmpty() && (campoArquivo == "Arquivo Selecionado ▼" || campoArquivo == "Alterar Arquivo ▼") ){
                 campoTituloAnexo.text.clear()
 
-                if (p == -1){
-                    AnexoController.cadastra(anexo)
-                    /*
-                    var cadastraAnexo: CadastraAnexo? = CadastraAnexo()
-                    cadastraAnexo?.execute(anexo)
-                    cadastraAnexo= null
-
-                     */
-
+                if (!alterar){
+                    val anexo = Anexo(0L,titulo,arquivo)
+                    val anexoRepositorio = AnexoRepositorio(applicationContext)
+                    var id = anexoRepositorio.inserir(anexo)
+                    if(id>=0) {
+                        anexo.id = id
+                        AnexoController.listaDeAnexos().clear()
+                        AnexoController.listaDeAnexos().addAll(anexoRepositorio.buscarAnexos(null))
+                    }
                 }
                 else{
+                    arquivoURI = null
                     val anexoEdit = AnexoController.getAnexo(p)
-                    val anexo = Anexo(anexoEdit.id,titulo)
-                    AnexoController.atualiza(p,anexo)
-                    /*
-                    var editaAnexo: EditaAnexo? = EditaAnexo()
-                    editaAnexo?.execute(anexo)
-                    editaAnexo = null
+                    if(arquivoURI == null){
+                        arquivoURI = anexoEdit.arquivo!!.toUri()
+                    }
 
-                     */
+                    val anexo = Anexo(anexoEdit.id,titulo,arquivo)
 
+                    val anexoRepositorio = AnexoRepositorio(applicationContext)
+                    var numLinhasAfetadas = anexoRepositorio.atualizar(anexo)
+                    if(numLinhasAfetadas>0) {
+                        AnexoController.listaDeAnexos().clear()
+                        AnexoController.listaDeAnexos().addAll(anexoRepositorio.buscarAnexos(null))
+
+                    }
                 }
+                valorCampo = "Selecionar Arquivo ▼"
                 dialog.dismiss()
 
             }
             else{
                 campoTituloAnexo.error = if(titulo.isEmpty()) "Insira um nome para o arquivo" else null
+                if(campoArquivo == "Selecionar Arquivo ▼"){
+                    Toast.makeText(applicationContext, "Selecione um arquivo.", Toast.LENGTH_SHORT).show()
+                }
             }
-
             anexoAdapter.clear()
             anexoAdapter.addAll(AnexoController.listaDeAnexos())
         }
 
-        if (p!=-1) {
-            val anexo: Anexo = AnexoController.getAnexo(p)
-            campoTituloAnexo.setText(anexo.titulo)
-
-        }
         dialog = build.create()
         dialog.show()
     }
@@ -155,14 +216,14 @@ class anexo_documentos : AppCompatActivity() {
 
         confirmarDeletarAnexo.setOnClickListener {
             if(p!=-1) {
-                val anexoEdit = AnexoController.getAnexo(p)
-              /*  val resumo = Resumo(resumoEdit.id,resumoEdit.titulo,resumoEdit.disciplina,resumoEdit.conteudo)
-                var deletaResumo: adicionar_resumo.DeletaResumo? = DeletaResumo()
-                deletaResumo?.execute(resumo)
-                deletaResumo = null*/
-                AnexoController.apaga(p)
-                anexoAdapter.clear()
-                anexoAdapter.addAll(AnexoController.listaDeAnexos())
+                val anexo = AnexoController.getAnexo(p)
+
+                val anexoRepositorio = AnexoRepositorio(this)
+                var numLinhasAfetadas = anexoRepositorio.excluir(anexo)
+                if(numLinhasAfetadas>0){
+                    atualizaLista()
+                }
+
             }
             dialog.dismiss()
             dialog2.dismiss()
@@ -171,21 +232,23 @@ class anexo_documentos : AppCompatActivity() {
         dialog2.show()
     }
 
-    override fun onActivityResult(requestCode: Int,resultCode: Int, data: Intent?){
-        super.onActivityResult(requestCode, resultCode, data)
-
-        val legendaAnexador = findViewById<TextView>(R.id.legendaAnexador)
-        if(resultCode == Activity.RESULT_OK && requestCode == PDF && data != null && data.data != null ){
-            val selectedPdfFromStorage = data.data
-            openPDF(this,selectedPdfFromStorage)
-        }
-
+    fun atualizaLista(){
+        val anexoRepositorio = AnexoRepositorio(this)
+        val anexos = anexoRepositorio.buscarAnexos(null)
+        AnexoController.listaDeAnexos().clear()
+        AnexoController.listaDeAnexos().addAll(anexos)
+        anexoAdapter.clear()
+        anexoAdapter.addAll(AnexoController.listaDeAnexos())
+        anexoAdapter.notifyDataSetChanged()
     }
 
-    fun openPDF(context: Context, localUri: Uri?) {
-        val i = Intent(Intent.ACTION_VIEW)
-        i.setDataAndType(localUri, "application/pdf")
-        context.startActivity(i)
+    override fun onActivityResult(requestCode: Int,resultCode: Int, data: Intent?){
+        super.onActivityResult(requestCode, resultCode, data)
+        if(resultCode == Activity.RESULT_OK && requestCode == PDF && data != null && data.data != null ){
+            arquivoURI = data.data
+            valorCampo = "Arquivo Selecionado ▼"
+        }
+
     }
 
 }

@@ -118,12 +118,12 @@ class perfil : AppCompatActivity() {
         cancelarSair.setOnClickListener { dialog.dismiss() }
 
         confirmarSair.setOnClickListener {
-            sharedPreference.edit().clear().commit();
             val intent = Intent(applicationContext, bemvindo::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             intent.putExtra("EXIT", true)
             finish()
             startActivity(intent)
+            sharedPreference.edit().clear().commit();
         }
         dialog = build.create()
         dialog.show()
