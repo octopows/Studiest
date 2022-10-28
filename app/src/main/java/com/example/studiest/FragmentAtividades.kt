@@ -97,29 +97,35 @@ class FragmentAtividades : Fragment() {
         }
 
         listViewAtividades.setOnItemLongClickListener{parent, view, position, id ->
-            var atividade: ItemChecklist = AtividadeController.getAtividade(position)
+            var estadoConexao = haveNetworkConnection()
 
-            val concluido = view.findViewById<ImageView>(R.id.btnMarcarConcluido)
+            if(estadoConexao == true){
+                var atividade: ItemChecklist = AtividadeController.getAtividade(position)
 
-            concluido.getLayoutParams().height = 110; //can change the size according to you requirements
-            concluido.getLayoutParams().width = 110; //--
-            concluido.requestLayout()
-            concluido.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
-            concluido.setImageResource(R.drawable.visto_concluido)
+                val concluido = view.findViewById<ImageView>(R.id.btnMarcarConcluido)
 
-            Toast.makeText(context, "Atividade concluída com sucesso", Toast.LENGTH_SHORT).show()
-            var deletaItem: DeletaItem? = DeletaItem()
-            deletaItem?.execute(atividade)
-            deletaItem = null
+                concluido.getLayoutParams().height = 110; //can change the size according to you requirements
+                concluido.getLayoutParams().width = 110; //--
+                concluido.requestLayout()
+                concluido.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+                concluido.setImageResource(R.drawable.visto_concluido)
 
-            Handler(Looper.getMainLooper()).postDelayed(
-                {
-                    AtividadeController.apaga(position)
-                    itemChecklistAdapter.clear()
-                    itemChecklistAdapter.addAll(AtividadeController.listaDeAtividades())
-                },
+                Toast.makeText(context, "Atividade concluída com sucesso", Toast.LENGTH_SHORT).show()
+                var deletaItem: DeletaItem? = DeletaItem()
+                deletaItem?.execute(atividade)
+                deletaItem = null
+
+                Handler(Looper.getMainLooper()).postDelayed(
+                    {
+                        AtividadeController.apaga(position)
+                        itemChecklistAdapter.clear()
+                        itemChecklistAdapter.addAll(AtividadeController.listaDeAtividades())
+                    },
                     800 // value in milliseconds
                 )
+            }else{
+                Toast.makeText(context, "Erro ao concluir. Verifique sua conexão com a internet.", Toast.LENGTH_SHORT).show()
+            }
             true
         }
 

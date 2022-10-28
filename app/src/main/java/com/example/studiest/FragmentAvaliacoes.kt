@@ -96,29 +96,35 @@ class FragmentAvaliacoes : Fragment() {
         }
 
         listViewAvaliacoes.setOnItemClickListener{parent, view, position, id ->
-            var avaliacao: ItemChecklist = AvaliacaoController.getAvaliacao(position)
+            var estadoConexao = haveNetworkConnection()
 
-            val concluido = view.findViewById<ImageView>(R.id.btnMarcarConcluido)
+            if(estadoConexao == true){
+                var avaliacao: ItemChecklist = AvaliacaoController.getAvaliacao(position)
 
-            concluido.getLayoutParams().height = 110; //can change the size according to you requirements
-            concluido.getLayoutParams().width = 110; //--
-            concluido.requestLayout()
-            concluido.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
-            concluido.setImageResource(R.drawable.visto_concluido)
+                val concluido = view.findViewById<ImageView>(R.id.btnMarcarConcluido)
 
-            Toast.makeText(context, "Avaliação concluída com sucesso", Toast.LENGTH_SHORT).show()
-            var deletaItem: DeletaItem? = DeletaItem()
-            deletaItem?.execute(avaliacao)
-            deletaItem = null
+                concluido.getLayoutParams().height = 110; //can change the size according to you requirements
+                concluido.getLayoutParams().width = 110; //--
+                concluido.requestLayout()
+                concluido.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+                concluido.setImageResource(R.drawable.visto_concluido)
 
-            Handler(Looper.getMainLooper()).postDelayed(
-                {
-                    AvaliacaoController.apaga(position)
-                    itemChecklistAdapter.clear()
-                    itemChecklistAdapter.addAll(AvaliacaoController.listaDeAvaliacoes())
-                },
-                800 // value in milliseconds
-            )
+                Toast.makeText(context, "Avaliação concluída com sucesso", Toast.LENGTH_SHORT).show()
+                var deletaItem: DeletaItem? = DeletaItem()
+                deletaItem?.execute(avaliacao)
+                deletaItem = null
+
+                Handler(Looper.getMainLooper()).postDelayed(
+                    {
+                        AvaliacaoController.apaga(position)
+                        itemChecklistAdapter.clear()
+                        itemChecklistAdapter.addAll(AvaliacaoController.listaDeAvaliacoes())
+                    },
+                    800 // value in milliseconds
+                )
+            }else{
+                Toast.makeText(context, "Erro ao concluir. Verifique sua conexão com a internet.", Toast.LENGTH_SHORT).show()
+            }
             true
         }
 
