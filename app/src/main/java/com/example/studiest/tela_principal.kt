@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.res.Resources
 import android.icu.text.DateFormat
+import android.net.ConnectivityManager
 import android.os.Bundle
 import android.os.Handler
 import android.view.View
@@ -153,7 +154,7 @@ class tela_principal : AppCompatActivity(){
             var item = AvaliacaoController.getAvaliacao(j)
             var yourDate = SimpleDateFormat("dd/MM/yyyy").parse(item.prazo)
             val diff =  (d.time - yourDate.time)/(24*60*60*1000).toLong()
-            if ((diff == 0L && time.equals("08:00:10")) || (diff == 0L) && time.equals("18:00:10")) {
+            if ((diff == 0L && time.equals("8:0:10")) || (diff == 0L) && time.equals("18:0:10")) {
                 NotificationUtils.notificationAvaliacao(this, item?.titulo, item?.tipo, item?.id)
             }
         }
@@ -162,7 +163,7 @@ class tela_principal : AppCompatActivity(){
             var item = AtividadeController.getAtividade(k)
             var yourDate = SimpleDateFormat("dd/MM/yyyy").parse(item.prazo)
             val diff =  (d.time - yourDate.time)/(24*60*60*1000).toLong()
-            if ((diff == 0L && time.equals("08:00:10")) || (diff == 0L) && time.equals("18:00:10") ) {
+            if ((diff == 0L && time.equals("8:0:10")) || (diff == 0L) && time.equals("18:0:10")) {
                 NotificationUtils.notificationAtividade(this, item?.titulo, item?.tipo, item?.id)
             }
         }
@@ -171,7 +172,7 @@ class tela_principal : AppCompatActivity(){
             var item = LembreteController.getLembrete(l)
             var yourDate = SimpleDateFormat("dd/MM/yyyy").parse(item.prazo)
             val diff =  (d.time - yourDate.time)/(24*60*60*1000).toLong()
-            if ((diff == 0L && time.equals("08:00:10")) || (diff == 0L) && time.equals("18:00:10")) {
+            if ((diff == 0L && time.equals("8:0:10")) || (diff == 0L) && time.equals("18:0:10")) {
                 NotificationUtils.notificationLembrete(this, item?.titulo, item?.tipo, item?.id)
             }
         }

@@ -19,6 +19,7 @@
 
     <EditText
         android:id="@+id/campoAlterarNome"
+        android:imeOptions="actionDone"
         android:maxLength="18"
         style="@style/campoTexto"
         android:layout_width="300dp"

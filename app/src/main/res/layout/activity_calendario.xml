@@ -73,11 +73,12 @@
 
     <View
         android:id="@+id/fundoPara"
-        android:layout_width="338dp"
+        android:layout_width="340dp"
         android:layout_height="60dp"
-        android:background="@drawable/fundo_cinza"
+        android:background="@color/cinza_campo"
         app:layout_constraintBottom_toBottomOf="@+id/Para"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.47"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/Para" />
 
@@ -85,7 +86,7 @@
         android:id="@+id/fundoFaltam"
         android:layout_width="340dp"
         android:layout_height="60dp"
-        android:background="@drawable/fundo_azul"
+        android:background="@color/azul"
         app:layout_constraintBottom_toBottomOf="@+id/Faltam"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.478"

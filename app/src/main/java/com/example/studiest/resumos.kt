@@ -2,8 +2,10 @@ package com.example.studiest
 
 import android.content.Context
 import android.content.Intent
+import android.net.ConnectivityManager
 import android.os.AsyncTask
 import android.os.Bundle
+import android.os.Handler
 import android.widget.ImageView
 import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
@@ -34,7 +36,23 @@ class resumos : AppCompatActivity() {
         val btnVoltar = findViewById<ImageView>(R.id.btnVoltar)
         val btnAddResumo = findViewById<ImageView>(R.id.btnAddResumo)
 
-        listViewResumo.setEmptyView(semResumos)
+        val ha = Handler()
+        ha.postDelayed(object : Runnable {
+            override fun run() {
+                var estadoConexao = haveNetworkConnection()
+
+                if(estadoConexao == true){
+                    semResumos.setImageResource(R.drawable.sem_resumos)
+                    listViewResumo.setEmptyView(semResumos)
+                }else{
+                    semResumos.setImageResource(R.drawable.erro_conexao)
+                    listViewResumo.setEmptyView(semResumos)
+                }
+                ha.postDelayed(this, 500)
+            }
+        }, 500)
+
+
 
         //botão para voltar
         btnVoltar.setOnClickListener{
@@ -70,6 +88,26 @@ class resumos : AppCompatActivity() {
         resumoAdapter.clear()
         resumoAdapter.addAll(ResumoController.listaDeResumos())
 
+    }
+
+    private fun haveNetworkConnection(): Boolean {
+        var haveConnectedWifi = false
+        var haveConnectedMobile = false
+        val cm = getSystemService(CONNECTIVITY_SERVICE) as ConnectivityManager
+        val netInfo = cm.allNetworkInfo
+        for (ni in netInfo) {
+            if (ni.typeName.equals(
+                    "WIFI",
+                    ignoreCase = true
+                )
+            ) if (ni.isConnected) haveConnectedWifi = true
+            if (ni.typeName.equals(
+                    "MOBILE",
+                    ignoreCase = true
+                )
+            ) if (ni.isConnected) haveConnectedMobile = true
+        }
+        return haveConnectedWifi || haveConnectedMobile
     }
 
     inner class ResumosDownload : AsyncTask<Void, Void, List<Resumo>?>() {

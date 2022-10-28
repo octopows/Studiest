@@ -1,16 +1,12 @@
 package com.example.studiest
 
-import NotificationUtils
 import android.app.DatePickerDialog
 import android.content.Context
 import android.content.Intent
-import android.icu.text.DateFormat
-import android.icu.text.SimpleDateFormat
+import android.net.ConnectivityManager
 import android.os.AsyncTask
 import android.os.Build
 import android.os.Bundle
-import android.os.Handler
-import android.util.Log
 import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
@@ -23,6 +19,7 @@ import java.net.HttpURLConnection
 import java.net.URL
 import java.nio.charset.Charset
 import java.util.*
+
 
 class adicionar_item : AppCompatActivity() {
 
@@ -95,76 +92,83 @@ class adicionar_item : AppCompatActivity() {
        //var  tipo = 0
 
         btnSalvarItem.setOnClickListener {
-            var id = -1
-            val titulo = campoTituloItem.text.toString()
-            val disciplina = campoDisciplinaItem.text.toString()
-            val descricao = campoDescricaoItem.text.toString()
-            var prazo: String? = null
+            var estadoConexao = haveNetworkConnection()
 
-            if(titulo.isNotEmpty() && disciplina.isNotEmpty() && campoPrazo.text != "Selecionar ▼" ){
-                val item = ItemChecklist(id,titulo, disciplina, prazoLimpo, descricao,tipo)
-                campoTituloItem.text.clear()
-                campoDisciplinaItem.text.clear()
-                campoDescricaoItem.text.clear()
-                campoPrazo.text = "Selecionar ▼"
-                if (p == -1){
-                    if(tipo == 0){
-                       AvaliacaoController.cadastra(item)
-                    } else if(tipo == 1){
-                        AtividadeController.cadastra(item)
+            if(estadoConexao == true){
+                var id = -1
+                val titulo = campoTituloItem.text.toString()
+                val disciplina = campoDisciplinaItem.text.toString()
+                val descricao = campoDescricaoItem.text.toString()
+                var prazo: String? = null
+
+                if(titulo.isNotEmpty() && disciplina.isNotEmpty() && campoPrazo.text != "Selecionar ▼" ){
+                    val item = ItemChecklist(id,titulo, disciplina, prazoLimpo, descricao,tipo)
+                    campoTituloItem.text.clear()
+                    campoDisciplinaItem.text.clear()
+                    campoDescricaoItem.text.clear()
+                    campoPrazo.text = "Selecionar ▼"
+                    if (p == -1){
+                        if(tipo == 0){
+                            AvaliacaoController.cadastra(item)
+                        } else if(tipo == 1){
+                            AtividadeController.cadastra(item)
                         } else if(tipo == 2){
                             LembreteController.cadastra(item)
                         }
-                    var cadastraItem: CadastraItem? = CadastraItem()
-                    cadastraItem?.execute(item)
-                    cadastraItem = null
-                    finish()
-                }
-                else{
-                    if(tipo == 0){
-                        val itemEdit =AvaliacaoController.getAvaliacao(p)
-                        if(prazoLimpo != null){
-                            prazo = prazoLimpo
-                        }else
-                            prazo = itemEdit.prazo
-                        var item = ItemChecklist(itemEdit.id,titulo,disciplina,prazo,descricao,0)
-                        AvaliacaoController.atualiza(p,item)
-                        var editaItem: EditaItem? = EditaItem()
-                        editaItem?.execute(item)
-                        editaItem = null
-
-                    } else if(tipo == 1){
-                        val itemEdit =AtividadeController.getAtividade(p)
-                        if(prazoLimpo != null){
-                            prazo = prazoLimpo
-                        }else
-                            prazo = itemEdit.prazo
-                        var item = ItemChecklist(itemEdit.id,titulo,disciplina,prazo,descricao,1)
-                        AtividadeController.atualiza(p,item)
-                        var editaItem: EditaItem? = EditaItem()
-                        editaItem?.execute(item)
-                        editaItem = null
-                    } else if(tipo == 2){
-                        val itemEdit =LembreteController.getLembrete(p)
-                        if(prazoLimpo != null){
-                            prazo = prazoLimpo
-                        }else
-                            prazo = itemEdit.prazo
-                        val item = ItemChecklist(itemEdit.id,titulo,disciplina,prazo,descricao,2)
-                        LembreteController.atualiza(p,item)
-                        var editaItem: EditaItem? = EditaItem()
-                        editaItem?.execute(item)
-                        editaItem = null
+                        var cadastraItem: CadastraItem? = CadastraItem()
+                        cadastraItem?.execute(item)
+                        cadastraItem = null
+                        finish()
                     }
-                }
+                    else{
+                        if(tipo == 0){
+                            val itemEdit =AvaliacaoController.getAvaliacao(p)
+                            if(prazoLimpo != null){
+                                prazo = prazoLimpo
+                            }else
+                                prazo = itemEdit.prazo
+                            var item = ItemChecklist(itemEdit.id,titulo,disciplina,prazo,descricao,0)
+                            AvaliacaoController.atualiza(p,item)
+                            var editaItem: EditaItem? = EditaItem()
+                            editaItem?.execute(item)
+                            editaItem = null
+
+                        } else if(tipo == 1){
+                            val itemEdit =AtividadeController.getAtividade(p)
+                            if(prazoLimpo != null){
+                                prazo = prazoLimpo
+                            }else
+                                prazo = itemEdit.prazo
+                            var item = ItemChecklist(itemEdit.id,titulo,disciplina,prazo,descricao,1)
+                            AtividadeController.atualiza(p,item)
+                            var editaItem: EditaItem? = EditaItem()
+                            editaItem?.execute(item)
+                            editaItem = null
+                        } else if(tipo == 2){
+                            val itemEdit =LembreteController.getLembrete(p)
+                            if(prazoLimpo != null){
+                                prazo = prazoLimpo
+                            }else
+                                prazo = itemEdit.prazo
+                            val item = ItemChecklist(itemEdit.id,titulo,disciplina,prazo,descricao,2)
+                            LembreteController.atualiza(p,item)
+                            var editaItem: EditaItem? = EditaItem()
+                            editaItem?.execute(item)
+                            editaItem = null
+                        }
+                    }
                     finish()
-            }else{
-                if(campoPrazo.text == "Selecionar ▼"){
-                    Toast.makeText(this, "Selecione uma data", Toast.LENGTH_SHORT).show()
-                }
+                }else{
+                    if(campoPrazo.text == "Selecionar ▼"){
+                        Toast.makeText(this, "Selecione uma data", Toast.LENGTH_SHORT).show()
+                    }
                     campoTituloItem.error = if(titulo.isEmpty()) "Insira um título" else null
                     campoDisciplinaItem.error = if(disciplina.isEmpty()) "Insira uma disciplina" else null
                 }
+
+            }else{
+                Toast.makeText(this, "Erro ao salvar. Verifique sua conexão com a internet.", Toast.LENGTH_SHORT).show()
+            }
 
         }
         if (p!=-1) {
@@ -183,6 +187,26 @@ class adicionar_item : AppCompatActivity() {
             campoDescricaoItem.setText(itemChecklist.descricao)
             campoPrazo.setText(itemChecklist!!.prazo+" ▼")
         }
+    }
+
+    private fun haveNetworkConnection(): Boolean {
+        var haveConnectedWifi = false
+        var haveConnectedMobile = false
+        val cm = getSystemService(CONNECTIVITY_SERVICE) as ConnectivityManager
+        val netInfo = cm.allNetworkInfo
+        for (ni in netInfo) {
+            if (ni.typeName.equals(
+                    "WIFI",
+                    ignoreCase = true
+                )
+            ) if (ni.isConnected) haveConnectedWifi = true
+            if (ni.typeName.equals(
+                    "MOBILE",
+                    ignoreCase = true
+                )
+            ) if (ni.isConnected) haveConnectedMobile = true
+        }
+        return haveConnectedWifi || haveConnectedMobile
     }
 
     //função para chamar dialog sair
@@ -205,48 +229,50 @@ class adicionar_item : AppCompatActivity() {
         cancelarRemoverItem.setOnClickListener { dialog.dismiss() }
 
         confirmarRemoverItem.setOnClickListener {
-            if(p!=-1) {
-                if(tipo == 0 ){
-                    val itemEdit =AvaliacaoController.getAvaliacao(p)
-                    var item = ItemChecklist(itemEdit.id,itemEdit.titulo,itemEdit.disciplina,itemEdit.prazo,itemEdit.descricao,itemEdit.tipo)
+            var estadoConexao = haveNetworkConnection()
 
-                    var deletaItem: DeletaItem? = DeletaItem()
-                    deletaItem?.execute(item)
-                    deletaItem = null
+            if(estadoConexao == true){
+                if(p!=-1) {
+                    if(tipo == 0 ){
+                        val itemEdit =AvaliacaoController.getAvaliacao(p)
+                        var item = ItemChecklist(itemEdit.id,itemEdit.titulo,itemEdit.disciplina,itemEdit.prazo,itemEdit.descricao,itemEdit.tipo)
 
-                    AvaliacaoController.apaga(p)
-                    itemChecklistAdapter.clear()
-                    itemChecklistAdapter.addAll(AvaliacaoController.listaDeAvaliacoes())
-                } else if(tipo ==1){
-                    val itemEdit =AtividadeController.getAtividade(p)
-                    var item = ItemChecklist(itemEdit.id,itemEdit.titulo,itemEdit.disciplina,itemEdit.prazo,itemEdit.descricao,itemEdit.tipo)
+                        var deletaItem: DeletaItem? = DeletaItem()
+                        deletaItem?.execute(item)
+                        deletaItem = null
 
-                    var deletaItem: DeletaItem? = DeletaItem()
-                    deletaItem?.execute(item)
-                    deletaItem = null
+                        AvaliacaoController.apaga(p)
+                        itemChecklistAdapter.clear()
+                        itemChecklistAdapter.addAll(AvaliacaoController.listaDeAvaliacoes())
+                    } else if(tipo ==1){
+                        val itemEdit =AtividadeController.getAtividade(p)
+                        var item = ItemChecklist(itemEdit.id,itemEdit.titulo,itemEdit.disciplina,itemEdit.prazo,itemEdit.descricao,itemEdit.tipo)
 
-                    AtividadeController.apaga(p)
-                    itemChecklistAdapter.clear()
-                    itemChecklistAdapter.addAll(AtividadeController.listaDeAtividades())
-                } else if(tipo ==2){
-                    val itemEdit =LembreteController.getLembrete(p)
-                    var item = ItemChecklist(itemEdit.id,itemEdit.titulo,itemEdit.disciplina,itemEdit.prazo,itemEdit.descricao,itemEdit.tipo)
+                        var deletaItem: DeletaItem? = DeletaItem()
+                        deletaItem?.execute(item)
+                        deletaItem = null
 
-                    var deletaItem: DeletaItem? = DeletaItem()
-                    deletaItem?.execute(item)
-                    deletaItem = null
+                        AtividadeController.apaga(p)
+                        itemChecklistAdapter.clear()
+                        itemChecklistAdapter.addAll(AtividadeController.listaDeAtividades())
+                    } else if(tipo ==2){
+                        val itemEdit =LembreteController.getLembrete(p)
+                        var item = ItemChecklist(itemEdit.id,itemEdit.titulo,itemEdit.disciplina,itemEdit.prazo,itemEdit.descricao,itemEdit.tipo)
 
-                    LembreteController.apaga(p)
-                    itemChecklistAdapter.clear()
-                    itemChecklistAdapter.addAll(LembreteController.listaDeLembretes())
+                        var deletaItem: DeletaItem? = DeletaItem()
+                        deletaItem?.execute(item)
+                        deletaItem = null
+
+                        LembreteController.apaga(p)
+                        itemChecklistAdapter.clear()
+                        itemChecklistAdapter.addAll(LembreteController.listaDeLembretes())
+                    }
                 }
+                finish()
+
+            }else{
+                Toast.makeText(this, "Erro ao deletar. Verifique sua conexão com a internet.", Toast.LENGTH_SHORT).show()
             }
-
-
-
-
-
-            finish()
         }
         dialog = build.create()
         dialog.show()

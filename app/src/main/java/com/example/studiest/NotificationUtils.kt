@@ -4,13 +4,11 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Build
 import androidx.annotation.RequiresApi
-import androidx.appcompat.resources.Compatibility.Api18Impl.setAutoCancel
 import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.example.studiest.MainActivity
 import com.example.studiest.R
-import com.example.studiest.adicionar_item
 import com.example.studiest.tela_principal
 
 
@@ -51,7 +49,9 @@ object NotificationUtils {
             createNotificationChannel(context)
         }
 
-        val resultIntent = Intent(context, MainActivity::class.java)
+     //   val pm = context.packageManager
+     //   val launchIntent = pm.getLaunchIntentForPackage("com.example.studiest")
+        val resultIntent = Intent(context, tela_principal::class.java)
         val resultPendingIntent: PendingIntent? = TaskStackBuilder.create(context).run {
             addNextIntentWithParentStack(resultIntent)
             getPendingIntent(0,

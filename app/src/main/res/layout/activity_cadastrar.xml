@@ -54,6 +54,7 @@
 
     <EditText
         android:id="@+id/campoNome"
+        android:imeOptions="actionNext"
         android:maxLength="18"
         style="@style/campoTexto"
         android:layout_width="330dp"
@@ -61,13 +62,14 @@
         android:layout_marginTop="20dp"
         android:drawableStart="@drawable/custom_perfil"
         android:hint="Nome e Sobrenome"
-        android:inputType="text"
+        android:inputType="textCapWords"
         app:layout_constraintEnd_toEndOf="@+id/campoCadastrar"
         app:layout_constraintStart_toStartOf="@+id/campoCadastrar"
         app:layout_constraintTop_toBottomOf="@+id/textoCadastrar" />
 
     <EditText
         android:id="@+id/campoEmailCadastrar"
+        android:imeOptions="actionNext"
         style="@style/campoTexto"
         android:maxLength="100"
         android:layout_width="330dp"
@@ -82,6 +84,7 @@
 
     <EditText
         android:id="@+id/campoSenhaCadastrar"
+        android:imeOptions="actionNext"
         style="@style/campoTexto"
         android:maxLength="32"
         android:layout_width="330dp"
@@ -96,6 +99,7 @@
 
     <EditText
         android:id="@+id/campoConfirmarSenha"
+        android:imeOptions="actionDone"
         style="@style/campoTexto"
         android:maxLength="32"
         android:layout_width="330dp"

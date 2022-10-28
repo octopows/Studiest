@@ -63,6 +63,7 @@
 
     <EditText
         android:id="@+id/campoAlterarSenha"
+        android:imeOptions="actionNext"
         style="@style/campoTexto"
         android:maxLength="20"
         android:layout_width="330dp"
@@ -92,6 +93,7 @@
 
     <EditText
         android:id="@+id/campoConfirmarAlterar"
+        android:imeOptions="actionDone"
         style="@style/campoTexto"
         android:maxLength="20"
         android:layout_width="330dp"

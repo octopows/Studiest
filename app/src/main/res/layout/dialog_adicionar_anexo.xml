@@ -42,6 +42,7 @@
 
     <EditText
         android:id="@+id/campoNomeAnexo"
+        android:imeOptions="actionDone"
         style="@style/campoTexto"
         android:layout_width="290dp"
         android:layout_height="50dp"

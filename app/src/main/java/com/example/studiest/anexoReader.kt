@@ -17,7 +17,6 @@ class anexoReader : AppCompatActivity() {
         var it : Intent = intent
         var pdf = it.getStringExtra("pdfURI")
         var pdfURI = pdf!!.toUri()
-
         pdfViewer.fromUri(pdfURI).load()
     }
 }

@@ -14,4 +14,8 @@ Esse é um exemplo notificação com um texto grande, mas que caberá devido ao 
     <string name="notif_big_inbox_title">Mensagens não lidas:</string>
     <string name="notif_big_inbox_message">Mensagem %1$d</string>
     <string name="notif_big_inbox_summary">Clique para exibir</string>
+
+    <string name="permission_required">Camera access is required to display the camera preview.</string>
+    <string name="ok">OK</string>
+    <string name="permission_granted">Permission is granted. You can use the camera now.</string>
 </resources>

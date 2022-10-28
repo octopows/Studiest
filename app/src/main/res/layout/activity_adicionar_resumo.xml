@@ -56,6 +56,8 @@
 
     <EditText
         android:id="@+id/campoTituloResumo"
+        android:imeOptions="actionNext"
+        android:inputType="text"
         style="@style/campoTexto"
         android:layout_width="320dp"
         android:layout_height="50dp"
@@ -67,6 +69,8 @@
 
     <EditText
         android:id="@+id/campoDisciplinaResumo"
+        android:imeOptions="actionNext"
+        android:inputType="text"
         style="@style/campoTexto"
         android:layout_width="320dp"
         android:layout_height="50dp"

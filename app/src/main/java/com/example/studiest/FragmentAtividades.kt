@@ -2,17 +2,22 @@ package com.example.studiest
 
 import android.content.Context
 import android.content.Intent
+import android.net.ConnectivityManager
 import android.os.AsyncTask
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.ListView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import org.json.JSONObject
@@ -30,6 +35,7 @@ class FragmentAtividades : Fragment() {
 
     private var atividadesDowload: AtividadesDownload? = null
     lateinit var itemChecklistAdapter: ItemChecklistAdapter
+
     private lateinit var dialog: AlertDialog
     var sortType: Int = 1
 
@@ -63,7 +69,24 @@ class FragmentAtividades : Fragment() {
         listViewAtividades.adapter = itemChecklistAdapter
 
         val semAtividades = view.findViewById<ImageView>(R.id.semAtividades)
-        listViewAtividades.setEmptyView(semAtividades)
+
+
+        val ha2 = Handler()
+        ha2.postDelayed(object : Runnable {
+            override fun run() {
+                var estadoConexao = haveNetworkConnection()
+
+                if(estadoConexao == true){
+                    semAtividades.setImageResource(R.drawable.tudo_concluido)
+                    listViewAtividades.setEmptyView(semAtividades)
+                }else{
+                    semAtividades.setImageResource(R.drawable.erro_conexao)
+                    listViewAtividades.setEmptyView(semAtividades)
+                }
+                ha2.postDelayed(this, 100)
+            }
+        }, 100)
+
 
         listViewAtividades.setOnItemClickListener{parent, view, position, id ->
             var atividade: ItemChecklist = AtividadeController.getAtividade(position)
@@ -72,6 +95,34 @@ class FragmentAtividades : Fragment() {
             intentAlterar.putExtra("selecionado",1)
             activity?.startActivity(intentAlterar)
         }
+
+        listViewAtividades.setOnItemLongClickListener{parent, view, position, id ->
+            var atividade: ItemChecklist = AtividadeController.getAtividade(position)
+
+            val concluido = view.findViewById<ImageView>(R.id.btnMarcarConcluido)
+
+            concluido.getLayoutParams().height = 110; //can change the size according to you requirements
+            concluido.getLayoutParams().width = 110; //--
+            concluido.requestLayout()
+            concluido.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+            concluido.setImageResource(R.drawable.visto_concluido)
+
+            Toast.makeText(context, "Atividade concluída com sucesso", Toast.LENGTH_SHORT).show()
+            var deletaItem: DeletaItem? = DeletaItem()
+            deletaItem?.execute(atividade)
+            deletaItem = null
+
+            Handler(Looper.getMainLooper()).postDelayed(
+                {
+                    AtividadeController.apaga(position)
+                    itemChecklistAdapter.clear()
+                    itemChecklistAdapter.addAll(AtividadeController.listaDeAtividades())
+                },
+                    800 // value in milliseconds
+                )
+            true
+        }
+
 
         var atividadesDownload = AtividadesDownload()
         atividadesDownload?.execute()
@@ -82,25 +133,6 @@ class FragmentAtividades : Fragment() {
             atividadesDownload?.execute()
 
         }
-
-        val ha = Handler()
-        ha.postDelayed(object : Runnable {
-            override fun run() {
-                val sharedPreference = getActivity()?.getSharedPreferences("dadosUsuario", Context.MODE_PRIVATE)
-                var valor = sharedPreference?.getInt("deletarItem",-1)
-
-                if(valor!=0){
-                    var atividadesDownload = AtividadesDownload()
-                    atividadesDownload?.execute()
-                    itemChecklistAdapter.clear()
-                    itemChecklistAdapter.addAll(AtividadeController.listaDeAtividades())
-                    var editor = sharedPreference?.edit()
-                    editor?.putInt("deletarItem", 0)
-                    editor?.commit()
-                }
-                ha.postDelayed(this, 100)
-            }
-        }, 100)
 
         val btnOrdenar = view.findViewById<TextView>(R.id.btnOrdenar)
 
@@ -125,6 +157,27 @@ class FragmentAtividades : Fragment() {
         atividadesDownload?.execute()
 
     }
+
+    private fun haveNetworkConnection(): Boolean {
+        var haveConnectedWifi = false
+        var haveConnectedMobile = false
+        val cm = requireActivity().getSystemService(AppCompatActivity.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val netInfo = cm.allNetworkInfo
+        for (ni in netInfo) {
+            if (ni.typeName.equals(
+                    "WIFI",
+                    ignoreCase = true
+                )
+            ) if (ni.isConnected) haveConnectedWifi = true
+            if (ni.typeName.equals(
+                    "MOBILE",
+                    ignoreCase = true
+                )
+            ) if (ni.isConnected) haveConnectedMobile = true
+        }
+        return haveConnectedWifi || haveConnectedMobile
+    }
+
 
     inner class AtividadesDownload : AsyncTask<Void, Void, List<ItemChecklist>?>() {
 
@@ -222,6 +275,77 @@ class FragmentAtividades : Fragment() {
                 atividades.add(atividade)
             }
             return atividades
+        }
+    }
+
+    inner class DeletaItem : AsyncTask<ItemChecklist?, Void, Boolean?>(){
+
+        override fun doInBackground(vararg params: ItemChecklist?): Boolean? {
+            val item : ItemChecklist = params[0] as ItemChecklist
+
+            try {
+                var url: URL? = null
+
+                if(item.tipo == 0){
+                    url = URL("http://studiestoficial.000webhostapp.com/app/deletaAvaliacao.php")
+                } else if(item.tipo == 1){
+                    url = URL("http://studiestoficial.000webhostapp.com/app/deletaAtividade.php")
+                } else if(item.tipo == 2){
+                    url = URL("http://studiestoficial.000webhostapp.com/app/deletaLembrete.php")
+                }
+
+                val conexao = (url!!.openConnection() as HttpURLConnection)
+
+                conexao.readTimeout = 15000
+                conexao.connectTimeout = 15000
+                conexao.requestMethod = "POST"
+                conexao.doInput = true
+                conexao.doOutput = true
+                conexao.setRequestProperty("Content-Type","application/json")
+                conexao.connect()
+
+                var outputStream: OutputStream = conexao.outputStream
+                outputStream.write(ItemToJsonBytes(item))
+                outputStream.flush()
+                outputStream.close()
+
+                val responseCode = conexao.responseCode
+                if (responseCode == HttpURLConnection.HTTP_OK) {
+                    val inputStream = conexao.inputStream
+                    var resultado = streamToString(inputStream)
+                    val json = JSONObject(resultado)
+                    return true
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+            return false
+        }
+
+        private fun streamToString(inputStream: InputStream): String {
+            val buffer = ByteArray(1024)
+            val dados = ByteArrayOutputStream()
+            var bytesRead: Int
+            while (true) {
+                bytesRead = inputStream.read(buffer)
+                if (bytesRead == -1) break
+                dados.write(buffer, 0, bytesRead)
+            }
+            return String(dados.toByteArray(), Charset.forName("UTF-8"))
+        }
+
+        private fun ItemToJsonBytes(item: ItemChecklist): ByteArray?{
+            try{
+                var jsonItem = JSONObject()
+
+                jsonItem.put("id",item.id)
+
+                var byteArray = jsonItem.toString().encodeToByteArray()
+                return byteArray
+            }catch (e: Exception){
+                e.printStackTrace()
+            }
+            return null
         }
     }
 

@@ -43,45 +43,6 @@ class ItemChecklistAdapter(contexto: Context) : ArrayAdapter<ItemChecklist>(cont
         editor.commit()
 
 
-        btnMarcarConcluido.setOnClickListener{
-            it.tag = item?.id
-            btnMarcarConcluido.getLayoutParams().height = 90; //can change the size according to you requirements
-            btnMarcarConcluido.getLayoutParams().width = 90; //--
-            btnMarcarConcluido.requestLayout()
-            btnMarcarConcluido.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
-            btnMarcarConcluido.setImageResource(R.drawable.visto)
-
-            if(item?.tipo == 0){
-                var ITEM = ItemChecklist(item?.id,item?.titulo,item?.disciplina,item?.prazo,item?.descricao,item?.tipo)
-                var deletaItem: DeletaItem? = DeletaItem()
-                AvaliacaoController.apaga(position)
-                deletaItem?.execute(ITEM)
-                deletaItem = null
-                btnMarcarConcluido.setImageResource(R.drawable.visto)
-                Toast.makeText(context, "Avaliação concluída com sucesso!", Toast.LENGTH_SHORT).show()
-
-            } else  if(item?.tipo == 1){
-                var ITEM = ItemChecklist(item?.id,item?.titulo,item?.disciplina,item?.prazo,item?.descricao,item?.tipo)
-                var deletaItem: DeletaItem? = DeletaItem()
-                AtividadeController.apaga(position)
-                deletaItem?.execute(ITEM)
-                deletaItem = null
-                Toast.makeText(context, "Atividade concluída com sucesso!", Toast.LENGTH_SHORT).show()
-            } else  if(item?.tipo == 2){
-                var ITEM = ItemChecklist(item?.id,item?.titulo,item?.disciplina,item?.prazo,item?.descricao,item?.tipo)
-                var deletaItem: DeletaItem? = DeletaItem()
-                LembreteController.apaga(position)
-                deletaItem?.execute(ITEM)
-                deletaItem = null
-                Toast.makeText(context, "Lembrete concluído com sucesso!", Toast.LENGTH_SHORT).show()
-            }
-            btnMarcarConcluido.setImageResource(R.drawable.visto)
-            val sharedPreference = context.getSharedPreferences("dadosUsuario", Context.MODE_PRIVATE)
-            var editor = sharedPreference.edit()
-            editor.putInt("deletarItem", 1)
-            editor.commit()
-
-        }
 
         val data = SimpleDateFormat("dd/MM/yyyy").parse(item?.prazo)
         val data_atual = Date()

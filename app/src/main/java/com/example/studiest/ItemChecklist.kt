@@ -6,5 +6,6 @@ data class ItemChecklist (
     var disciplina:String?,
     var prazo:String?,
     var descricao:String? = null,
-    var tipo: Int
+    var tipo: Int,
+    var estado: Int = 0
     )

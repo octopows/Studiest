@@ -3,13 +3,11 @@ package com.example.studiest
 import android.app.Dialog
 import android.content.Context
 import android.content.Intent
+import android.net.ConnectivityManager
 import android.os.AsyncTask
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.TextView
+import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import org.json.JSONObject
 import java.io.ByteArrayOutputStream
@@ -51,42 +49,49 @@ class adicionar_resumo : AppCompatActivity() {
         }
 
         btnSalvarResumo.setOnClickListener {
-            var id = -1
-            val titulo = campoTituloResumo.text.toString()
-            val disciplina = campoDisciplinaResumo.text.toString()
-            val conteudo = campoConteudoResumo.text.toString()
+            var estadoConexao = haveNetworkConnection()
 
-            if(titulo.isNotEmpty() && disciplina.isNotEmpty() && conteudo.isNotEmpty()){
-                val resumo = Resumo(id,titulo,disciplina,conteudo)
-                campoTituloResumo.text.clear()
-                campoTituloResumo.requestFocus()
-                campoDisciplinaResumo.text.clear()
-                campoDisciplinaResumo.text.clear()
-                campoConteudoResumo.text.clear()
-                campoConteudoResumo.text.clear()
+            if(estadoConexao == true){
+                var id = -1
+                val titulo = campoTituloResumo.text.toString()
+                val disciplina = campoDisciplinaResumo.text.toString()
+                val conteudo = campoConteudoResumo.text.toString()
 
-                if (p == -1){
-                    ResumoController.cadastra(resumo)
-                    var cadastraResumo: CadastraResumo? = CadastraResumo()
-                    cadastraResumo?.execute(resumo)
-                    cadastraResumo = null
+                if(titulo.isNotEmpty() && disciplina.isNotEmpty() && conteudo.isNotEmpty()){
+                    val resumo = Resumo(id,titulo,disciplina,conteudo)
+                    campoTituloResumo.text.clear()
+                    campoTituloResumo.requestFocus()
+                    campoDisciplinaResumo.text.clear()
+                    campoDisciplinaResumo.text.clear()
+                    campoConteudoResumo.text.clear()
+                    campoConteudoResumo.text.clear()
 
+                    if (p == -1){
+                        ResumoController.cadastra(resumo)
+                        var cadastraResumo: CadastraResumo? = CadastraResumo()
+                        cadastraResumo?.execute(resumo)
+                        cadastraResumo = null
+
+                    }
+                    else{
+                        val resumoEdit = ResumoController.getResumo(p)
+                        val resumo = Resumo(resumoEdit.id,titulo,disciplina,conteudo)
+                        ResumoController.atualiza(p,resumo)
+                        var editaResumo: EditaResumo? = EditaResumo()
+                        editaResumo?.execute(resumo)
+                        editaResumo = null
+
+                    }
+                }else{
+                    campoTituloResumo.error = if(titulo.isEmpty()) "Preencha um título" else null
+                    campoDisciplinaResumo.error = if(disciplina.isEmpty()) "Preencha uma disciplina" else null
+                    campoConteudoResumo.error = if(conteudo.isEmpty()) "Insira o conteúdo do resumo" else null
                 }
-                else{
-                    val resumoEdit = ResumoController.getResumo(p)
-                    val resumo = Resumo(resumoEdit.id,titulo,disciplina,conteudo)
-                    ResumoController.atualiza(p,resumo)
-                    var editaResumo: EditaResumo? = EditaResumo()
-                    editaResumo?.execute(resumo)
-                    editaResumo = null
-
-                }
+                finish()
             }else{
-                campoTituloResumo.error = if(titulo.isEmpty()) "Preencha um título" else null
-                campoDisciplinaResumo.error = if(disciplina.isEmpty()) "Preencha uma disciplina" else null
-                campoConteudoResumo.error = if(conteudo.isEmpty()) "Insira o conteúdo do resumo" else null
+                Toast.makeText(this, "Erro ao salvar. Verifique sua conexão com a internet.", Toast.LENGTH_SHORT).show()
             }
-            finish()
+
         }
         if (p!=-1) {
             val resumo: Resumo = ResumoController.getResumo(p)
@@ -96,6 +101,27 @@ class adicionar_resumo : AppCompatActivity() {
         }
 
     }
+
+    private fun haveNetworkConnection(): Boolean {
+        var haveConnectedWifi = false
+        var haveConnectedMobile = false
+        val cm = getSystemService(CONNECTIVITY_SERVICE) as ConnectivityManager
+        val netInfo = cm.allNetworkInfo
+        for (ni in netInfo) {
+            if (ni.typeName.equals(
+                    "WIFI",
+                    ignoreCase = true
+                )
+            ) if (ni.isConnected) haveConnectedWifi = true
+            if (ni.typeName.equals(
+                    "MOBILE",
+                    ignoreCase = true
+                )
+            ) if (ni.isConnected) haveConnectedMobile = true
+        }
+        return haveConnectedWifi || haveConnectedMobile
+    }
+
     //função para chamar dialog sair
     private fun showDialogRemoverResumo(){
         val build = AlertDialog.Builder(this, R.style.ThemeCustomDialog)
@@ -113,17 +139,23 @@ class adicionar_resumo : AppCompatActivity() {
         cancelarRemoverResumo.setOnClickListener { dialog.dismiss() }
 
         confirmarRemoverResumo.setOnClickListener {
-            if(p!=-1) {
-                val resumoEdit = ResumoController.getResumo(p)
-                val resumo = Resumo(resumoEdit.id,resumoEdit.titulo,resumoEdit.disciplina,resumoEdit.conteudo)
-                var deletaResumo: DeletaResumo? = DeletaResumo()
-                deletaResumo?.execute(resumo)
-                deletaResumo = null
-                ResumoController.apaga(p)
-                resumoAdapter.clear()
-                resumoAdapter.addAll(ResumoController.listaDeResumos())
+            var estadoConexao = haveNetworkConnection()
+
+            if(estadoConexao == true){
+                if(p!=-1) {
+                    val resumoEdit = ResumoController.getResumo(p)
+                    val resumo = Resumo(resumoEdit.id,resumoEdit.titulo,resumoEdit.disciplina,resumoEdit.conteudo)
+                    var deletaResumo: DeletaResumo? = DeletaResumo()
+                    deletaResumo?.execute(resumo)
+                    deletaResumo = null
+                    ResumoController.apaga(p)
+                    resumoAdapter.clear()
+                    resumoAdapter.addAll(ResumoController.listaDeResumos())
+                }
+                finish()
+            }else{
+                Toast.makeText(this, "Erro ao deletar. Verifique sua conexão com a internet.", Toast.LENGTH_SHORT).show()
             }
-            finish()
         }
         dialog = build.create()
         dialog.show()

@@ -38,6 +38,7 @@
 
     <EditText
         android:id="@+id/campoEmail"
+        android:imeOptions="actionNext"
         style="@style/campoTexto"
         android:maxLength="100"
         android:layout_width="330dp"
@@ -176,6 +177,7 @@
 
     <EditText
         android:id="@+id/campoSenha"
+        android:imeOptions="actionDone"
         style="@style/campoTexto"
         android:maxLength="32"
         android:layout_width="330dp"

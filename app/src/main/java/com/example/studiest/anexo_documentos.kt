@@ -1,26 +1,30 @@
 package com.example.studiest
 
+import android.Manifest
 import android.app.Activity
 import android.content.ActivityNotFoundException
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.os.Environment
 import android.os.Handler
+import android.util.Log
 import android.view.View
 import android.widget.*
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.net.toFile
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+import androidx.core.content.FileProvider
+import androidx.core.content.FileProvider.getUriForFile
 import androidx.core.net.toUri
 import com.example.studiest.R.layout.dialog_adicionar_anexo
-import java.io.File
-import java.nio.file.Path
-import java.nio.file.Paths
-import java.nio.file.Paths.get
-import kotlin.io.path.Path
+import com.google.android.material.snackbar.Snackbar
+import java.io.*
+import java.util.*
 
 
 class anexo_documentos : AppCompatActivity(){
@@ -30,7 +34,7 @@ class anexo_documentos : AppCompatActivity(){
     private lateinit var dialog: AlertDialog
     private lateinit var dialog2: AlertDialog
     lateinit var anexoAdapter: AnexoAdapter
-    var arquivoURI: Uri? = null
+    var arquivoURI: Uri? = "null".toUri()
     lateinit var valorCampo: String
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -55,14 +59,18 @@ class anexo_documentos : AppCompatActivity(){
 
         listViewAnexo.setOnItemClickListener{parent, view, position, id ->
             var anexo: Anexo = AnexoController.getAnexo(position)
-            var arquivoURI = anexo.arquivo!!.toUri()
+            var arquivoFile = File(anexo.arquivo)
+            var arquivoURI = Uri.fromFile(arquivoFile)
 
-            Toast.makeText(this, "${anexo.arquivo}", Toast.LENGTH_SHORT).show()
+            var arquivoURI2 = FileProvider.getUriForFile(
+                Objects.requireNonNull(getApplicationContext()),
+                BuildConfig.APPLICATION_ID + ".provider",arquivoFile)
+
+            applicationContext.grantUriPermission(applicationContext.getPackageName(), arquivoURI2, Intent.FLAG_GRANT_READ_URI_PERMISSION);
 
             val target = Intent(Intent.ACTION_VIEW)
-            target.setDataAndType(arquivoURI, "application/pdf")
+            target.setDataAndType(arquivoURI2, "application/pdf")
             target.flags = Intent.FLAG_ACTIVITY_NO_HISTORY or Intent.FLAG_GRANT_READ_URI_PERMISSION or  Intent.FLAG_GRANT_WRITE_URI_PERMISSION or Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION
-
             val intent: Intent = Intent.createChooser(target, "Open File")
 
             try {
@@ -70,10 +78,16 @@ class anexo_documentos : AppCompatActivity(){
             } catch (e: ActivityNotFoundException) {
                 Toast.makeText(this, "Instale um leitor de PDF.", Toast.LENGTH_SHORT).show()
             }
-/*
-            val intent = Intent(this, anexoReader::class.java)
-            intent.putExtra("pdfURI", anexo.arquivo)
-            startActivity(intent)*/
+            /*
+            try{
+                val intent = Intent(this, anexoReader::class.java)
+                intent.putExtra("pdfURI", arquivoURI.toString())
+                startActivity(intent)
+            }catch (e: Exception){
+                Toast.makeText(this, "Não foi possível abrir o documento.", Toast.LENGTH_SHORT).show()
+            }*/
+
+
         }
 
         listViewAnexo.setOnItemLongClickListener{parent, view, position, id ->
@@ -118,11 +132,15 @@ class anexo_documentos : AppCompatActivity(){
         val campoSelecionarArquivo = view.findViewById<TextView>(R.id.campoSelecionarArquivo)
 
         retanguloArquivo.setOnClickListener {
-            val intentPDF = Intent(Intent.ACTION_OPEN_DOCUMENT)
-            intentPDF.type = "application/pdf"
-            intentPDF.addCategory(Intent.CATEGORY_OPENABLE)
-            startActivityForResult(Intent.createChooser(intentPDF, "Selecione um pdf"), PDF)
-          //  campoSelecionarArquivo.text = "Arquivo Selecionado ▼"
+            if(ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
+                ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),1)
+            } else{
+                val intentPDF = Intent(Intent.ACTION_OPEN_DOCUMENT)
+                intentPDF.type = "application/pdf"
+                intentPDF.addCategory(Intent.CATEGORY_OPENABLE)
+                startActivityForResult(Intent.createChooser(intentPDF, "Selecione um pdf"), PDF)
+                //  campoSelecionarArquivo.text = "Arquivo Selecionado ▼"
+            }
         }
 
         campoSelecionarArquivo.text = valorCampo
@@ -151,13 +169,23 @@ class anexo_documentos : AppCompatActivity(){
         btnConfirmarAnexo.setOnClickListener {
             var campoArquivo = campoSelecionarArquivo.text.toString()
             val titulo = campoTituloAnexo.text.toString()
-            var arquivo = arquivoURI!!.toString()
+            var stringPath: String? = null
+            try{
+                stringPath = UriUtils.getRealPath(this, arquivoURI!!).toString()
+            }catch (e: Exception){
+                Toast.makeText(this, "Não foi possível abrir o documento.", Toast.LENGTH_SHORT).show()
+                dialog.dismiss()
+            }
+            var arquivoFile = File(stringPath+"/")
+            //Toast.makeText(this, "$stringPath", Toast.LENGTH_SHORT).show()
+
 
             if(titulo.isNotEmpty() && (campoArquivo == "Arquivo Selecionado ▼" || campoArquivo == "Alterar Arquivo ▼") ){
                 campoTituloAnexo.text.clear()
 
                 if (!alterar){
-                    val anexo = Anexo(0L,titulo,arquivo)
+                    var arquivoPath = copyFile(arquivoFile,titulo)
+                    val anexo = Anexo(0L,titulo,arquivoPath)
                     val anexoRepositorio = AnexoRepositorio(applicationContext)
                     var id = anexoRepositorio.inserir(anexo)
                     if(id>=0) {
@@ -165,15 +193,28 @@ class anexo_documentos : AppCompatActivity(){
                         AnexoController.listaDeAnexos().clear()
                         AnexoController.listaDeAnexos().addAll(anexoRepositorio.buscarAnexos(null))
                     }
+                    arquivoURI = "null".toUri()
                 }
                 else{
-                    arquivoURI = null
                     val anexoEdit = AnexoController.getAnexo(p)
-                    if(arquivoURI == null){
-                        arquivoURI = anexoEdit.arquivo!!.toUri()
+                    var arquivoPath: String = anexoEdit.arquivo.toString()
+                    if(arquivoURI == "null".toUri()){
+                        arquivoPath = anexoEdit.arquivo.toString()
+                    }else{
+                     var stringPath: String? = null
+                        try{
+                            stringPath = UriUtils.getRealPath(this, arquivoURI!!).toString()
+                        }catch (e: Exception){
+                            Toast.makeText(this, "Não foi possível abrir o documento.", Toast.LENGTH_SHORT).show()
+                            dialog.dismiss()
+                        }
+                        var arquivoFile = File(stringPath+"/")
+
+                        var arquivoDelete = File(anexoEdit.arquivo).delete()
+                        arquivoPath = copyFile(arquivoFile,titulo)
                     }
 
-                    val anexo = Anexo(anexoEdit.id,titulo,arquivo)
+                    val anexo = Anexo(anexoEdit.id,titulo,arquivoPath)
 
                     val anexoRepositorio = AnexoRepositorio(applicationContext)
                     var numLinhasAfetadas = anexoRepositorio.atualizar(anexo)
@@ -201,6 +242,31 @@ class anexo_documentos : AppCompatActivity(){
         dialog.show()
     }
 
+    @Throws(IOException::class)
+    fun copyFile(src: File?, titulo: String?): String {
+        var dst = File("/data/user/0/com.example.studiest/files/$titulo.pdf")
+
+        var `in`: InputStream = FileInputStream(src)
+
+        try {
+            val out: OutputStream = FileOutputStream(dst)
+            try {
+                // Transfer bytes from in to out
+                val buf = ByteArray(1024)
+                var len: Int
+                while (`in`.read(buf).also { len = it } > 0) {
+                    out.write(buf, 0, len)
+                }
+            } finally {
+                out.close()
+            }
+        } finally {
+            `in`.close()
+        }
+        var arquivoPath = dst.toString()
+        return arquivoPath
+    }
+
     //função para chamar dialog sair
     private fun showDialogDeletarAnexo(p: Int){
         val build = AlertDialog.Builder(this, R.style.ThemeCustomDialog)
@@ -217,6 +283,7 @@ class anexo_documentos : AppCompatActivity(){
         confirmarDeletarAnexo.setOnClickListener {
             if(p!=-1) {
                 val anexo = AnexoController.getAnexo(p)
+                var arquivoFile = File(anexo.arquivo).delete()
 
                 val anexoRepositorio = AnexoRepositorio(this)
                 var numLinhasAfetadas = anexoRepositorio.excluir(anexo)

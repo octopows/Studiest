@@ -56,23 +56,28 @@
 
     <EditText
         android:id="@+id/campoTituloItem"
+        android:imeOptions="actionNext"
+        android:maxLines="1"
         style="@style/campoTexto"
         android:layout_width="320dp"
         android:layout_height="50dp"
         android:layout_marginTop="10dp"
         android:ems="10"
         android:maxLength="50"
+        android:inputType="text"
         app:layout_constraintStart_toStartOf="@+id/textoTitulo"
         app:layout_constraintTop_toBottomOf="@+id/textoTitulo" />
 
     <EditText
         android:id="@+id/campoDisciplinaItem"
+        android:imeOptions="actionNext"
         style="@style/campoTexto"
         android:layout_width="320dp"
         android:layout_height="50dp"
         android:layout_marginTop="10dp"
         android:ems="10"
         android:maxLength="50"
+        android:inputType="text"
         app:layout_constraintStart_toStartOf="@+id/textoDisciplina"
         app:layout_constraintTop_toBottomOf="@+id/textoDisciplina" />
 

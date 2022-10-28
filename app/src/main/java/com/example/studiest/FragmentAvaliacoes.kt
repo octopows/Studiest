@@ -2,9 +2,11 @@ package com.example.studiest
 
 import android.content.Context
 import android.content.Intent
+import android.net.ConnectivityManager
 import android.os.AsyncTask
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
@@ -14,6 +16,7 @@ import android.widget.ListView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -67,7 +70,22 @@ class FragmentAvaliacoes : Fragment() {
         listViewAvaliacoes.adapter = itemChecklistAdapter
 
         val semAvaliacoes = view.findViewById<ImageView>(R.id.semAvaliacoes)
-        listViewAvaliacoes.setEmptyView(semAvaliacoes)
+
+        val ha2 = Handler()
+        ha2.postDelayed(object : Runnable {
+            override fun run() {
+                var estadoConexao = haveNetworkConnection()
+
+                if(estadoConexao == true){
+                    semAvaliacoes.setImageResource(R.drawable.tudo_concluido)
+                    listViewAvaliacoes.setEmptyView(semAvaliacoes)
+                }else{
+                    semAvaliacoes.setImageResource(R.drawable.erro_conexao)
+                    listViewAvaliacoes.setEmptyView(semAvaliacoes)
+                }
+                ha2.postDelayed(this, 500)
+            }
+        }, 500)
 
         listViewAvaliacoes.setOnItemClickListener{parent, view, position, id ->
             var avaliacao: ItemChecklist = AvaliacaoController.getAvaliacao(position)
@@ -75,6 +93,33 @@ class FragmentAvaliacoes : Fragment() {
             intentAlterar.putExtra("p",position)
             intentAlterar.putExtra("selecionado",0)
             activity?.startActivity(intentAlterar)
+        }
+
+        listViewAvaliacoes.setOnItemClickListener{parent, view, position, id ->
+            var avaliacao: ItemChecklist = AvaliacaoController.getAvaliacao(position)
+
+            val concluido = view.findViewById<ImageView>(R.id.btnMarcarConcluido)
+
+            concluido.getLayoutParams().height = 110; //can change the size according to you requirements
+            concluido.getLayoutParams().width = 110; //--
+            concluido.requestLayout()
+            concluido.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+            concluido.setImageResource(R.drawable.visto_concluido)
+
+            Toast.makeText(context, "Avaliação concluída com sucesso", Toast.LENGTH_SHORT).show()
+            var deletaItem: DeletaItem? = DeletaItem()
+            deletaItem?.execute(avaliacao)
+            deletaItem = null
+
+            Handler(Looper.getMainLooper()).postDelayed(
+                {
+                    AvaliacaoController.apaga(position)
+                    itemChecklistAdapter.clear()
+                    itemChecklistAdapter.addAll(AvaliacaoController.listaDeAvaliacoes())
+                },
+                800 // value in milliseconds
+            )
+            true
         }
 
         var avaliacoesDownload = AvaliacoesDownload()
@@ -85,25 +130,6 @@ class FragmentAvaliacoes : Fragment() {
             var avaliacoesDownload = AvaliacoesDownload()
             avaliacoesDownload?.execute()
         }
-
-        val ha = Handler()
-        ha.postDelayed(object : Runnable {
-            override fun run() {
-                val sharedPreference = getActivity()?.getSharedPreferences("dadosUsuario", Context.MODE_PRIVATE)
-                var valor = sharedPreference?.getInt("deletarItem",-1)
-
-                if(valor!=0){
-                    var avaliacoesDownload = AvaliacoesDownload()
-                    avaliacoesDownload?.execute()
-                    itemChecklistAdapter.clear()
-                    itemChecklistAdapter.addAll(AvaliacaoController.listaDeAvaliacoes())
-                    var editor = sharedPreference?.edit()
-                    editor?.putInt("deletarItem", 0)
-                    editor?.commit()
-                }
-                ha.postDelayed(this, 100)
-            }
-        }, 100)
 
         val btnOrdenar = view.findViewById<TextView>(R.id.btnOrdenar)
 
@@ -126,6 +152,26 @@ class FragmentAvaliacoes : Fragment() {
         }
         var avaliacoesDownload = AvaliacoesDownload()
         avaliacoesDownload?.execute()
+    }
+
+    private fun haveNetworkConnection(): Boolean {
+        var haveConnectedWifi = false
+        var haveConnectedMobile = false
+        val cm = requireActivity().getSystemService(AppCompatActivity.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val netInfo = cm.allNetworkInfo
+        for (ni in netInfo) {
+            if (ni.typeName.equals(
+                    "WIFI",
+                    ignoreCase = true
+                )
+            ) if (ni.isConnected) haveConnectedWifi = true
+            if (ni.typeName.equals(
+                    "MOBILE",
+                    ignoreCase = true
+                )
+            ) if (ni.isConnected) haveConnectedMobile = true
+        }
+        return haveConnectedWifi || haveConnectedMobile
     }
 
     inner class AvaliacoesDownload : AsyncTask<Void, Void, List<ItemChecklist>?>() {
@@ -227,7 +273,76 @@ class FragmentAvaliacoes : Fragment() {
         }
     }
 
+    inner class DeletaItem : AsyncTask<ItemChecklist?, Void, Boolean?>(){
 
+        override fun doInBackground(vararg params: ItemChecklist?): Boolean? {
+            val item : ItemChecklist = params[0] as ItemChecklist
+
+            try {
+                var url: URL? = null
+
+                if(item.tipo == 0){
+                    url = URL("http://studiestoficial.000webhostapp.com/app/deletaAvaliacao.php")
+                } else if(item.tipo == 1){
+                    url = URL("http://studiestoficial.000webhostapp.com/app/deletaAtividade.php")
+                } else if(item.tipo == 2){
+                    url = URL("http://studiestoficial.000webhostapp.com/app/deletaLembrete.php")
+                }
+
+                val conexao = (url!!.openConnection() as HttpURLConnection)
+
+                conexao.readTimeout = 15000
+                conexao.connectTimeout = 15000
+                conexao.requestMethod = "POST"
+                conexao.doInput = true
+                conexao.doOutput = true
+                conexao.setRequestProperty("Content-Type","application/json")
+                conexao.connect()
+
+                var outputStream: OutputStream = conexao.outputStream
+                outputStream.write(ItemToJsonBytes(item))
+                outputStream.flush()
+                outputStream.close()
+
+                val responseCode = conexao.responseCode
+                if (responseCode == HttpURLConnection.HTTP_OK) {
+                    val inputStream = conexao.inputStream
+                    var resultado = streamToString(inputStream)
+                    val json = JSONObject(resultado)
+                    return true
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+            return false
+        }
+
+        private fun streamToString(inputStream: InputStream): String {
+            val buffer = ByteArray(1024)
+            val dados = ByteArrayOutputStream()
+            var bytesRead: Int
+            while (true) {
+                bytesRead = inputStream.read(buffer)
+                if (bytesRead == -1) break
+                dados.write(buffer, 0, bytesRead)
+            }
+            return String(dados.toByteArray(), Charset.forName("UTF-8"))
+        }
+
+        private fun ItemToJsonBytes(item: ItemChecklist): ByteArray?{
+            try{
+                var jsonItem = JSONObject()
+
+                jsonItem.put("id",item.id)
+
+                var byteArray = jsonItem.toString().encodeToByteArray()
+                return byteArray
+            }catch (e: Exception){
+                e.printStackTrace()
+            }
+            return null
+        }
+    }
     //função para chamar dialog ordenar
     private fun showDialogOrdenar(){
         val build = AlertDialog.Builder(requireActivity(), R.style.ThemeCustomDialog)
