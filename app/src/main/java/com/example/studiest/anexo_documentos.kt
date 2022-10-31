@@ -173,7 +173,6 @@ class anexo_documentos : AppCompatActivity(){
             try{
                 stringPath = UriUtils.getRealPath(this, arquivoURI!!).toString()
             }catch (e: Exception){
-                Toast.makeText(this, "Não foi possível abrir o documento.", Toast.LENGTH_SHORT).show()
                 dialog.dismiss()
             }
             var arquivoFile = File(stringPath+"/")
@@ -196,16 +195,22 @@ class anexo_documentos : AppCompatActivity(){
                     arquivoURI = "null".toUri()
                 }
                 else{
+                    arquivoURI == "null".toUri()
                     val anexoEdit = AnexoController.getAnexo(p)
                     var arquivoPath: String = anexoEdit.arquivo.toString()
-                    if(arquivoURI == "null".toUri()){
-                        arquivoPath = anexoEdit.arquivo.toString()
+                    if(campoSelecionarArquivo.text == "Alterar Arquivo ▼"){
+                        val anexo = Anexo(anexoEdit.id,titulo,anexoEdit.arquivo)
+                        val anexoRepositorio = AnexoRepositorio(applicationContext)
+                        var numLinhasAfetadas = anexoRepositorio.atualizar(anexo)
+                        if(numLinhasAfetadas>0) {
+                            AnexoController.listaDeAnexos().clear()
+                            AnexoController.listaDeAnexos().addAll(anexoRepositorio.buscarAnexos(null))
+                        }
                     }else{
-                     var stringPath: String? = null
+                        var stringPath: String? = null
                         try{
                             stringPath = UriUtils.getRealPath(this, arquivoURI!!).toString()
                         }catch (e: Exception){
-                            Toast.makeText(this, "Não foi possível abrir o documento.", Toast.LENGTH_SHORT).show()
                             dialog.dismiss()
                         }
                         var arquivoFile = File(stringPath+"/")
@@ -221,8 +226,8 @@ class anexo_documentos : AppCompatActivity(){
                     if(numLinhasAfetadas>0) {
                         AnexoController.listaDeAnexos().clear()
                         AnexoController.listaDeAnexos().addAll(anexoRepositorio.buscarAnexos(null))
-
                     }
+                    arquivoURI == "null".toUri()
                 }
                 valorCampo = "Selecionar Arquivo ▼"
                 dialog.dismiss()
@@ -237,7 +242,7 @@ class anexo_documentos : AppCompatActivity(){
             anexoAdapter.clear()
             anexoAdapter.addAll(AnexoController.listaDeAnexos())
         }
-
+        arquivoURI == "null".toUri()
         dialog = build.create()
         dialog.show()
     }
