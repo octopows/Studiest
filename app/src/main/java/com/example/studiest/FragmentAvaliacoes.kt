@@ -95,7 +95,7 @@ class FragmentAvaliacoes : Fragment() {
             activity?.startActivity(intentAlterar)
         }
 
-        listViewAvaliacoes.setOnItemClickListener{parent, view, position, id ->
+        listViewAvaliacoes.setOnItemLongClickListener{parent, view, position, id ->
             var estadoConexao = haveNetworkConnection()
 
             if(estadoConexao == true){
