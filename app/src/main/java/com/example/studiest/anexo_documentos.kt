@@ -1,28 +1,28 @@
 package com.example.studiest
 
+import UriUtils
 import android.Manifest
+import android.Manifest.permission.WRITE_EXTERNAL_STORAGE
 import android.app.Activity
 import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
+import android.os.Build.VERSION.SDK_INT
 import android.os.Bundle
+import android.os.Environment
 import android.os.Handler
-import android.util.Log
+import android.provider.Settings
 import android.view.View
 import android.widget.*
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
-import androidx.core.content.FileProvider.getUriForFile
 import androidx.core.net.toUri
 import com.example.studiest.R.layout.dialog_adicionar_anexo
-import com.google.android.material.snackbar.Snackbar
 import java.io.*
 import java.util.*
 
@@ -39,6 +39,7 @@ class anexo_documentos : AppCompatActivity(){
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_anexo_documentos)
 
@@ -134,12 +135,18 @@ class anexo_documentos : AppCompatActivity(){
         retanguloArquivo.setOnClickListener {
             if(ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
                 ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),1)
+                if (SDK_INT >= Build.VERSION_CODES.R) {
+                        val intent = Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION)
+                        val uri = Uri.fromParts("package", packageName, null)
+                        intent.data = uri
+                        startActivity(intent)
+                }
             } else{
-                val intentPDF = Intent(Intent.ACTION_OPEN_DOCUMENT)
-                intentPDF.type = "application/pdf"
-                intentPDF.addCategory(Intent.CATEGORY_OPENABLE)
-                startActivityForResult(Intent.createChooser(intentPDF, "Selecione um pdf"), PDF)
-                //  campoSelecionarArquivo.text = "Arquivo Selecionado ▼"
+                    val intentPDF = Intent(Intent.ACTION_OPEN_DOCUMENT)
+                    intentPDF.type = "application/pdf"
+                    intentPDF.addCategory(Intent.CATEGORY_OPENABLE)
+                    startActivityForResult(Intent.createChooser(intentPDF, "Selecione um pdf"), PDF)
+
             }
         }
 
@@ -166,20 +173,17 @@ class anexo_documentos : AppCompatActivity(){
             campoTituloAnexo.setText(anexo.titulo)
             valorCampo ="Alterar Arquivo ▼"
         }
+
         btnConfirmarAnexo.setOnClickListener {
             var campoArquivo = campoSelecionarArquivo.text.toString()
             val titulo = campoTituloAnexo.text.toString()
-            var stringPath: String? = null
-            try{
-                stringPath = UriUtils.getRealPath(this, arquivoURI!!).toString()
-            }catch (e: Exception){
-                dialog.dismiss()
-            }
-            var arquivoFile = File(stringPath+"/")
-            //Toast.makeText(this, "$stringPath", Toast.LENGTH_SHORT).show()
 
+            if(titulo.isNotEmpty() && campoSelecionarArquivo.text != "Selecionar Arquivo ▼" ){
+                var stringPath = UriUtils.getRealPath(this, arquivoURI!!).toString()
 
-            if(titulo.isNotEmpty() && (campoArquivo == "Arquivo Selecionado ▼" || campoArquivo == "Alterar Arquivo ▼") ){
+                var arquivoFile = File(stringPath+"/")
+                //Toast.makeText(this, "$stringPath", Toast.LENGTH_SHORT).show()
+
                 campoTituloAnexo.text.clear()
 
                 if (!alterar){
@@ -207,12 +211,8 @@ class anexo_documentos : AppCompatActivity(){
                             AnexoController.listaDeAnexos().addAll(anexoRepositorio.buscarAnexos(null))
                         }
                     }else{
-                        var stringPath: String? = null
-                        try{
-                            stringPath = UriUtils.getRealPath(this, arquivoURI!!).toString()
-                        }catch (e: Exception){
-                            dialog.dismiss()
-                        }
+                        var stringPath = UriUtils.getRealPath(this, arquivoURI!!).toString()
+
                         var arquivoFile = File(stringPath+"/")
 
                         var arquivoDelete = File(anexoEdit.arquivo).delete()
@@ -231,9 +231,7 @@ class anexo_documentos : AppCompatActivity(){
                 }
                 valorCampo = "Selecionar Arquivo ▼"
                 dialog.dismiss()
-
-            }
-            else{
+            } else{
                 campoTituloAnexo.error = if(titulo.isEmpty()) "Insira um nome para o arquivo" else null
                 if(campoArquivo == "Selecionar Arquivo ▼"){
                     Toast.makeText(applicationContext, "Selecione um arquivo.", Toast.LENGTH_SHORT).show()

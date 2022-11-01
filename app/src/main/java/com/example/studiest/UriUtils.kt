@@ -7,6 +7,7 @@ import android.os.Build
 import android.os.Environment
 import android.provider.DocumentsContract
 import android.provider.MediaStore
+import android.util.Log
 import java.io.File
 
 object UriUtils {
@@ -23,6 +24,7 @@ object UriUtils {
         if (isKitKat && DocumentsContract.isDocumentUri(context, uri)) {
             // ExternalStorageProvider
             if (isExternalStorageDocument(uri)) {
+                Log.println(Log.ASSERT, "uri_external", uri.toString())
                 val docId = DocumentsContract.getDocumentId(uri)
                 val split = docId.split(":").toTypedArray()
                 val type = split[0]
@@ -39,6 +41,7 @@ object UriUtils {
                     "storage" + "/" + docId.replace(":", "/")
                 }
             } else if (isDownloadsDocument(uri)) {
+                Log.println(Log.ASSERT, "uri_downloads", uri.toString())
                 val fileName = getFilePath(context, uri)
                 if (fileName != null) {
                     return Environment.getExternalStorageDirectory()
@@ -56,11 +59,14 @@ object UriUtils {
                 )
                 return getDataColumn(context, contentUri, null, null)
             } else if (isMediaDocument(uri)) {
+                Log.println(Log.ASSERT, "uri_media", uri.toString())
+                Log.println(Log.ASSERT, "uri1", DocumentsContract.EXTRA_INITIAL_URI)
                 val docId = DocumentsContract.getDocumentId(uri)
                 val split = docId.split(":").toTypedArray()
                 val type = split[0]
-                var contentUri: Uri? = null
-                when (type) {
+                //var contentUri: Uri? = null
+                var contentUri: Uri? = MediaStore.Files.getContentUri("external")
+                /*when (type) {
                     "image" -> {
                         contentUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI
                     }
@@ -70,7 +76,7 @@ object UriUtils {
                     "audio" -> {
                         contentUri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI
                     }
-                }
+                }*/
                 val selection = "_id=?"
                 val selectionArgs = arrayOf(
                     split[1]
@@ -116,6 +122,9 @@ object UriUtils {
 
 
     private fun getFilePath(context: Context, uri: Uri?): String? {
+
+        //Log.println()
+
         var cursor: Cursor? = null
         val projection = arrayOf(
             MediaStore.MediaColumns.DISPLAY_NAME

@@ -20,21 +20,18 @@
         app:layout_constraintVertical_bias="0.04000002"
         app:srcCompat="@drawable/icon_retornar" />
 
-    <ImageView
+    <View
         android:id="@+id/campoEntrar"
         android:layout_width="378dp"
-        android:layout_height="589dp"
+        android:layout_height="430dp"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="130dp"
         android:layout_marginEnd="24dp"
-        android:layout_marginBottom="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:background="@drawable/retangulo_cadastrar2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.484"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/retangulo_entrar" />
+        app:layout_constraintTop_toBottomOf="@+id/btnVoltar" />
 
     <EditText
         android:id="@+id/campoEmail"
@@ -55,7 +52,7 @@
         android:id="@+id/textoEntrar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="132dp"
+        android:layout_marginTop="75dp"
         android:fontFamily="@font/righteous"
         android:text="Entrar"
         android:textColor="@color/black"
@@ -116,64 +113,32 @@
         app:layout_constraintStart_toStartOf="@+id/campoEntrar"
         app:layout_constraintTop_toBottomOf="@+id/campoSenha" />
 
-    <Button
-        android:id="@+id/btnConfirmarEntrarGoogle"
-        android:layout_width="330dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="12dp"
-        android:backgroundTint="@color/vermelho"
-        android:fontFamily="@font/nunito_extrabold"
-        android:letterSpacing="0.01"
-        android:text="Entrar com o Google"
-        android:textAllCaps="false"
-        android:textColor="@color/white"
-        android:textSize="18dp"
-        app:cornerRadius="10dp"
-        app:layout_constraintEnd_toEndOf="@+id/imageView5"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/imageView5"
-        app:layout_constraintTop_toBottomOf="@+id/imageView5" />
-
-    <ImageView
-        android:id="@+id/imageView5"
-        android:layout_width="330dp"
-        android:layout_height="17dp"
-        android:layout_marginTop="12dp"
-        app:layout_constraintEnd_toEndOf="@+id/btnConfirmarEntrar"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/btnConfirmarEntrar"
-        app:layout_constraintTop_toBottomOf="@+id/btnConfirmarEntrar"
-        app:srcCompat="@drawable/barra_ou" />
-
     <TextView
         android:id="@+id/naoPossuiConta"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="56dp"
         android:fontFamily="@font/nunito_regular"
         android:letterSpacing="0.01"
         android:text="Não posssui conta?"
         android:textColor="@color/cinza_hint"
         android:textSize="16dp"
-        app:layout_constraintEnd_toEndOf="@+id/btnConfirmarEntrarGoogle"
-        app:layout_constraintHorizontal_bias="0.273"
-        app:layout_constraintStart_toStartOf="@+id/btnConfirmarEntrarGoogle"
-        app:layout_constraintTop_toBottomOf="@+id/btnConfirmarEntrarGoogle" />
+        app:layout_constraintBottom_toBottomOf="@+id/btnNaoPossuiConta"
+        app:layout_constraintStart_toStartOf="@+id/btnConfirmarEntrar"
+        app:layout_constraintTop_toTopOf="@+id/btnNaoPossuiConta" />
 
     <TextView
         android:id="@+id/btnNaoPossuiConta"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="15dp"
         android:fontFamily="@font/nunito_bold"
         android:letterSpacing="0.01"
         android:text=" Cadastre-se"
         android:textColor="@color/azul"
         android:textSize="16dp"
-        app:layout_constraintEnd_toEndOf="@+id/btnConfirmarEntrarGoogle"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/naoPossuiConta"
-        app:layout_constraintTop_toBottomOf="@+id/btnConfirmarEntrarGoogle" />
+        app:layout_constraintTop_toBottomOf="@+id/btnConfirmarEntrar" />
 
     <EditText
         android:id="@+id/campoSenha"
@@ -205,17 +170,6 @@
         app:layout_constraintTop_toTopOf="@+id/campoSenha"
         app:srcCompat="@drawable/senha_ocultada" />
 
-    <ImageView
-        android:id="@+id/google"
-        android:layout_width="37dp"
-        android:layout_height="31dp"
-        android:layout_marginStart="30dp"
-        android:elevation="100dp"
-        app:layout_constraintBottom_toBottomOf="@+id/btnConfirmarEntrarGoogle"
-        app:layout_constraintStart_toStartOf="@+id/btnConfirmarEntrarGoogle"
-        app:layout_constraintTop_toTopOf="@+id/btnConfirmarEntrarGoogle"
-        app:srcCompat="@drawable/google" />
-
     <ProgressBar
         android:id="@+id/progressBar"
         style="?android:attr/progressBarStyle"
@@ -227,4 +181,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="159dp"
+        android:layout_height="128dp"
+        android:layout_marginBottom="-70dp"
+        app:layout_constraintBottom_toTopOf="@+id/campoEntrar"
+        app:layout_constraintEnd_toEndOf="@+id/campoEntrar"
+        app:layout_constraintStart_toStartOf="@+id/campoEntrar"
+        app:srcCompat="@drawable/foto_homem" />
 </androidx.constraintlayout.widget.ConstraintLayout>
