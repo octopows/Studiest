@@ -179,14 +179,16 @@ class anexo_documentos : AppCompatActivity(){
             val titulo = campoTituloAnexo.text.toString()
 
             if(titulo.isNotEmpty() && campoSelecionarArquivo.text != "Selecionar Arquivo ▼" ){
-                var stringPath = UriUtils.getRealPath(this, arquivoURI!!).toString()
 
-                var arquivoFile = File(stringPath+"/")
                 //Toast.makeText(this, "$stringPath", Toast.LENGTH_SHORT).show()
 
                 campoTituloAnexo.text.clear()
 
                 if (!alterar){
+                    var stringPath = UriUtils.getRealPath(this, arquivoURI!!).toString()
+
+                    var arquivoFile = File(stringPath+"/")
+
                     var arquivoPath = copyFile(arquivoFile,titulo)
                     val anexo = Anexo(0L,titulo,arquivoPath)
                     val anexoRepositorio = AnexoRepositorio(applicationContext)
@@ -202,6 +204,7 @@ class anexo_documentos : AppCompatActivity(){
                     arquivoURI == "null".toUri()
                     val anexoEdit = AnexoController.getAnexo(p)
                     var arquivoPath: String = anexoEdit.arquivo.toString()
+
                     if(campoSelecionarArquivo.text == "Alterar Arquivo ▼"){
                         val anexo = Anexo(anexoEdit.id,titulo,anexoEdit.arquivo)
                         val anexoRepositorio = AnexoRepositorio(applicationContext)
