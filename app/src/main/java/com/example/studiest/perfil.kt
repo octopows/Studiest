@@ -118,7 +118,7 @@ class perfil : AppCompatActivity() {
         cancelarSair.setOnClickListener { dialog.dismiss() }
 
         confirmarSair.setOnClickListener {
-            val intent = Intent(applicationContext, bemvindo::class.java)
+            val intent = Intent(applicationContext, MainActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             intent.putExtra("EXIT", true)
             finish()
